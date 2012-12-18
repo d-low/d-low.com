@@ -1,0 +1,19 @@
+%header
+  %h1 d-low.com 
+  %small photos and words by Mike DiLorenzo
+%ul
+  %li
+    - random_image = @home_model.newest_post.get_random_image
+    %figure
+      %img{:src => custom_image_path(random_image.relative_thumbnail_path), :alt => random_image.caption}
+      %figcaption
+        = link_to 'What\'s New?', :controller => 'content', :action => 'index', :path => @home_model.newest_post.path
+    
+  - @home_model.contents.each do |content|
+    - random_image2 = content.get_random_post.get_random_image
+    - next if random_image2.nil?
+    %li
+      %figure
+        %img{:src => custom_image_path(random_image2.relative_thumbnail_path), :alt => random_image2.caption}
+        %figcaption
+          = link_to content.title, :controller => 'content', :action => 'index', :path => content.path

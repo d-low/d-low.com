@@ -1,0 +1,17 @@
+- content.sub_content.each do |sub_content|
+  - post = sub_content.get_post
+  %section.postSummary
+    %h1= post.title + ', ' + post.date
+    %div.content!= post.content
+    %ul
+      - num_images = 0
+      - post.images.each do |image|
+        - num_images += 1
+        - break if num_images > 4 
+        %li
+          %figure
+            %img{:src => custom_image_path(image.relative_thumbnail_path),
+              :alt => image.caption,
+              :data => {:largeimage => image.relative_path}}
+            %figcaption= image.caption
+    = link_to 'Read more...', :controller => 'content', :action => 'index', :path => sub_content.path
