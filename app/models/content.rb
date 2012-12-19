@@ -7,6 +7,7 @@ class Content
   attr_reader :parent_path
   attr_reader :absolute_path
   attr_reader :title
+  attr_reader :page_title
   attr_reader :posts
   attr_reader :is_post
 
@@ -31,6 +32,7 @@ class Content
     end
 
     set_title
+    set_page_title
     
     if File.exists?(@absolute_path + 'index.html')
       @is_post = true
@@ -44,6 +46,20 @@ class Content
     @title.sub!(/^[0-9][0-9]-/, '')
     @title.gsub!(/_/, ' ')
     @title.gsub!(/-/, ', ')
+  end
+
+  # Include the parent page title in our page title if our page title is a
+  # season.  e.g. 'Fall' -> Fall Colorado, 2012.
+  # REVIEW: Do we need a separate method for this?  Or should we have better 
+  # titles to begin with?
+  def set_page_title
+    case @title
+      when 'Winter', 'Spring', 'Summer', 'Fall'
+        parent_content = Content.new(@parent_path)
+        @page_title = @title + ' ' + parent_content.title
+      else
+        @page_title = @title
+    end
   end
 
   # If the Content is not a post then get a list of our subdirectories and 
