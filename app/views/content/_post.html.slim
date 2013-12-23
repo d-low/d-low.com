@@ -1,0 +1,16 @@
+section.post
+  h1
+    = post.title
+  h2
+    = post.date
+  p.content
+    = post.content
+  ul
+    - for image in post.images.each do
+      li
+        figure
+          img[src=custom_image_path(image.relative_thumbnail_path)
+              alt=image.caption
+              data-largeimage=image.relative_path]
+          figcaption
+            = image.caption

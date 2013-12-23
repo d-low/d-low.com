@@ -1,6 +1,7 @@
 - content_for(:title, @content.page_title)
 
-%h1= @content.title
+h1
+  = @content.title
 
 - if @content.parent_path.empty? == false
   = link_to 'Back', :controller => 'content', :action => 'index', :path => @content.parent_path
@@ -12,13 +13,14 @@
 - elsif @content.are_sub_contents_posts?
   = render 'list_of_posts', :content => @content
 - else
-  %ul
-    - @content.sub_content.each do |sub_content|
+  ul
+    - for sub_content in @content.sub_content
       - random_image = sub_content.get_random_post.get_random_image
       - next if random_image.nil?
-      %li
-        %figure
-          %img{:src => custom_image_path(random_image.relative_thumbnail_path), :alt => random_image.caption}
-          %figcaption
+      li
+        figure
+          img[src=custom_image_path(random_image.relative_thumbnail_path)
+              alt=random_image.caption]
+          figcaption
             = link_to sub_content.title, :controller => 'content', :action => 'index', :path => sub_content.path
         

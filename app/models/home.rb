@@ -3,7 +3,7 @@
 # also used frequently since the majority of our conrent is NOT saved in our rails
 # application.
 class Home
-  CONTENT_ROOT_DIRECTORY = 'C:/Users/mikedilorenzo/Documents/Web/d-low.com/content/'
+  CONTENT_ROOT_DIRECTORY = "#{Rails.root}/app/assets/content/"
   attr_reader :contents
   attr_reader :newest_post
 
