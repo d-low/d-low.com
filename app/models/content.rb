@@ -54,11 +54,11 @@ class Content
   # titles to begin with?
   def set_page_title
     case @title
-      when 'Winter', 'Spring', 'Summer', 'Fall'
-        parent_content = Content.new(@parent_path)
-        @page_title = @title + ' ' + parent_content.title
-      else
-        @page_title = @title
+    when 'Winter', 'Spring', 'Summer', 'Fall'
+      parent_content = Content.new(@parent_path)
+      @page_title = @title + ' ' + parent_content.title
+    else
+      @page_title = @title
     end
   end
 
@@ -70,13 +70,14 @@ class Content
     sub_contents = []
 
     if @is_post == false
-      sub_directories = Dir.glob(@absolute_path + '*');
+      root_regexp = Regexp.new(@root, Regexp::IGNORECASE)
+      sub_directories = Dir.glob(@absolute_path + '*', File::FNM_CASEFOLD);
 
       sub_directories.each do |sub_directory|
         begin
           # Remove the root from the path we pass to the new Content instance.
           # REVIEW: Should we be flexible and allow for the root dir to be present?
-          content = Content.new(sub_directory.sub(@root, ''))
+          content = Content.new(sub_directory.sub(root_regexp, ''))
           sub_contents.push(content)
         rescue ArgumentError
           next
@@ -100,12 +101,15 @@ class Content
     if @is_post
       Post.new(@path)
     else
+      post_paths = Dir.glob(@absolute_path + '**/index.html', File::FNM_CASEFOLD)
+
       r = Random.new
-      post_paths = Dir.glob(@absolute_path + '**/index.html')
       random_post_num = r.rand(0..(post_paths.length - 1))
       random_post_path = post_paths[random_post_num]
+
       # Remove the the index.html from the path and then then remove the root path.
-      Post.new(File.dirname(random_post_path).sub(Home::CONTENT_ROOT_DIRECTORY, ''))
+      path = File.dirname(random_post_path).sub(Home::CONTENT_ROOT_DIRECTORY_REGEXP, '')
+      Post.new(path)
     end
   end
 
@@ -117,7 +121,7 @@ class Content
     if @is_post
       ret_val = false
     else
-      sub_directories = Dir.glob(@absolute_path + '*');
+      sub_directories = Dir.glob(@absolute_path + '*', File::FNM_CASEFOLD)
 
       sub_directories.each do |sub_directory|
         if File.exists?(sub_directory + '/index.html') == false

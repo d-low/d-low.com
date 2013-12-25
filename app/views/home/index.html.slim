@@ -11,8 +11,8 @@ ul
         = link_to 'What\'s New?', :controller => 'content', :action => 'index', :path => @home_model.newest_post.path
     
   - for content in @home_model.contents do
-    - random_image2 = content.get_random_post.get_random_image
-    - next if random_image2.nil?
+    - random_image2 = nil
+    - random_image2 = content.get_random_post.get_random_image while random_image2.nil?
     li
       figure
         img[src=custom_image_path(random_image2.relative_thumbnail_path) 

@@ -41,7 +41,7 @@ class Post
 	# Create image model instances for each JPG file found in our post path.
 	def set_images
 		@images = []
-		image_files = Dir[@absolute_path + "/*.jpg"]
+		image_files = Dir.glob(@absolute_path + "/*.jpg", File::FNM_CASEFOLD)
 
 		image_files.each do |image_file|
 			@images.push(Image.new(image_file))
@@ -59,6 +59,9 @@ class Post
 			r = Random.new
 			random_image = r.rand(0..(@images.length - 1))
 			@images[random_image]
+		else
+			Rails.logger.debug "Post has no images: #{self.inspect}!"
+			nil
 		end
 	end
 end

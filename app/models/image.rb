@@ -14,7 +14,7 @@ class Image
 
   def initialize(path)
     @path = path
-    @relative_path = @path.sub(Home::CONTENT_ROOT_DIRECTORY, '')
+    @relative_path = @path.sub(Home::CONTENT_ROOT_DIRECTORY_REGEXP, '')
     @file_name = File.basename(@path)
     
     set_thumbnail
@@ -30,7 +30,7 @@ class Image
 
     if File.exists?(dir_name + '/thumbnails/' + @file_name)
       @thumbnail = dir_name + '/thumbnails/' + @file_name
-      @relative_thumbnail_path = @thumbnail.sub(Home::CONTENT_ROOT_DIRECTORY, '')
+      @relative_thumbnail_path = @thumbnail.sub(Home::CONTENT_ROOT_DIRECTORY_REGEXP, '')
     else
       @thumbnail = @path
       @relative_thumbnail_path = @relative_path
