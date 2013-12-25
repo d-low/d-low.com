@@ -10,7 +10,8 @@ html
 body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize}"
      data-controllername=controller_name.dasherize 
      data-controlleraction=action_name.dasherize]
-  = yield
+  #content
+    = yield
   = javascript_include_tag 'application'
   script type="text/javascript"
     == yield(:javascript_for_page)
