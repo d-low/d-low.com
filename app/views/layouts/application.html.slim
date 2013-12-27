@@ -12,6 +12,33 @@ body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{ac
      data-controlleraction=action_name.dasherize]
   #content
     = yield
+  footer#site-footer.center-block
+    nav
+      ul.list-inline
+        li
+          a[class="webicon mail" 
+            href="mailto:info@d-low.com" 
+            title="Send me an email"]
+        li
+          a[class="webicon facebook" 
+            href="https://www.facebook.com/mike.dilorenzo.3" 
+            target="_blank" 
+            title="Friend me on Facebook"]
+        li
+          a[class="webicon github" 
+            href="https://github.com/d-low" 
+            target="_blank" 
+            title="Check out my codes on Github"]
+        li
+          a[class="webicon linkedin"
+            href="http://www.linkedin.com/pub/mike-dilorenzo/7/b76/14b" 
+            target="_blank" 
+            title="Connect with me on LinkedIn"]
+        li
+          a[class="webicon twitter"
+            href="http://twitter.com/dlow"
+            target="_blank"
+            title="Follow my infrequent Tweets"]
   = javascript_include_tag 'application'
   script type="text/javascript"
     == yield(:javascript_for_page)
