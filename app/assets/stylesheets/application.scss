@@ -13,13 +13,14 @@
 
 // Bootstrap core variables and mixins, and custom overrides
 @import "bootstrap/variables";
-@import "base/_variables";
+@import "base/variables";
 @import "bootstrap/mixins";
 
 // Bootstrap reset
 @import "bootstrap/normalize";
 
 // Core CSS
+@import "bootstrap/scaffolding";
 @import "bootstrap/type";
 
 // Bootstrap utility classes
@@ -27,5 +28,5 @@
 @import "bootstrap/responsive-utilities";
 
 // d-low.com custom styles
-@import "modules/_webicons";
-@import "modules/_site_footer";
+@import "modules/webicons";
+@import "modules/site_footer";
