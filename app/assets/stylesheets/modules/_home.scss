@@ -3,6 +3,14 @@
  */
 
 .home {
+
+  /* 
+   * TODO: The styles for the welcome section and header may be used on all 
+   * pages.  If so, we'll need to refactor the CSS below.  On the home page the
+   * welcome section will take up the whole view port initially, but on other 
+   * pages of the site, it will be smaller.
+   */
+   
   #welcome-section {
     background: asset-data-url('wendy_descending_saddle_between_watrous_and_woods.jpg') 50% 0px no-repeat fixed;
     background-size: cover;
