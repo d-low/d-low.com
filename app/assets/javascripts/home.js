@@ -34,11 +34,12 @@ window.dlow.home = {
     this.$welcomeSectionHeader = $("#welcome-section-header");
   
     //
-    // Update sizing and positioning
+    // Update sizing and positioning and header opacity
     //
 
     this.setWelcomeSectionHeight();
     this.getHeights();
+    this.updateWelcomeSectionHeaderOpacity();
 
     //
     // Update positioning
