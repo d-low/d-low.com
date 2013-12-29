@@ -10,7 +10,7 @@
    * welcome section will take up the whole view port initially, but on other 
    * pages of the site, it will be smaller.
    */
-   
+
   #welcome-section {
     background: asset-data-url('wendy_descending_saddle_between_watrous_and_woods.jpg') 50% 0px no-repeat fixed;
     background-size: cover;
@@ -33,7 +33,7 @@
 
   #welcome-section-header h1 { 
     margin-bottom: 10px;
-    text-shadow: -2px 0 2px #000066;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
   }
 
   #welcome-section-header small { 
