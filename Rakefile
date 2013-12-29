@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-DLowOnRails::Application.load_tasks
+DLow::Application.load_tasks
