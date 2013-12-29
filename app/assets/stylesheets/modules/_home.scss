@@ -35,4 +35,44 @@
     margin-bottom: 10px;
     text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
   }
+
+  #contents-section {
+    // @include gradient-vertical(#4B76B9, rgba(255, 255, 255, 0.0), 0, 100%);
+    background: asset-data-url('resting_above_treeline.jpg') bottom left no-repeat;
+    background-size: cover;
+    min-height: 15rem;
+    padding: 1rem 0 14rem 0;
+  }
+  
+  .contents-section-navigation-item-link {
+    @include gradient-vertical(#999999, #ffffff, 0%, 100%);
+    border: 2px solid #666666;
+    border-radius: 5px;
+    @include box-shadow(0px 5px 10px 1px rgba(0, 0, 0, 0.3));
+    color: #303030;
+    display: block;
+    font-weight: bold;
+    margin: 0 auto 1rem auto;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    text-align: center;
+    width: 80%;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:active { 
+      color: #303030;
+      text-decoration: none;
+    }
+
+    img {
+      display: none;
+
+      @media only screen and (min-width: $screen-sm-min) { 
+        display: block;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+      }
+    }
+  }
 }
