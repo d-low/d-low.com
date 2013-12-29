@@ -1,0 +1,56 @@
+/**
+ * Font styles for all pages of d-low.com.
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Passion+One);
+
+/* 
+ * Override from Bootstrap's scaffolding for proper rem sizing.
+ * See: http://snook.ca/archives/html_and_css/font-size-with-rem
+ */
+html {
+  font-size: $font-size-base;
+}
+
+body { 
+  font-size: inherit;
+}
+
+#welcome-section-header {
+  color: $header_gray;
+  text-transform: lowercase;
+
+  h1 {
+    /* TBD:  Use this font family for all header elements for consistency? */
+    font-family: 'Passion One', Helvetica, sans-serif;
+    font-size: 4rem;
+    line-height: 4rem;
+
+    @media only screen and (min-width: $screen-sm-min) { 
+      font-size: 5rem;
+      line-height: 5rem;
+    }
+
+    @media only screen and (min-width: $screen-md-min) {
+      font-size: 6rem;
+      line-height: 6rem;
+    }
+  }
+
+  small {
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 0.88rem;
+    line-height: 0.88rem;
+
+    @media only screen and (min-width: $screen-sm-min) { 
+      font-size: 1.1rem;
+      line-height: 1.1rem;
+    }
+
+    @media only screen and (min-width: $screen-md-min) {
+      font-size: 1.32rem;
+      line-height: 1.32rem;
+    }
+  }
+}

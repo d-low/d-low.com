@@ -9,29 +9,26 @@
   }
 
   #welcome-section-header { 
-    color: rgb(10, 10, 10);
-    font-family: 'Denk One', Helvetica, sans-serif;
-    font-weight: bold;
     position: fixed;
-    right: 5%;
-    text-align: right;
+    right: 0%;
+    text-align: center;
     top: 10%;
-    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0.5)));
+    width: 100%;
     z-index: 10;
+
+    @media only screen and (min-width: $screen-sm-min) { 
+      right: 5%;
+      text-align: right;
+      width: auto;
+    }
   } 
 
   #welcome-section-header h1 { 
-    // TODO: Use relative EMs for font size and line hight et. al.
-    font-size: 80px;
-    line-height: 80px;
     margin-bottom: 10px;
     text-shadow: -2px 0 2px #000066;
   }
 
   #welcome-section-header small { 
-    // TODO: Use relative EMs for font size and line hight et. al.
-    font-size: 16px;
-    line-height: 16px;
     padding-right: 5px;
   }
 }
