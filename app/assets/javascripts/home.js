@@ -59,9 +59,9 @@ window.dlow.home = {
   },
 
 
-  // ****************************************************************************
+  // --------------------------------------------------------------------------
   // Event Handlers
-  // ****************************************************************************
+  // --------------------------------------------------------------------------
 
   /**
    * @description Upon the last window resize event firing we'll set our intro
@@ -90,9 +90,9 @@ window.dlow.home = {
   },
 
 
-  // ****************************************************************************
+  // --------------------------------------------------------------------------
   // Positioning Methods
-  // ****************************************************************************
+  // --------------------------------------------------------------------------
 
   /**
    * @description Get the heights of our primary elements.
@@ -104,9 +104,9 @@ window.dlow.home = {
 
   /**
    * @description Set the height of the welcome section element to be the height 
-   * of the view port so that the background image on the intro container, and perhaps
-   * others, covers the viewport properly.  This method will be called after the 
-   * last window resize event.
+   * of the view port so that the background image on the intro container, and 
+   * perhaps others, covers the viewport properly.  This method will be called 
+   * after the last window resize event.
    */
   setWelcomeSectionHeight: function() { 
     var height = $(window).height();
@@ -122,14 +122,14 @@ window.dlow.home = {
   },
 
 
-  // ****************************************************************************
+  // --------------------------------------------------------------------------
   // Effects Methods
-  // ****************************************************************************
+  // --------------------------------------------------------------------------
 
   /**
-   * @description Update the background position of the intro-container so that
-   * its contents scroll away faster than the background image.  This is a simple
-   * parallax scrolling technique.
+   * @description Update the background position of the welcome section so that
+   * its contents scroll away faster than the background image.  This is a 
+   * simple parallax scrolling technique.
    */
   updateWelcomeSectionBackground: function() { 
     var scrollTop = $(window).scrollTop();
@@ -140,8 +140,8 @@ window.dlow.home = {
   },
 
   /**
-   * @description Update the opacity of the intro header as we scroll down the page so 
-   * that it fades away as the intro container is scrolled out of view.
+   * @description Update the opacity of the intro header as we scroll down the 
+   * page so that it fades away as the intro container is scrolled out of view.
    */
   updateWelcomeSectionHeaderOpacity: function() { 
     
