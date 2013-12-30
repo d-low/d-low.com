@@ -1,0 +1,26 @@
+/* 
+ * Surface Bootstrap breakpoints to client side script. 
+ * See: https://coderwall.com/p/_ldtkg
+ */
+
+body:after {
+  display: none;
+
+  @media only screen and (max-width: $screen-sm-min - 1) {
+    content: "mobile";
+  }
+
+  @media only screen and (min-width: $screen-sm-min) {  
+    content: "tablet";
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media only screen and (min-width: $screen-md-min) { 
+    content: "desktop";
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media only screen and (min-width: $screen-lg-min) { 
+    content: "desktop-large";
+  }
+}

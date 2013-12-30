@@ -11,6 +11,8 @@ window.dlow = {
       .on("touchend", $.proxy(this.el_touchEnd, this))
       .on("touchcancel", $.proxy(this.el_touchCancel, this));
 
+    this.lazyLoadImages();
+
     // 
     // Initialize page specific functionality
     //
@@ -68,6 +70,48 @@ window.dlow = {
    */
   el_touchCancel: function(e) { 
     $(e.target).closest(".button").removeClass("tapped");
+  },
+
+  /**
+   * @description Initialize lazy loader plugin for images.  Some images are 
+   * only shown on larger screens.
+   */
+  lazyLoadImages: function() {
+    // TODO: Apply plug-in...
+  },
+
+
+  // --------------------------------------------------------------------------
+  // Utility Methods
+  // --------------------------------------------------------------------------
+
+  /**
+   * @description Query hidden generated content to check Bootstrap breakpoints
+   * in client side script.
+   * @see: https://coderwall.com/p/_ldtkg
+   */
+  isMobile: function() { 
+    return window.getComputedStyle(document.body,':after')
+      .getPropertyValue('content')
+      .indexOf("mobile") != -1;
+  },
+
+  isTablet: function() { 
+    return window.getComputedStyle(document.body,':after')
+      .getPropertyValue('content')
+      .indexOf("tablet") != -1;
+  },
+
+  isDesktop: function() { 
+    return window.getComputedStyle(document.body,':after')
+      .getPropertyValue('content')
+      .indexOf("desktop") != -1;
+  },
+
+  isDesktopLarge: function() { 
+    return window.getComputedStyle(document.body,':after')
+      .getPropertyValue('content')
+      .indexOf("desktop-large") != -1;
   }
 };
 
