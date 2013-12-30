@@ -15,10 +15,6 @@ window.dlow.home = {
     welcomeSectionHeader: 0
   },
 
-  positions: {
-    welcomeSectionHeaderTop: 0
-  },
-
   resize_timeout: null,
 
   /**
@@ -34,21 +30,12 @@ window.dlow.home = {
     this.$welcomeSectionHeader = $("#welcome-section-header");
   
     //
-    // Update sizing and positioning and header opacity
+    // Update sizing, get heights, and set header opacity
     //
 
     this.setWelcomeSectionHeight();
     this.getHeights();
     this.updateWelcomeSectionHeaderOpacity();
-
-    //
-    // Update positioning
-    //
-    
-    this.positions.welcomeSectionHeaderTop = parseInt(
-      this.$welcomeSectionHeader.css("top"), 
-      10
-    );
 
     // 
     // Event handlers
@@ -144,13 +131,25 @@ window.dlow.home = {
    * page so that it fades away as the intro container is scrolled out of view.
    */
   updateWelcomeSectionHeaderOpacity: function() { 
-    
+
     var scrollTop = $(window).scrollTop();
-    var scrollRange = this.heights.welcomeSection - this.positions.welcomeSectionHeaderTop;
+    var scrollRange = this.heights.welcomeSection - this.heights.welcomeSectionHeader;
     var opacity = Number((100 - (scrollTop / scrollRange * 100)) / 100).toFixed(2);
 
     opacity = opacity < 0 ? 0 : opacity;
 
     this.$welcomeSectionHeader.css("opacity", opacity);
+
+    // The header needs to be hidden (dislay: none) when it is no longer 
+    // visible, meaning content below it has been scrolled into view, so that 
+    // it doesn't sit on top of now visible content preventing the user from 
+    // interacting with it.
+
+    if (opacity == 0) {
+      this.$welcomeSectionHeader.addClass("hidden");
+    }
+    else {
+      this.$welcomeSectionHeader.removeClass("hidden");
+    }
   }
 };
