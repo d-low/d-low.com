@@ -14,8 +14,10 @@ section.home-section#contents-section
       li.contents-section-navigation-item
         a[class="contents-section-navigation-item-link button"
           href=content_index_path(@home_model.newest_post.path)]
-            img[src=custom_image_path(@random_image.relative_thumbnail_path)
-                alt=@random_image.caption]
+            img[alt=@random_image.caption
+                class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
+                data-original=custom_image_path(@random_image.relative_thumbnail_path)
+                src=asset_path('blank.gif')]
             span
               | What's New?
       
@@ -25,16 +27,19 @@ section.home-section#contents-section
         li.contents-section-navigation-item
           a[class="contents-section-navigation-item-link button"
             href=content_index_path(content.path)]
-              img[src=custom_image_path(random_image2.relative_thumbnail_path) 
-                  alt=random_image2.caption]
+              img[alt=random_image2.caption
+                  class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
+                  data-original=custom_image_path(random_image2.relative_thumbnail_path) 
+                  src=asset_path('blank.gif')]
               span
                 = content.title
 
 section.home-section.clearfix#about-section
   .about-image-container.about-image-container-me
     img[alt="Mike the elf"
-        class="img-responsive"
-        src=asset_path("mike_the_elf_236x400.jpg")]
+        class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
+        data-original=asset_path("mike_the_elf_236x400.jpg")
+        src=asset_path('blank.gif')]
   p.copy
     ' Welcome to the website of Mike DiLorenzo, husband, father, hiker, mountain 
     ' biker, cross country skier, mountain enthusiast, craft beer drinker, front
@@ -46,5 +51,6 @@ section.home-section.clearfix#about-section
     ' Eventually coolness will return.
   .about-image-container.about-image-container-family
     img[alt="TODO: Use photo of Wendy, Leo and me"
-        class="img-responsive" 
-        src=asset_path('mike_and_leo.jpg')]
+        class="img-responsive js-lazy-load js-lazy-load-immediate" 
+        data-original=asset_path('mike_and_leo.jpg')
+        src=asset_path('blank.gif')]

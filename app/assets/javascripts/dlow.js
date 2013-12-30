@@ -73,11 +73,22 @@ window.dlow = {
   },
 
   /**
-   * @description Initialize lazy loader plugin for images.  Some images are 
-   * only shown on larger screens.
+   * @description Initialize lazy loader plugin for images.  Some images need to 
+   * be loaded immediately.  Others will be loaded when scrolled into view.  And
+   * some others are not loaded on mobile devices.
    */
   lazyLoadImages: function() {
-    // TODO: Apply plug-in...
+    
+    var immediateImages = $("img.js-lazy-load-immediate");
+
+    if (this.isMobile()) {
+      immediateImages = immediateImages.not(".js-lazy-load-except-mobile");
+    }
+
+    immediateImages.lazyload({ event: "lazyload" });
+    window.setTimeout(function() { immediateImages.trigger("lazyload"); }, 1000); 
+
+    // TODO: Apply plug-in to load other images when scrolled into view.
   },
 
 
