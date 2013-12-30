@@ -85,4 +85,34 @@
       }
     }
   }
+
+  #about-section {
+    padding-top: 2rem;
+
+    .about-image-container {
+      background-color: $light_gray;
+      border: 1px solid $border_gray;
+      @include box-shadow(0px 5px 10px 1px rgba(0, 0, 0, 0.3));
+      margin: 0 auto 1rem auto;
+      padding: 1rem;
+      width: 90%;
+    }
+
+    .about-image-container-me {
+      display: none;
+    }
+
+    .about-image-container-family {
+      margin-top: 2rem;
+    }
+
+    .copy {
+      width: 90%;
+      margin: 0 auto 1rem auto;
+
+      &:nth-of-type(1):first-letter {
+        font-size: 3rem;
+      }
+    }
+  }
 }

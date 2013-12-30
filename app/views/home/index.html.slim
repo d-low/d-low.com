@@ -12,7 +12,7 @@ section.home-section#contents-section
   nav#contents-section-navigation
     ul.list-unstyled
       li.contents-section-navigation-item
-        a[class='contents-section-navigation-item-link button'
+        a[class="contents-section-navigation-item-link button"
           href=content_index_path(@home_model.newest_post.path)]
             img[src=custom_image_path(@random_image.relative_thumbnail_path)
                 alt=@random_image.caption]
@@ -23,7 +23,7 @@ section.home-section#contents-section
         - random_image2 = nil
         - random_image2 = content.get_random_post.get_random_image while random_image2.nil?
         li.contents-section-navigation-item
-          a[class='contents-section-navigation-item-link button'
+          a[class="contents-section-navigation-item-link button"
             href=content_index_path(content.path)]
               img[src=custom_image_path(random_image2.relative_thumbnail_path) 
                   alt=random_image2.caption]
@@ -31,18 +31,20 @@ section.home-section#contents-section
                 = content.title
 
 section.home-section.clearfix#about-section
-  img[alt="Mike the elf"
-      class="about-image about-image-one pull-left"
-      src=asset_path("mike_the_elf_236x400.jpg")]
-  p 
+  .about-image-container.about-image-container-me
+    img[alt="Mike the elf"
+        class="img-responsive"
+        src=asset_path("mike_the_elf_236x400.jpg")]
+  p.copy
     ' Welcome to the website of Mike DiLorenzo, husband, father, hiker, mountain 
     ' biker, cross country skier, mountain enthusiast, craft beer drinker, front
-    ' end web developerand overall nice guy.
-  p
+    ' end web developer and overall nice guy.
+  p.copy
     ' This website chronicles some of the more interesting things I've done: 
     ' hiking, traveling and landscaping. The site will be updated when I do cool 
     ' things, so don't be discouraged if it isn't updated for a few months.  
     ' Eventually coolness will return.
-  img[alt="TODO: Use photo of Wendy, Leo and me"
-      class="about-image about-image-two pull-right" 
-      src=asset_path('mike_and_leo.jpg')]
+  .about-image-container.about-image-container-family
+    img[alt="TODO: Use photo of Wendy, Leo and me"
+        class="img-responsive" 
+        src=asset_path('mike_and_leo.jpg')]
