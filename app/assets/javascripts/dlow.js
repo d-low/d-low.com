@@ -1,7 +1,20 @@
 window.dlow = {
 
   initialize: function() {
-    // TODO: Initialize site wide common functionality here...
+    
+    //
+    // Initialize site wide common functionality
+    //
+
+    $(".button")
+      .on("touchstart", $.proxy(this.el_touchStart, this))
+      .on("touchend", $.proxy(this.el_touchEnd, this))
+      .on("touchcancel", $.proxy(this.el_touchCancel, this));
+
+    // 
+    // Initialize page specific functionality
+    //
+
     this.initializePage();
   },
 
@@ -26,6 +39,35 @@ window.dlow = {
         this[controller][action]();
       }
     }
+  },
+
+
+  // --------------------------------------------------------------------------
+  // Common Mobile Event Handling Methods
+  // --------------------------------------------------------------------------
+
+  /**
+   * @description Add the tapped class to the element when the touchstart event 
+   * fires so that our CSS can reverse the gradient (if required).
+   */
+  el_touchStart: function(e) {
+    $(e.target).closest(".button").addClass("tapped");
+  },
+
+  /**
+   * @description Remove the tapped class from the element when the touchend 
+   * event fires so that our CSS can change back to the normal gradient.
+   */
+  el_touchEnd: function(e) {
+    $(e.target).closest(".button").removeClass("tapped");
+  },
+
+  /**
+   * @description Remove the tapped class from the element when the touchcancel
+   * event fires so that our CSS can change back to the normal gradient.
+   */
+  el_touchCancel: function(e) { 
+    $(e.target).closest(".button").removeClass("tapped");
   }
 };
 
