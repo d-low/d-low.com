@@ -22,6 +22,7 @@ gem 'jquery-ui-rails'
 gem 'slim-rails'
 gem 'useragent', :git => 'https://github.com/xing/useragent.git'
 gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'numbers_and_words'
 
 group :test, :development do
   gem 'pry'
