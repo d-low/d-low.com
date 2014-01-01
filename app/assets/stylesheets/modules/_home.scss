@@ -97,11 +97,8 @@
      */
 
     .contents-section-navigation-item {
-
-      height: 25%;
       position: absolute;
       @include transition(all 1s ease);
-      width: 25%;
 
       /* 
        * NOTE: The following styles area specific to the number of links 
@@ -164,6 +161,20 @@
     .contents-section-navitation-item-link-title {
       display: block;
       padding: 0.5rem 0 0rem 0;
+    }
+  }
+
+  @media only screen and (min-width: $screen-sm-min) { 
+    .contents-section-navigation-item {
+      max-height: 30%;
+      width: 30%;
+    }
+  }
+
+  @media only screen and (min-width: $screen-md-min) { 
+    .contents-section-navigation-item {
+      max-height: 25%;
+      width: 25%;
     }
   }
 
