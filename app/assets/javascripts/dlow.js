@@ -1,15 +1,22 @@
 window.dlow = {
 
+  _isMobile: undefined,
+  _isTable: undefined,
+  _isDesktop: undefined,
+  _isDesktopLarge: undefined,
+
   initialize: function() {
     
     //
     // Initialize site wide common functionality
     //
 
-    $(".button")
-      .on("touchstart", $.proxy(this.el_touchStart, this))
-      .on("touchend", $.proxy(this.el_touchEnd, this))
-      .on("touchcancel", $.proxy(this.el_touchCancel, this));
+    if (this.isMobile()) {
+      $(".button")
+        .on("touchstart", $.proxy(this.el_touchStart, this))
+        .on("touchend", $.proxy(this.el_touchEnd, this))
+        .on("touchcancel", $.proxy(this.el_touchCancel, this));
+    }
 
     this.lazyLoadImages();
 
@@ -102,27 +109,47 @@ window.dlow = {
    * @see: https://coderwall.com/p/_ldtkg
    */
   isMobile: function() { 
-    return window.getComputedStyle(document.body,':after')
-      .getPropertyValue('content')
-      .indexOf("mobile") != -1;
+
+    if (typeof(this._isMobile) === "undefined") {
+      this._isMobile = window.getComputedStyle(document.body,':after')
+        .getPropertyValue('content')
+        .indexOf("mobile") != -1;
+    }
+
+    return this._isMobile;
   },
 
   isTablet: function() { 
-    return window.getComputedStyle(document.body,':after')
-      .getPropertyValue('content')
-      .indexOf("tablet") != -1;
+
+    if (typeof(this._isTablet) === "undefined") {
+      this._isTablet =  window.getComputedStyle(document.body,':after')
+        .getPropertyValue('content')
+        .indexOf("tablet") != -1;
+    }
+
+    return this._isTablet;
   },
 
   isDesktop: function() { 
-    return window.getComputedStyle(document.body,':after')
-      .getPropertyValue('content')
-      .indexOf("desktop") != -1;
+
+    if (typeof(this._isDesktop) == "undefined") {
+      this._isDesktop = window.getComputedStyle(document.body,':after')
+        .getPropertyValue('content')
+        .indexOf("desktop") != -1;
+    }
+
+    return this._isDesktop;
   },
 
   isDesktopLarge: function() { 
-    return window.getComputedStyle(document.body,':after')
-      .getPropertyValue('content')
-      .indexOf("desktop-large") != -1;
+
+    if (typeof(this._isDesktopLarge) == "undefined") {
+      this._isDesktopLarge = window.getComputedStyle(document.body,':after')
+        .getPropertyValue('content')
+        .indexOf("desktop-large") != -1;
+    }
+
+    return this._isDesktopLarge;
   }
 };
 
