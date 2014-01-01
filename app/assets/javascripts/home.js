@@ -9,6 +9,7 @@ window.dlow.home = {
 
   $welcomeSection: null,
   $welcomeSectionHeader: null,
+  $contentsSection: null,
 
   heights: {
     welcomeSection: 0,
@@ -28,12 +29,13 @@ window.dlow.home = {
 
     this.$welcomeSection = $("#welcome-section");
     this.$welcomeSectionHeader = $("#welcome-section-header");
+    this.$contentsSection = $("#contents-section");
   
     //
     // Update sizing, get heights, and set header opacity
     //
 
-    this.setWelcomeSectionHeight();
+    this.setHeights();
     this.getHeights();
     this.updateWelcomeSectionHeaderOpacity();
 
@@ -58,7 +60,7 @@ window.dlow.home = {
     var self = this;
 
     var fResize = function() { 
-      self.setWelcomeSectionHeight();
+      self.setHeights();
       self.getHeights();
     };  
 
@@ -87,17 +89,23 @@ window.dlow.home = {
   getHeights: function() {
     this.heights.welcomeSection = this.$welcomeSection.height();
     this.heights.welcomeSectionHeader = this.$welcomeSectionHeader.height();
+    this.heights.contentsSection = this.$contentsSection.height();
   },
 
   /**
-   * @description Set the height of the welcome section element to be the height 
-   * of the view port so that the background image on the intro container, and 
-   * perhaps others, covers the viewport properly.  This method will be called 
-   * after the last window resize event.
+   * @description Set the height of the welcome and content sections to be the 
+   * height of the view port so that the background image on the intro 
+   * container, and perhaps others, covers the viewport properly.  This method 
+   * will be called after the last window resize event.
    */
-  setWelcomeSectionHeight: function() { 
+  setHeights: function() { 
     var height = $(window).height();
+
     this.$welcomeSection.css("height", height + "px");
+
+    if (! dlow.isMobile()) {
+      this.$contentsSection.css("height", height + "px");
+    }
   },
 
   /**

@@ -16,9 +16,9 @@ section.home-section#contents-section
           href=content_index_path(@home_model.newest_post.path)]
             img[alt=@random_image.caption
                 class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
-                data-original=custom_image_path(@random_image.relative_thumbnail_path)
+                data-original=custom_image_path(@random_image.relative_path)
                 src=asset_path('blank.gif')]
-            span
+            span.contents-section-navitation-item-link-title
               | What's New?
       
       - for content in @home_model.contents do
@@ -29,9 +29,9 @@ section.home-section#contents-section
             href=content_index_path(content.path)]
               img[alt=random_image2.caption
                   class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
-                  data-original=custom_image_path(random_image2.relative_thumbnail_path) 
+                  data-original=custom_image_path(random_image2.relative_path) 
                   src=asset_path('blank.gif')]
-              span
+              span.contents-section-navitation-item-link-title
                 = content.title
 
 section.home-section.clearfix#about-section
