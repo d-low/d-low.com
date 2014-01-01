@@ -54,3 +54,9 @@ body {
     }
   }
 }
+
+@media only screen and (min-width: $screen-sm-min + 1) { 
+  #about-section {
+    line-height: $line-height-base * 1.5;
+  }
+}

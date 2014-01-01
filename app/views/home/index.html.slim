@@ -34,23 +34,31 @@ section.home-section#contents-section
               span.contents-section-navitation-item-link-title
                 = content.title
 
-section.home-section.clearfix#about-section
-  .about-image-container.about-image-container-me
-    img[alt="Mike the elf"
-        class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
-        data-original=asset_path("mike_the_elf_236x400.jpg")
-        src=asset_path('blank.gif')]
-  p.copy
-    ' Welcome to the website of Mike DiLorenzo, husband, father, hiker, mountain 
-    ' biker, cross country skier, mountain enthusiast, craft beer drinker, front
-    ' end web developer and overall nice guy.
-  p.copy
-    ' This website chronicles some of the more interesting things I've done: 
-    ' hiking, traveling and landscaping. The site will be updated when I do cool 
-    ' things, so don't be discouraged if it isn't updated for a few months.  
-    ' Eventually coolness will return.
-  .about-image-container.about-image-container-family
-    img[alt="TODO: Use photo of Wendy, Leo and me"
-        class="img-responsive js-lazy-load js-lazy-load-immediate" 
-        data-original=asset_path('mike_and_leo.jpg')
-        src=asset_path('blank.gif')]
+section.home-section.container#about-section
+  .row
+    .col-sm-4.col-md-4.col-lg-4
+      .about-image-container.about-image-container-me
+        img[alt="Mike the elf"
+            class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
+            data-original=asset_path("mike_the_elf_236x400.jpg")
+            src=asset_path('blank.gif')]
+    .col-sm-8.col-md-8.col-lg-8
+      .row
+        .col-sm-12.col-md-12.col-lg-12
+          p.copy.first
+            ' Welcome to the website of Mike DiLorenzo, husband, father, hiker, mountain 
+            ' biker, cross country skier, mountain enthusiast, craft beer drinker, front
+            ' end web developer and overall nice guy.
+      .row
+        .col-sm-5.col-md-5.col-lg-5
+          p.copy
+            ' This website chronicles some of the more interesting things I've done: 
+            ' hiking, traveling and landscaping. The site will be updated when I do cool 
+            ' things, so don't be discouraged if it isn't updated for a few months.  
+            ' Eventually coolness will return.
+        .col-sm-7.col-md-7.col-lg-7
+          .about-image-container.about-image-container-family
+            img[alt="TODO: Use photo of Wendy, Leo and me"
+                class="img-responsive js-lazy-load js-lazy-load-immediate" 
+                data-original=asset_path('mike_and_leo.jpg')
+                src=asset_path('blank.gif')]
