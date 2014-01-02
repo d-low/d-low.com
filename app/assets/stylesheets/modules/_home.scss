@@ -56,6 +56,10 @@
     }
   }
   
+  .contents-section-navigation-item {
+    list-style: none;
+  }
+
   .contents-section-navigation-item-link {
     @include gradient-vertical(#999999, #ffffff, 0%, 100%);
     border: 2px solid #666666;
@@ -88,17 +92,11 @@
 
   @media only screen and (min-width: $screen-sm-min) { 
 
-    /*
-     * TODO: The z-index transition is not very fancy.  Once the z-index of an 
-     * elemnent is greater than an adjacent element it simply jumps forward. 
-     * No changing of z-index values can really make this "smooth".  So the 
-     * transition will remain, but we'll try to do something different such as
-     * scaling the focused element into view upon hover.
-     */
-
     .contents-section-navigation-item {
+      max-height: 25%;
       position: absolute;
-      @include transition(all 1s ease);
+      @include transition(all 500ms ease);
+      width: 25%;
 
       /* 
        * NOTE: The following styles area specific to the number of links 
@@ -106,50 +104,57 @@
        * updated if/when more links are needed.
        */
 
-      &:nth-of-type(1) {
+      &.first {
         left: 5%;
         top: 5%;
         z-index: 2;
       }
 
-      &:nth-of-type(2) {
+      &.second {
         left: 20%;
         top: 15%;
         z-index: 1;
       }
 
-      &:nth-of-type(3) {
+      &.third {
         left: 35%;
         top: 5%;
         z-index: 2;
       }
 
-      &:nth-of-type(4) {
+      &.fourth {
         left: 50%;
         top: 15%;
         z-index: 3;
       }
 
-      &:nth-of-type(5) {
+      &.fifth {
         left: 40%;
         top: 50%;
         z-index: 2;
       }
 
-      &:nth-of-type(6) {
+      &.sixth {
         left: 55%;
         top: 60%;
         z-index: 1;
       }
 
-      &:hover {
-        z-index: 6;
+      &.fade-out {
+        opacity: 0;
+        z-index: 4;
+      }
+
+      &.fade-up {
+        opacity: 1;
       }
     }
 
     .contents-section-navigation-item-link {
       border-width: 1px;
+      margin: 0;
       padding-top: 1rem;
+      width: auto;
 
       .img-responsive {
         display: inline-block;
@@ -161,20 +166,6 @@
     .contents-section-navitation-item-link-title {
       display: block;
       padding: 0.5rem 0 0rem 0;
-    }
-  }
-
-  @media only screen and (min-width: $screen-sm-min) { 
-    .contents-section-navigation-item {
-      max-height: 30%;
-      width: 30%;
-    }
-  }
-
-  @media only screen and (min-width: $screen-md-min) { 
-    .contents-section-navigation-item {
-      max-height: 25%;
-      width: 25%;
     }
   }
 
