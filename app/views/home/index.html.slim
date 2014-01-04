@@ -10,7 +10,7 @@ section.home-section#welcome-section
 / displayed on the home page.  So this will need to be moved to a partial.
 section.home-section#contents-section
   nav#contents-section-navigation
-    ul
+    ul.list-unstyled
       li[class="contents-section-navigation-item js-contents-section-navigation-item #{number_to_ordinal(1)}"]
         a[class="contents-section-navigation-item-link button"
           href=content_index_path(@home_model.newest_post.path)]
