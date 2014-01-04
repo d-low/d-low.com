@@ -45,7 +45,6 @@
    */
 
   #contents-section {
-    // @include gradient-vertical(#4B76B9, rgba(255, 255, 255, 0.0), 0, 100%);
     background: asset-data-url('resting_above_treeline.jpg') bottom left no-repeat;
     background-size: cover;
     min-height: 15rem;
@@ -53,6 +52,7 @@
 
     @media only screen and (min-width: $screen-sm-min) { 
       position: relative;
+      background-image: asset-data-url('resting_above_treeline_large.jpg');
     }
   }
   
