@@ -7,13 +7,13 @@ window.dlow.home = {
    * Element handles and data
    */
 
-  $welcomeSection: null,
-  $welcomeSectionHeader: null,
+  $siteHeader: null,
+  $siteHeaderLogo: null,
   $contentsSection: null,
 
   heights: {
-    welcomeSection: 0,
-    welcomeSectionHeader: 0
+    siteHeader: 0,
+    siteHeaderLogo: 0
   },
 
   resize_timeout: null,
@@ -27,8 +27,8 @@ window.dlow.home = {
     // Get element handles
     //
 
-    this.$welcomeSection = $("#welcome-section");
-    this.$welcomeSectionHeader = $("#welcome-section-header");
+    this.$siteHeader = $("#site-header");
+    this.$siteHeaderLogo = $("#site-header-logo");
     this.$contentsSection = $("#contents-section");
   
     //
@@ -37,7 +37,7 @@ window.dlow.home = {
 
     this.setHeights();
     this.getHeights();
-    this.updateWelcomeSectionHeaderOpacity();
+    this.updateSiteHeaderLogoOpacity();
 
     // 
     // Event handlers
@@ -77,9 +77,9 @@ window.dlow.home = {
    * @description Handle the onscroll events to liven up the home page.
    */
   window_scroll: function() { 
-    if (this.isWelcomeSectionVisible()) {
-      this.updateWelcomeSectionBackground();
-      this.updateWelcomeSectionHeaderOpacity();
+    if (this.isSiteHeaderVisible()) {
+      this.updateSiteHeaderBackground();
+      this.updateSiteHeaderLogoOpacity();
     }
   },
 
@@ -92,8 +92,8 @@ window.dlow.home = {
    * @description Get the heights of our primary elements.
    */
   getHeights: function() {
-    this.heights.welcomeSection = this.$welcomeSection.height();
-    this.heights.welcomeSectionHeader = this.$welcomeSectionHeader.height();
+    this.heights.siteHeader = this.$siteHeader.height();
+    this.heights.siteHeaderLogo = this.$siteHeaderLogo.height();
     this.heights.contentsSection = this.$contentsSection.height();
   },
 
@@ -106,7 +106,7 @@ window.dlow.home = {
   setHeights: function() { 
     var height = $(window).height();
 
-    this.$welcomeSection.css("height", height + "px");
+    this.$siteHeader.css("height", height + "px");
 
     if (! dlow.isMobile()) {
       this.$contentsSection.css("height", height + "px");
@@ -114,11 +114,11 @@ window.dlow.home = {
   },
 
   /**
-   * @description The welcome section is visible when the window's scroll top
-   * is less than or equal to the height of the welcome section.
+   * @description The site header is visible when the window's scroll top is 
+   * less than or equal to the height of the site header.
    */
-  isWelcomeSectionVisible: function() { 
-   return $(window).scrollTop() <= this.heights.welcomeSection;
+  isSiteHeaderVisible: function() { 
+   return $(window).scrollTop() <= this.heights.siteHeader;
   },
 
 
@@ -127,31 +127,31 @@ window.dlow.home = {
   // --------------------------------------------------------------------------
 
   /**
-   * @description Update the background position of the welcome section so that
-   * its contents scroll away faster than the background image.  This is a 
-   * simple parallax scrolling technique.
+   * @description Update the background position of the site header so that its 
+   * contents scroll away faster than the background image.  This is a simple 
+   * parallax scrolling technique.
    */
-  updateWelcomeSectionBackground: function() { 
+  updateSiteHeaderBackground: function() { 
     var scrollTop = $(window).scrollTop();
     var yPos = -(scrollTop / 10);
     var coords = '50% '+ yPos + 'px';
 
-    this.$welcomeSection.css({"background-position": coords });
+    this.$siteHeader.css({"background-position": coords });
   },
 
   /**
    * @description Update the opacity of the intro header as we scroll down the 
    * page so that it fades away as the intro container is scrolled out of view.
    */
-  updateWelcomeSectionHeaderOpacity: function() { 
+  updateSiteHeaderLogoOpacity: function() { 
 
     var scrollTop = $(window).scrollTop();
-    var scrollRange = this.heights.welcomeSection - this.heights.welcomeSectionHeader;
+    var scrollRange = this.heights.siteHeader - this.heights.siteHeaderLogo;
     var opacity = Number((100 - (scrollTop / scrollRange * 100)) / 100).toFixed(2);
 
     opacity = opacity < 0 ? 0 : opacity;
 
-    this.$welcomeSectionHeader.css("opacity", opacity);
+    this.$siteHeaderLogo.css("opacity", opacity);
 
     // The header needs to be hidden (dislay: none) when it is no longer 
     // visible, meaning content below it has been scrolled into view, so that 
@@ -159,10 +159,10 @@ window.dlow.home = {
     // interacting with it.
 
     if (opacity == 0) {
-      this.$welcomeSectionHeader.addClass("hidden");
+      this.$siteHeaderLogo.addClass("hidden");
     }
     else {
-      this.$welcomeSectionHeader.removeClass("hidden");
+      this.$siteHeaderLogo.removeClass("hidden");
     }
   },
 
