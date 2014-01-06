@@ -47,7 +47,7 @@ window.dlow.home = {
     $(window).scroll($.proxy(this.window_scroll, this));
 
     if (! dlow.isMobile()) {
-      $(".js-contents-section-navigation-item")
+      $(".js-contents-navigation-item")
         .bind("mouseover", $.proxy(this.navigationItem_mouseover, this));
     }
   },
@@ -182,7 +182,7 @@ window.dlow.home = {
     // moused over.
     //
 
-    var $navigationItem = $(e.target).closest(".js-contents-section-navigation-item");
+    var $navigationItem = $(e.target).closest(".js-contents-navigation-item");
     var $navigationItemFocused = $navigationItem.clone().addClass("fade-out");
 
     $navigationItem.after($navigationItemFocused);

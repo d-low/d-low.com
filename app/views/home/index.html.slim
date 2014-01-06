@@ -1,33 +1,7 @@
-/ TODO: The contents section is used on the bottom of the section and post pages
-/ to navigate back to the first page of a section, or to the home page when not
-/ displayed on the home page.  So this will need to be moved to a partial.
 section.home-section#contents-section
-  nav#contents-section-navigation
-    ul.list-unstyled
-      li[class="contents-section-navigation-item js-contents-section-navigation-item #{number_to_ordinal(1)}"]
-        a[class="contents-section-navigation-item-link button"
-          href=content_index_path(@home_model.newest_post.path)]
-            img[alt=@random_image.caption
-                class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
-                data-original=custom_image_path(@random_image.relative_path)
-                src=asset_path('blank.gif')]
-            span.contents-section-navitation-item-link-title
-              | What's New?
-      
-      - count = 1
-      - for content in @home_model.contents do
-        - count = count + 1
-        - random_image2 = nil
-        - random_image2 = content.get_random_post.get_random_image while random_image2.nil?
-        li[class="contents-section-navigation-item js-contents-section-navigation-item #{number_to_ordinal(count)}"]
-          a[class="contents-section-navigation-item-link button"
-            href=content_index_path(content.path)]
-              img[alt=random_image2.caption
-                  class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
-                  data-original=custom_image_path(random_image2.relative_path) 
-                  src=asset_path('blank.gif')]
-              span.contents-section-navitation-item-link-title
-                = content.title
+  = render \
+    :partial => '/contents_navigation', \
+    :locals => { :home_model => @home_model, :random_image => @random_image }
 
 section.home-section.container#about-section
   .row
