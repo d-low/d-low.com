@@ -16,14 +16,31 @@ body {
   font-size: inherit;
 }
 
+h1, h2, h3, h4, h5, h5 { 
+  text-align: center;
+}
+
+// TODO: Use bootstrap's heading font size convention
+h1 {
+  font-size: 4rem;
+  line-height: 4.25rem;
+}
+
+h2 { 
+  font-size: 3rem;
+  line-height: 3.25rem;
+}
+
+h3, h4, h5, h6 { 
+  font-size: 2rem;
+  line-height: 2.25rem;
+}
+
 #site-header {
   color: $header_gray;
   text-transform: lowercase;
 
   h1 {
-    /* TBD:  Use this font family for all header elements for consistency? */
-    font-family: 'Passion One', Helvetica, sans-serif;
-    font-size: 4rem;
     line-height: 4rem;
   }
 

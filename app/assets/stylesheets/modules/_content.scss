@@ -1,0 +1,26 @@
+/**
+ * Styles for content pages.
+ */
+
+.content {
+  .sub-content-items {
+    border-bottom: 1px dotted $light_gray;
+    display: block;
+    margin: 0 auto 2rem auto;
+    padding-bottom: 1rem;
+    width: 80%;
+  }
+
+  .sub-content-item {
+    border: 1px solid $light_gray;
+    display: block;
+    padding: 0.5rem;
+    margin: 0 auto 1rem auto;
+  }
+
+  .sub-content-link-title {
+    display: block;
+    margin-top: 0.25rem;
+    text-align: center;
+  }
+}

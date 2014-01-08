@@ -1,7 +1,8 @@
-/* 
- * Surface Bootstrap breakpoints to client side script. 
- * See: https://coderwall.com/p/_ldtkg
- */
+body {
+  background-color: $white;
+}
+
+/* Surface Bootstrap breakpoints to client side script: https://coderwall.com/p/_ldtkg */
 
 body:after {
   display: none;

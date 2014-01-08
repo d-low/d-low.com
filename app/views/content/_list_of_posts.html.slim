@@ -1,7 +1,7 @@
 - for sub_content in content.sub_content
   - post = sub_content.get_post
   section.postSummary
-    h1
+    h3
       = "#{post.title}, #{post.date}"
     p.content
       = post.content
