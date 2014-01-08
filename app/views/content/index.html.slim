@@ -21,4 +21,9 @@ h2
               src=asset_path('blank.gif')]
           span.sub-content-link-title
             = sub_content.title
+
+section.content-navigation
+  = render \
+    :partial => '/contents_navigation', \
+    :locals => { :home_model => @home_model, :random_image => @random_image }
         
