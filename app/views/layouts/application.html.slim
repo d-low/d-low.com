@@ -11,10 +11,9 @@ html
 body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize}"
      data-controllername=controller_name.dasherize 
      data-controlleraction=action_name.dasherize]
-  header#site-header
-    div#site-header-logo
-      h1 d-low.com
-      small Words and photos by Mike DiLorenzo
+  = render \
+      :partial => '/site_header', \
+      :locals => { :effects => controller_name == 'home' }
   #content
     = yield
   footer#site-footer.center-block

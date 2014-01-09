@@ -27,8 +27,8 @@ window.dlow.home = {
     // Get element handles
     //
 
-    this.$siteHeader = $("#site-header");
-    this.$siteHeaderLogo = $("#site-header-logo");
+    this.$siteHeader = $(".site-header");
+    this.$siteHeaderLogo = $(".site-header-logo");
     this.$contentsSection = $("#contents-section");
   
     //
