@@ -25,3 +25,7 @@ body:after {
     content: "desktop-large";
   }
 }
+
+a:focus {
+  outline: none;
+}
