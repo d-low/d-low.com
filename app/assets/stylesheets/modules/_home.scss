@@ -23,15 +23,8 @@
     padding-top: 2rem;
 
     .about-image-container {
-      background-color: $light_gray;
-      border: 1px solid $border_gray;
-      @include box-shadow(0px 5px 10px 1px rgba(0, 0, 0, 0.3));
       margin: 0 auto 1rem auto;
       width: 90%;
-    }
-
-    .about-image-container {
-      padding: 1rem;
     }
 
     .about-image-container-me {
