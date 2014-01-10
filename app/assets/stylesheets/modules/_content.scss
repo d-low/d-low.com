@@ -16,7 +16,17 @@
     margin: 0 auto 1rem auto;
   }
 
+  a.sub-content-link {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active { 
+      text-decoration: none;
+    }
+  }
+
   .sub-content-link-title {
+    color: $almost_black;
     display: block;
     margin-top: 0.25rem;
     text-align: center;
