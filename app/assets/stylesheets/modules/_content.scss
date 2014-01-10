@@ -3,6 +3,11 @@
  */
 
 .content {
+  .content-header {
+    color: $header_gray;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+
   .sub-content-items {
     border-bottom: 1px dotted $light_gray;
     display: block;
