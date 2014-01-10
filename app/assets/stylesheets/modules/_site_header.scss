@@ -3,15 +3,25 @@
   background-position: 50% 0px;
   background-repeat: no-repeat;
   background-size: cover;
+  color: $header_gray;
   min-height: 12rem;
+  text-transform: lowercase;
 }
 
 .site-header-logo {
   text-align: center;
 
   h1 { 
+    line-height: 4rem;
     margin-bottom: 10px;
     text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  small {
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 0.88rem;
+    line-height: 0.88rem;
   }
 }
 

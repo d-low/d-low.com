@@ -35,19 +35,3 @@ h3, h4, h5, h6 {
   font-size: 2rem;
   line-height: 2.25rem;
 }
-
-.site-header {
-  color: $header_gray;
-  text-transform: lowercase;
-
-  h1 {
-    line-height: 4rem;
-  }
-
-  small {
-    font-family: Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 0.88rem;
-    line-height: 0.88rem;
-  }
-}
