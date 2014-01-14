@@ -85,7 +85,7 @@ class Content
       end
     end
 
-    sub_contents
+    sub_contents.reverse
   end
 
   def get_post
