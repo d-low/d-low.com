@@ -8,7 +8,7 @@ html
     = stylesheet_link_tag 'application', :media => 'all'
     = stylesheet_link_tag 'application_enhanced', :media => 'screen and (min-width: 768px)'
     = csrf_meta_tags
-body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize}"
+body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize} subtle-background"
      data-controllername=controller_name.dasherize 
      data-controlleraction=action_name.dasherize]
   = render \

@@ -29,3 +29,7 @@ body:after {
 a:focus {
   outline: none;
 }
+
+.subtle-background {
+  @include gradient-vertical(#999999, #ffffff, 0%, 100%);
+}
