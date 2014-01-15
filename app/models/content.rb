@@ -39,29 +39,6 @@ class Content
     end
   end
 
-  # Set the title, removing leading numbers, and then coverting underscores to 
-  # white spaces and dashes to commas.  e.g. 07-Colorado-2012 -> Colorado, 2012.
-  def set_title
-    @title = File.basename(@absolute_path)
-    @title.sub!(/^[0-9][0-9]-/, '')
-    @title.gsub!(/_/, ' ')
-    @title.gsub!(/-/, ', ')
-  end
-
-  # Include the parent page title in our page title if our page title is a
-  # season.  e.g. 'Fall' -> Fall Colorado, 2012.
-  # REVIEW: Do we need a separate method for this?  Or should we have better 
-  # titles to begin with?
-  def set_page_title
-    case @title
-    when 'Winter', 'Spring', 'Summer', 'Fall'
-      parent_content = Content.new(@parent_path)
-      @page_title = @title + ' ' + parent_content.title
-    else
-      @page_title = @title
-    end
-  end
-
   # If the Content is not a post then get a list of our subdirectories and 
   # instantiate a Content model instance for each.  Then call each instance's
   # set_posts method which will instantiate a list of post models for each post
@@ -132,6 +109,41 @@ class Content
     end
 
     ret_val
+  end
+
+  # TODO: This feels sketchy.  Why would we have both values?
+  def is_root?
+    @path == '/' || @path == ''
+  end
+
+  def get_parent_content
+    parent = Content.new(@parent_path)
+    return parent.is_root? ? nil : parent
+  end
+
+private
+
+  # Set the title, removing leading numbers, and then coverting underscores to 
+  # white spaces and dashes to commas.  e.g. 07-Colorado-2012 -> Colorado, 2012.
+  def set_title
+    @title = File.basename(@absolute_path)
+    @title.sub!(/^[0-9][0-9]-/, '')
+    @title.gsub!(/_/, ' ')
+    @title.gsub!(/-/, ', ')
+  end
+
+  # Include the parent page title in our page title if our page title is a
+  # season.  e.g. 'Fall' -> Fall Colorado, 2012.
+  # REVIEW: Do we need a separate method for this?  Or should we have better 
+  # titles to begin with?
+  def set_page_title
+    case @title
+    when 'Winter', 'Spring', 'Summer', 'Fall'
+      parent_content = Content.new(@parent_path)
+      @page_title = @title + ' ' + parent_content.title
+    else
+      @page_title = @title
+    end
   end
 
 end

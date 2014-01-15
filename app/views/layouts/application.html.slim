@@ -11,6 +11,7 @@ html
 body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize} subtle-background"
      data-controllername=controller_name.dasherize 
      data-controlleraction=action_name.dasherize]
+  == content_for?(:mobile_back_navigation) ? content_for(:mobile_back_navigation) : nil
   = render \
       :partial => '/site_header', \
       :locals => { :effects => controller_name == 'home' }
