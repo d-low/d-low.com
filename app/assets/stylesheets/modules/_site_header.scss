@@ -4,6 +4,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   color: $header_gray;
+  margin-top: 2.5rem;
   min-height: 12rem;
   text-transform: lowercase;
 }
@@ -35,4 +36,8 @@
     top: 10%;
     width: 100%;
   }
+}
+
+.home .site-header {
+  margin-top: 0;
 }

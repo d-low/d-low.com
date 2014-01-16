@@ -6,10 +6,10 @@ module ContentHelper
 
     if !parent.nil?
       html << "<a href=\"#{content_index_path(parent.path)}\">"
-      html <<   "&lt;&lt; #{parent.page_title}"
+      html <<   "&lt; #{parent.page_title}"
       html << "</a>"
     else
-      html << '<a href="/">&lt;&lt; Home</a>'
+      html << '<a href="/">&lt; Home</a>'
     end
 
     html << '</nav>'

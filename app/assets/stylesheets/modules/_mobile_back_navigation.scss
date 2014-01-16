@@ -1,0 +1,25 @@
+#mobile-back-navigation { 
+  background-color: $almost_black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  a {
+    color: $border_gray;
+    display: block;
+    font-family: $headings-font-family;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.1rem;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    @include transition(color 500ms ease);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.8);
+    width: 80%;
+
+    &:hover {
+      color: $light_gray;
+      text-decoration: none;
+    }
+  }
+}
