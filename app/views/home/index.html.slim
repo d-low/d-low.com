@@ -1,7 +1,11 @@
 section.home-section#contents-section
   = render \
     :partial => '/contents_navigation', \
-    :locals => { :home_model => @home_model, :random_image => @random_image }
+    :locals => { \
+      :fixed => false, \
+      :home_model => @home_model, \
+      :random_image => @random_image \
+    }
 
 section.home-section.container#about-section
   .row

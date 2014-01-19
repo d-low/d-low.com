@@ -1,5 +1,7 @@
 .site-header {
+  border-top: 5rem solid transparent;
   margin-top: 0;
+  padding-bottom: 5rem;
 
   h1 {
     font-size: 7rem;
@@ -23,6 +25,9 @@
 }
 
 .site-header-effects {
+  border-top: 0 none;
+  padding-bottom: 0;
+
   .site-header-logo { 
     right: 5%;
     text-align: right;

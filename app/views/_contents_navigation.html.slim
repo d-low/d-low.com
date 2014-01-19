@@ -1,15 +1,14 @@
-/ NOTE: The contents navigation is not going to be used on the desktop site for
-/ section and post navigation.  Instead, we'll use something different.  We'll
-/ need to toggle the display of each module based on the screen dimensions.  
-/ However, this element WILL be used on the bottom of all mobile pages.
+- nav_class_name = fixed ? 'fixed' : 'visual'
+- img_class_name = 'js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile'
 
-nav#contents-navigation
+nav[class="contents-navigation-#{nav_class_name} clearfix" 
+    id="contents-navigation"]
   ul.list-unstyled
     li[class="contents-navigation-item js-contents-navigation-item #{number_to_ordinal(1)}"]
       a[class="contents-navigation-item-link button"
         href=content_index_path(home_model.newest_post.path)]
           img[alt=random_image.caption
-              class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
+              class="img-responsive #{img_class_name}"
               data-original=custom_image_path(random_image.relative_path)
               src=asset_path('blank.gif')]
           span.contents-section-navitation-item-link-title
@@ -24,7 +23,7 @@ nav#contents-navigation
         a[class="contents-navigation-item-link button"
           href=content_index_path(content.path)]
             img[alt=random_image2.caption
-                class="img-responsive js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile"
+                class="img-responsive #{img_class_name}"
                 data-original=custom_image_path(random_image2.relative_path) 
                 src=asset_path('blank.gif')]
             span.contents-section-navitation-item-link-title
