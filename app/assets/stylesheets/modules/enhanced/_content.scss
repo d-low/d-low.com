@@ -1,0 +1,11 @@
+.content {
+  .content-header {
+    font-size: 5rem;
+    line-height: 6rem;
+
+    @media only screen and (min-width: $screen-md-min) {
+      font-size: 7rem;
+      line-height: 8rem;
+    }
+  }
+}
