@@ -8,4 +8,26 @@
       line-height: 8rem;
     }
   }
+
+  .sub-content-items {
+    border-bottom: 0 none;
+  }
+
+  .sub-content-item {
+    margin-bottom: 3rem;
+    padding-bottom: 0;
+    padding-top: 3rem; 
+    width: 75%;
+  }
+
+  a.sub-content-link img {
+    margin: 0 auto;
+    min-width: 65%;
+  }
+
+  .sub-content-link-title {
+    font-size: 2.75rem;
+    height: 6rem;
+    line-height: 6rem;
+  }
 }
