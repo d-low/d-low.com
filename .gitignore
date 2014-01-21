@@ -17,3 +17,4 @@ pickle-email-*.html
 .rvmrc
 todo.txt
 app/assets/content
+.DS_Store
