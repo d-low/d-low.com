@@ -13,7 +13,7 @@ h2.content-header
     - for sub_content in @content.sub_content
       - random_image = nil
       - random_image = sub_content.get_random_post.get_random_image while random_image.nil?
-      li.sub-content-item.image-container
+      li.sub-content-item.content-item-container
         a[class="sub-content-link" 
           href=content_index_path(sub_content.path)]
           img[alt=random_image.caption
