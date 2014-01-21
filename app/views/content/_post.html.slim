@@ -1,16 +1,19 @@
-section.post
-  h3
-    = post.title
-  h4.post-date
-    = post.date
-  p.content
-    = post.content
-  ul
-    - for image in post.images.each do
-      li
-        figure
-          img[src=custom_image_path(image.relative_thumbnail_path)
-              alt=image.caption
-              data-largeimage=image.relative_path]
-          figcaption
-            = image.caption
+section.post.content-item-container
+  h3.post-title
+    = "#{post.title}, #{post.date}"
+  div.post-content.collapsed
+    = post.content.html_safe
+  a.post-content-toggle href=javascript_anchor_href Read More
+  / TODO: Use a table with two images per column, in a container with overflow
+  / hidden, and a natural width.  That will be easier to get the Facebook style
+  / two images per column layout I'm after.
+  ul.post-images.list-unstyled.clearfix
+    - for image in post.images do
+      li.post-image-container
+        img[alt=image.caption
+            class="post-image img-responsive"
+            src=custom_image_path(image.relative_thumbnail_path)
+            data-largeimage=image.relative_path]
+        span.post-image-caption
+          = image.caption
+

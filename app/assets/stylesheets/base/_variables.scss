@@ -11,10 +11,16 @@ $header_gray: #202020;
 $border_gray: #999999;
 $almost_black: #303030;
 
-/* Bootstrap global varaiables. */
+/* 
+ * Bootstrap global varaiables. 
+ *
+ * TBD: How do we override those already defined in Bootstrap when this file is
+ * inclued *after* the Bootstrap files..?
+ */
 
 $text-color: #444444;
 $font-family-base: 'Trebuchet MS', Arial, sans-serif;
 $font-size-base: 16px;
 $line-height-base: 20px;
 $headings-font-family: 'Passion One', Helvetica, sans-serif;
+$link-color: $almost_black;

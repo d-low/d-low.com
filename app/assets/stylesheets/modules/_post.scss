@@ -1,0 +1,50 @@
+.post {
+  width: 95%;
+  margin: 0 auto 2rem auto;
+}
+
+.post-content {
+  overflow: hidden;
+
+  &.collapsed {
+    max-height: 150px;
+  }
+
+  b:first-child {
+    display: block;
+    font-family: $headings-font-family;
+    font-size: 1.75rem;
+    font-weight: normal;
+    text-align: center;
+  }
+}
+
+.post-content-toggle {
+  display: block;
+  color: $almost_black;
+  font-weight: bold;
+  margin: 0.5rem 0 1rem 0;
+  text-align: center;
+  text-decoration: underline;
+
+  &:hover, 
+  &:focus {
+    color: darken($almost_black, 15%);
+  }
+}
+
+.post-images {
+  height: 200px;
+  overflow: hidden;
+}
+
+.post-image-container {
+  margin: 0 1rem 1rem 0;
+  width: 50%;
+  float: left;
+}
+
+.post-image-caption {
+  display: block;
+  margin-top: 0.5rem;
+}
