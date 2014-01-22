@@ -8,42 +8,43 @@ html
     = stylesheet_link_tag 'application', :media => 'all'
     = stylesheet_link_tag 'application_enhanced', :media => 'screen and (min-width: 768px)'
     = csrf_meta_tags
-body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize} subtle-background"
-     data-controllername=controller_name.dasherize 
-     data-controlleraction=action_name.dasherize]
-  == content_for?(:mobile_back_navigation) ? content_for(:mobile_back_navigation) : nil
-  = render \
-      :partial => '/site_header', \
-      :locals => { :effects => controller_name == 'home' }
-  #content
-    = yield
-  footer#site-footer.center-block
-    nav
-      ul.list-inline
-        li
-          a[class="webicon mail" 
-            href="mailto:info@d-low.com" 
-            title="Send me an email"]
-        li
-          a[class="webicon facebook" 
-            href="https://www.facebook.com/mike.dilorenzo.3" 
-            target="_blank" 
-            title="Friend me on Facebook"]
-        li
-          a[class="webicon github" 
-            href="https://github.com/d-low" 
-            target="_blank" 
-            title="Check out my codes on Github"]
-        li
-          a[class="webicon linkedin"
-            href="http://www.linkedin.com/pub/mike-dilorenzo/7/b76/14b" 
-            target="_blank" 
-            title="Connect with me on LinkedIn"]
-        li
-          a[class="webicon twitter"
-            href="http://twitter.com/dlow"
-            target="_blank"
-            title="Follow my infrequent Tweets"]
-  = javascript_include_tag 'application'
-  script type="text/javascript"
-    == yield(:javascript_for_page)
+  body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize} \
+              subtle-background #{content_for?(:body_class_name) ? content_for(:body_class_name) : ''}"
+       data-controllername=controller_name.dasherize 
+       data-controlleraction=action_name.dasherize]
+    == content_for?(:mobile_back_navigation) ? content_for(:mobile_back_navigation) : nil
+    = render \
+        :partial => '/site_header', \
+        :locals => { :effects => controller_name == 'home' }
+    #content
+      = yield
+    footer#site-footer.center-block
+      nav
+        ul.list-inline
+          li
+            a[class="webicon mail" 
+              href="mailto:info@d-low.com" 
+              title="Send me an email"]
+          li
+            a[class="webicon facebook" 
+              href="https://www.facebook.com/mike.dilorenzo.3" 
+              target="_blank" 
+              title="Friend me on Facebook"]
+          li
+            a[class="webicon github" 
+              href="https://github.com/d-low" 
+              target="_blank" 
+              title="Check out my codes on Github"]
+          li
+            a[class="webicon linkedin"
+              href="http://www.linkedin.com/pub/mike-dilorenzo/7/b76/14b" 
+              target="_blank" 
+              title="Connect with me on LinkedIn"]
+          li
+            a[class="webicon twitter"
+              href="http://twitter.com/dlow"
+              target="_blank"
+              title="Follow my infrequent Tweets"]
+    = javascript_include_tag 'application'
+    script type="text/javascript"
+      == yield(:javascript_for_page)

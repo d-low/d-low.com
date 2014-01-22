@@ -5,8 +5,10 @@ h2.content-header
   = @content.title
   
 - if @content.is_post
+  - content_for(:body_class_name, 'allow-post-overflow')
   = render 'post', :post => @content.get_post
 - elsif @content.are_sub_contents_posts?
+  - content_for(:body_class_name, 'allow-post-overflow')
   = render 'list_of_posts', :content => @content
 - else
   ul.list-unstyled.sub-content-items

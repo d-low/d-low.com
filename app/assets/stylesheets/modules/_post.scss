@@ -1,6 +1,11 @@
+.allow-post-overflow {
+  overflow-x: hidden;
+}
+
 .post {
   width: 95%;
   margin: 0 auto 2rem auto;
+  padding-bottom: 1rem;
 }
 
 .post-content {
@@ -33,18 +38,25 @@
   }
 }
 
-.post-images {
-  height: 200px;
-  overflow: hidden;
+.post-image-container {
+  background-color: $off_white;
+  padding: 0.5rem 1rem 0.5rem 0;
+  text-align: center;
+  vertical-align: top;
+  width: 50%;
+
+  &:last-child {
+    padding-right: 0;
+  }
 }
 
-.post-image-container {
-  margin: 0 1rem 1rem 0;
-  width: 50%;
-  float: left;
+.post-images-last-row .post-image-container {
+  padding-top: 0;
 }
 
 .post-image-caption {
   display: block;
+  font-size: 0.8rem;
+  line-height: 1rem;
   margin-top: 0.5rem;
 }

@@ -4,16 +4,35 @@ section.post.content-item-container
   div.post-content.collapsed
     = post.content.html_safe
   a.post-content-toggle href=javascript_anchor_href Read More
-  / TODO: Use a table with two images per column, in a container with overflow
-  / hidden, and a natural width.  That will be easier to get the Facebook style
-  / two images per column layout I'm after.
-  ul.post-images.list-unstyled.clearfix
-    - for image in post.images do
-      li.post-image-container
-        img[alt=image.caption
-            class="post-image img-responsive"
-            src=custom_image_path(image.relative_thumbnail_path)
-            data-largeimage=image.relative_path]
-        span.post-image-caption
-          = image.caption
-
+  div.post-images-container
+    / We have wo rows of pictures in the post images table, the first row
+    / contains the even numbered pictures, and the second row contains the odd
+    / numbered pictures.
+    table.post-images.list-unstyled.clearfix
+      tbody
+        - pad_odd_row = post.images.length % 2 != 0
+        tr.post-images-first-row
+          - for i in 0..post.images.length - 1 do
+            - next if i % 2 != 0 
+            - image = post.images[i]
+            td.post-image-container
+              img[alt=image.caption
+                  class="post-image img-responsive"
+                  src=custom_image_path(image.relative_thumbnail_path)
+                  data-largeimage=image.relative_path]
+              span.post-image-caption
+                = image.caption
+        tr.post-images-last-row
+          - for i in 0..post.images.length - 1 do
+            - next if i % 2 == 0
+            - image = post.images[i]
+            td.post-image-container
+              img[alt=image.caption
+                  class="post-image img-responsive"
+                  src=custom_image_path(image.relative_thumbnail_path)
+                  data-largeimage=image.relative_path]
+              span.post-image-caption
+                = image.caption
+          - if pad_odd_row 
+            td.post-image-container
+              == "&nbsp;"
