@@ -13,5 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.lazyload
+//= require jquerypp.custom
+//= require jquery.elastislide
 //= require dlow
 //= require home
+//= require content

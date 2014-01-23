@@ -4,35 +4,14 @@ section.post.content-item-container
   div.post-content.collapsed
     = post.content.html_safe
   a.post-content-toggle href=javascript_anchor_href Read More
-  div.post-images-container
-    / We have wo rows of pictures in the post images table, the first row
-    / contains the even numbered pictures, and the second row contains the odd
-    / numbered pictures.
-    table.post-images.list-unstyled.clearfix
-      tbody
-        - pad_odd_row = post.images.length % 2 != 0
-        tr.post-images-first-row
-          - for i in 0..post.images.length - 1 do
-            - next if i % 2 != 0 
-            - image = post.images[i]
-            td.post-image-container
-              img[alt=image.caption
-                  class="post-image img-responsive"
-                  src=custom_image_path(image.relative_thumbnail_path)
-                  data-largeimage=image.relative_path]
-              span.post-image-caption
-                = image.caption
-        tr.post-images-last-row
-          - for i in 0..post.images.length - 1 do
-            - next if i % 2 == 0
-            - image = post.images[i]
-            td.post-image-container
-              img[alt=image.caption
-                  class="post-image img-responsive"
-                  src=custom_image_path(image.relative_thumbnail_path)
-                  data-largeimage=image.relative_path]
-              span.post-image-caption
-                = image.caption
-          - if pad_odd_row 
-            td.post-image-container
-              == "&nbsp;"
+  ul.post-images.js-post-images.list-unstyled
+    - for image in post.images do
+      li.post-image-container
+        a[class="post-image-view-larger js-post-image-view-larger"
+          href=javascript_anchor_href]
+          img[alt=image.caption
+              class="post-image img-responsive"
+              src=custom_image_path(image.relative_thumbnail_path)
+              data-largeimage=image.relative_path]
+          span.post-image-caption
+            = image.caption

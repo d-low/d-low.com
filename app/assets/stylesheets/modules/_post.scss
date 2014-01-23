@@ -40,18 +40,12 @@
 
 .post-image-container {
   background-color: $off_white;
-  padding: 0.5rem 1rem 0.5rem 0;
   text-align: center;
   vertical-align: top;
-  width: 50%;
-
-  &:last-child {
-    padding-right: 0;
-  }
 }
 
-.post-images-last-row .post-image-container {
-  padding-top: 0;
+.post-image { 
+  margin: 0 auto;
 }
 
 .post-image-caption {

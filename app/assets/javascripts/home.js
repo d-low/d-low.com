@@ -1,5 +1,6 @@
 /**
- * @description The home object defines the behavior for the home page of the site.
+ * @description The home object defines the behavior for the home page of the 
+ * site.
  */
 window.dlow.home = {
 
