@@ -1,13 +1,6 @@
 /* 
- * Elastislide Style 
- *
- * TODO: 
- *
- * 1) Review styles, customize or remove as needed.
- * 2) Use sass as appropriate
- * 3) Use proper rails asset urls
- * 4) Use sass mixins where appropriate.
- * 5) Convert to spaces using two spaces per tab.
+ * Elastislide Styles
+ * See: https://github.com/codrops/Elastislide
  */
 
 .elastislide-list {
@@ -103,7 +96,7 @@
 
 .elastislide-wrapper nav span {
 	position: absolute;
-	// background: #ddd url(../images/nav.png) no-repeat 4px 3px;
+	background: #ddd asset-data-url("nav.png") no-repeat 4px 3px;
 	width: 23px;
 	height: 23px;
 	border-radius: 50%;
