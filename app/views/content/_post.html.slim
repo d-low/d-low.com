@@ -1,9 +1,9 @@
-section.post.content-item-container
+section.post.js-post.content-item-container
   h3.post-title
     = "#{post.title}, #{post.date}"
-  div.post-content.collapsed
+  div.post-content.js-post-content.collapsed
     = post.content.html_safe
-  a.post-content-toggle href=javascript_anchor_href Read More
+  a.post-content-toggle.js-post-content-toggle href=javascript_anchor_href Read More
   ul.post-images.js-post-images.list-unstyled
     - for image in post.images do
       li.post-image-container

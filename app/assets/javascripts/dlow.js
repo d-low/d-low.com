@@ -150,7 +150,42 @@ window.dlow = {
     }
 
     return this._isDesktopLarge;
-  }
+  },
+
+
+  // --------------------------------------------------------------------------
+  // Effects 
+  // --------------------------------------------------------------------------
+
+  /** 
+   * @description Animate scrolling up to the requested position and when done 
+   * invoke the callback function if one was specified.
+   * @param scrollUpTo The y coordinate that we have been requested to scroll
+   * up to.
+   * @param fCallback An optional callback function to invoke when done 
+   * scrolling.
+   */
+  scrollUpTo: function(scrollUpTo, fCallback) {
+
+    var fScrollUpTo = function() { 
+      var scrollTop = $(window).scrollTop();
+
+      if (scrollTop > scrollUpTo) {
+        scrollTop -= 10; 
+        scrollTop = (scrollTop < 0 ? 0 : scrollTop);
+
+        window.scrollTo(0, scrollTop);
+        window.setTimeout(fScrollUpTo, 5); 
+      }   
+      else {
+        if (typeof(fCallback) === "function") {
+          fCallback();
+        }   
+      }   
+    };  
+
+    fScrollUpTo();
+  } 
 };
 
 /**
