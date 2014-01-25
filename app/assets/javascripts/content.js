@@ -10,7 +10,7 @@ window.dlow.content = {
   initialize: function() {
 
     //
-    // Initialize event handlers
+    // Event handlers
     //
 
     $(".js-post-images").each(function() {
@@ -20,6 +20,7 @@ window.dlow.content = {
     });
 
     $(".js-post-content-toggle").on("click", $.proxy(this.contentToggle_click, this));
+    $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
 
     //
     // Miscellaneous initializations
@@ -53,6 +54,7 @@ window.dlow.content = {
    * view with 10px of padding to it isn't flush with the top of the screen.
    */
   contentToggle_click: function(e) {
+
     e.preventDefault();
 
     var $postContentToggle = $(e.target).closest(".js-post-content-toggle");
@@ -76,5 +78,34 @@ window.dlow.content = {
       $postContent.addClass("collapsed");
       $postContentToggle.html("Read More");
     }
+  },
+
+  /**
+   * @description When a post image is clicked on clone the list and scale it
+   * in to view ensuring the post image that was clicked on is displayed.
+   */
+  postImageLink_click: function(e) {
+
+    e.preventDefault();
+
+    var $postImage = $(e.target).closest(".js-post-image-link");
+    var $postImages = $postImage.closest(".js-post-images");
+    var $postImagesLarge = $postImages.clone();
+    var $elastislideWrapper = null;
+
+    $postImagesLarge.addClass("post-images-large js-post-images-large");
+
+    $("body").append($postImagesLarge);
+
+    $postImagesLarge.elastislide({
+      minItems: 1,
+      start: $postImage.data("itemnum")
+      // TODO: Need to pass class name to elastislide plug-in!!!  Once we can
+      // do that then we can remove it from the wrapper and scale the larger
+      // post images into view!
+    });
+
+    $elastislideWrapper = $postImages.closest("elastislide-wrapper");
+    $elastislideWrapper.removeClass("minimized");
   }
 };

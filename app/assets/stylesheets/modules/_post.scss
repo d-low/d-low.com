@@ -65,3 +65,23 @@
 .post-image-caption {
   display: none;
 }
+
+.elastislide-wrapper.large {
+  background-color: rgba(0, 0, 0, 0.85);
+  left: 0px;
+  position: absolute;
+  @include scale(1.0);
+  -moz-transition: -moz-transform 500ms ease;
+  -webkit-transition: -webkit-transform 500ms ease;
+  -o-transition: -o-transform 500ms ease;
+  transition: transform 500ms ease;
+  top: 0px;
+  z-index: 2000;
+
+   &.minimized {
+    height: 0;
+    @include scale(0);
+    overflow: hidden;
+    width: 0;
+  }
+}

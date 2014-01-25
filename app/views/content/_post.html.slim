@@ -7,7 +7,8 @@ section.post.js-post.content-item-container
   ul.post-images.js-post-images.list-unstyled
     - for image in post.images do
       li.post-image-container
-        a[class="post-image-view-larger js-post-image-view-larger"
+        a[class="js-post-image-link"
+          data-itemnum=post.images.index(image)
           href=javascript_anchor_href]
           img[alt=image.caption
               class="post-image img-responsive"
