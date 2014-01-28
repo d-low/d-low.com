@@ -15,7 +15,9 @@ window.dlow.content = {
 
     $(".js-post-images").each(function() {
       $(this).elastislide({
-        minItems: 2
+        minItems: 2,
+        speed: 750,
+        easing: 'ease'
       });
     });
 
