@@ -15,9 +15,9 @@ window.dlow.content = {
 
     $(".js-post-images").each(function() {
       $(this).elastislide({
+        easing: 'ease',
         minItems: 2,
-        speed: 750,
-        easing: 'ease'
+        speed: 750
       });
     });
 
@@ -85,29 +85,70 @@ window.dlow.content = {
   /**
    * @description When a post image is clicked on clone the list and scale it
    * in to view ensuring the post image that was clicked on is displayed.
+   *
+   * TODO:
+   *
+   * 1) Add alt attribute to image and caption below image.
+   * 2) Set height of post-images-zoom element to height of document if larger
+   *    than the window.
+   * 3) Use two classes, invisible and scale-in, because the plug-in will get
+   *    the image sizing wrong if the scale of the post-images-zoom element is
+   *    0 initially.  So we need to wire up the plug-in, with visibililty 
+   *    hidden, and THEN scale it from 0 to 1.
+   * 4) Finally, scale the post-images-zoom from the coordinates of the clicked
+   *    post image.
    */
   postImageLink_click: function(e) {
 
     e.preventDefault();
 
+    //
+    // Elements
+    //
+
     var $postImage = $(e.target).closest(".js-post-image-link");
     var $postImages = $postImage.closest(".js-post-images");
-    var $postImagesLarge = $postImages.clone();
-    var $elastislideWrapper = null;
 
-    $postImagesLarge.addClass("post-images-large js-post-images-large");
+    var fRenderListItems = function() { 
+      var listItems = [];
 
-    $("body").append($postImagesLarge);
+      $postImages.find(".js-post-image").each(function() { 
+        listItems.push([
+          '<li>',
+            '<img class="img-responsive" src="' + $(this).data("largeimage") + '" />', 
+          '</li>'
+        ].join(''));
+      });
 
-    $postImagesLarge.elastislide({
+      return listItems.join('');
+    };
+
+    var $postImagesZoom = $([
+      '<div class="post-images-zoom minimized" ' + 
+        'style="height: ' + $(window).height() + 'px; top: ' + $(window).scrollTop() + 'px;">',
+        '<ul>',
+          fRenderListItems(),
+        '</ul>',
+      '</div'
+    ].join(''));
+
+    //
+    // Add the large post images element to the DOM and intialize the plug-in.
+    //
+
+    $("body").append($postImagesZoom);
+
+    $postImagesZoom.find("ul").elastislide({
+      easing: 'ease',
       minItems: 1,
+      speed: 750,
       start: $postImage.data("itemnum")
-      // TODO: Need to pass class name to elastislide plug-in!!!  Once we can
-      // do that then we can remove it from the wrapper and scale the larger
-      // post images into view!
     });
 
-    $elastislideWrapper = $postImages.closest("elastislide-wrapper");
-    $elastislideWrapper.removeClass("minimized");
+    //
+    // Finally, scale the new larger elastislide carousel into view.
+    //
+
+    $postImagesZoom.removeClass("minimized");
   }
 };
