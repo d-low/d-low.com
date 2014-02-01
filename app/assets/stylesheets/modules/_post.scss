@@ -99,7 +99,14 @@
   }
 
   .elastislide-horizontal {
-    top: 30%;
+    @media screen and (orientation:portrait) {
+      top: 30%;
+    }
+
+    @media screen and (orientation:landscape) {
+      top: 0%;
+    }
+
     position: fixed !important;
     width: 100%;
   }
