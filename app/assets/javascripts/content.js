@@ -136,6 +136,7 @@ window.dlow.content = {
     // Add the large post images element to the DOM and intialize the plug-in.
     //
 
+    $postImagesZoom.height($("body").outerHeight());
     $("body").append($postImagesZoom);
 
     $postImagesZoom.find("ul").elastislide({

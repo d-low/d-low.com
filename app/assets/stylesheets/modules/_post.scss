@@ -78,6 +78,7 @@
   left: 0px;
   overflow-x: hidden;
   position: absolute;
+  top: 0 !important;
   // @include scale(1.0);
   -moz-transition: -moz-transform 500ms ease;
   -webkit-transition: -webkit-transform 500ms ease;
@@ -95,5 +96,11 @@
     // overflow: hidden;
     // top: 50%;
     // width: 0;
+  }
+
+  .elastislide-horizontal {
+    top: 30%;
+    position: fixed !important;
+    width: 100%;
   }
 }
