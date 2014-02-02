@@ -87,16 +87,7 @@ window.dlow.content = {
    * in to view ensuring the post image that was clicked on is displayed.
    *
    * TODO:
-   *
-   * 1) Add alt attribute to image and caption below image.
-   * 2) Set height of post-images-zoom element to height of document if larger
-   *    than the window.
-   * 3) Use two classes, invisible and scale-in, because the plug-in will get
-   *    the image sizing wrong if the scale of the post-images-zoom element is
-   *    0 initially.  So we need to wire up the plug-in, with visibililty 
-   *    hidden, and THEN scale it from 0 to 1.
-   * 4) Finally, scale the post-images-zoom from the coordinates of the clicked
-   *    post image.
+   * 1) Display caption below image.
    */
   postImageLink_click: function(e) {
 
@@ -124,7 +115,7 @@ window.dlow.content = {
     };
 
     var $postImagesZoom = $([
-      '<div class="post-images-zoom minimized" ' + 
+      '<div class="post-images-zoom fade-out" ' + 
         'style="height: ' + $(window).height() + 'px; top: ' + $(window).scrollTop() + 'px;">',
         '<ul>',
           fRenderListItems(),
@@ -133,23 +124,44 @@ window.dlow.content = {
     ].join(''));
 
     //
+    // Fade in the post images zoom container and then scale in the elastislide
+    // wrapper.  Note that the elastislide wrapper is intially rendered with 
+    // opacity of zero so that elements are sized properly, but not visible.  
+    //
+
+    var fOnReady = function() {
+      $postImagesZoom.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
+        $postImagesZoom.off("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
+
+        var $elastislideWrapper = $postImagesZoom.find(".elastislide-wrapper");
+
+        $elastislideWrapper.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
+          $elastislideWrapper.off("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
+          $elastislideWrapper.addClass("scale-in");
+        });
+
+        $elastislideWrapper.addClass("scale-out");
+      });
+
+      $postImagesZoom.addClass("fade-in");
+    };
+
+    //
     // Add the large post images element to the DOM and intialize the plug-in.
     //
 
-    $postImagesZoom.height($("body").outerHeight());
+    $postImagesZoom.height(
+      $("body").outerHeight()
+    );
+
     $("body").append($postImagesZoom);
 
     $postImagesZoom.find("ul").elastislide({
       easing: 'ease',
       minItems: 1,
       speed: 750,
-      start: $postImage.data("itemnum")
+      start: $postImage.data("itemnum"),
+      onReady: fOnReady
     });
-
-    //
-    // Finally, scale the new larger elastislide carousel into view.
-    //
-
-    $postImagesZoom.removeClass("minimized");
   }
 };
