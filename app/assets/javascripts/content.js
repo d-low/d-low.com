@@ -85,9 +85,6 @@ window.dlow.content = {
   /**
    * @description When a post image is clicked on clone the list and scale it
    * in to view ensuring the post image that was clicked on is displayed.
-   *
-   * TODO:
-   * 1) Display caption below image.
    */
   postImageLink_click: function(e) {
 
@@ -114,6 +111,7 @@ window.dlow.content = {
       return listItems.join('');
     };
 
+    var $elastislideWrapper = null;
     var $postImagesZoom = $([
       '<div class="post-images-zoom fade-out" ' + 
         'style="height: ' + $(window).height() + 'px; top: ' + $(window).scrollTop() + 'px;">',
@@ -124,20 +122,55 @@ window.dlow.content = {
     ].join(''));
 
     //
+    // When the elastislide remove link is clicked we slide the elastislide
+    // wrapper up, then remove the plug-in from the list, then fade out the 
+    // post images zoom shim, and remove it.
+    //
+    // TODO: 
+    //
+    // 1) All these nested functions are a bit messy, should they be broke
+    // out into individual functions?
+    //
+
+    var fElastislideRemove = function(e) {
+      e.preventDefault();
+
+      $elastislideWrapper.one(
+        "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+        function() {
+          $postImagesZoom.find("ul").elastislide("destroy");
+
+          $postImagesZoom.one(
+            "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+            function() {
+              window.setTimeout(function() { $postImagesZoom.remove(); }, 100);
+            }
+          );
+
+          $postImagesZoom.removeClass("fade-in");
+        }
+      );
+
+      $elastislideWrapper.addClass("slide-up");
+    };
+
+    //
     // Fade in the post images zoom container and then scale in the elastislide
     // wrapper.  Note that the elastislide wrapper is intially rendered with 
     // opacity of zero so that elements are sized properly, but not visible.  
     //
 
     var fOnReady = function() {
-      $postImagesZoom.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
-        $postImagesZoom.off("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
+      $postImagesZoom.one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
+        $elastislideWrapper = $postImagesZoom.find(".elastislide-wrapper");
 
-        var $elastislideWrapper = $postImagesZoom.find(".elastislide-wrapper");
+        $elastislideWrapper.append(
+          '<a class="elastislide-remove js-elastislide-remove" href="javascript:void(0);">x</a>'
+        );
 
-        $elastislideWrapper.on("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
-          $elastislideWrapper.off("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
+        $elastislideWrapper.one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
           $elastislideWrapper.addClass("scale-in");
+          $elastislideWrapper.find(".js-elastislide-remove").on("click", fElastislideRemove);
         });
 
         $elastislideWrapper.addClass("scale-out");

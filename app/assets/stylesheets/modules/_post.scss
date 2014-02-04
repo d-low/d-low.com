@@ -72,10 +72,10 @@
   overflow-x: hidden;
   position: absolute;
   top: 0 !important;
-  -moz-transition: -moz-transform 500ms ease;
-  -webkit-transition: -webkit-transform 500ms ease;
-  -o-transition: -o-transform 500ms ease;
-  transition: all 500ms ease;
+  -moz-transition: opacity 500ms ease;
+  -webkit-transition: opacity 500ms ease;
+  -o-transition: opacity 500ms ease;
+  transition: opacity 500ms ease;
   width: 100%;
   z-index: 2000;
 
@@ -102,7 +102,7 @@
     -o-transition: -o-transform 1s ease, opacity 500ms ease;
     transition: transform 1s ease, opacity 500ms ease;
     opacity: 0;
-    width: 100%;
+    width: 95%;
  
     &.scale-out {
       @include scale(0);
@@ -111,6 +111,28 @@
     &.scale-in {
       @include scale(1);
       opacity: 1;
+    }
+
+    &.slide-up {
+      -webkit-transform: translateY(-500%);
+      transform: translateY(-500%);
+    }
+  }
+
+  .elastislide-remove {
+    background-color: #dddddd;
+    border-radius: 12px;
+    color: $white;
+    height: 24px;
+    position: absolute;
+    right: -6px;
+    text-align: center;
+    top: -12px;
+    width: 24px;
+    z-index: 2100;
+
+    &:hover {
+      text-decoration: none;
     }
   }
 }

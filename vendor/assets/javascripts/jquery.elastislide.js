@@ -766,7 +766,12 @@
 	
 	$.fn.elastislide = function( options ) {
 
-		var self = $.data( this, 'elastislide' );
+		var self = this.data("elastislide");
+
+		// NOTE: The $.data() method wasn't working when we called destroy yet 
+		// this seems to work all other times.  So I just modified the syntax 
+		// slightly...
+		// var self = $.data( this, 'elastislide' );
 		
 		if ( typeof options === 'string' ) {
 			
