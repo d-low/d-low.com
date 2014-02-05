@@ -337,7 +337,13 @@
 
 			// save original image sizes
 			var $img = this.$items.find( 'img:first' );
-			this.imgSize = { width : $img.outerWidth( true ), height : $img.outerHeight( true ) };
+
+			// Images can't be sized larger than the wrapper.
+			var wrapperHeight = this.$wrapper.height();
+			var imgHeight = $img.outerHeight(true);
+			var height = imgHeight > wrapperHeight ? wrapperHeight : imgHeight;
+
+			this.imgSize = { width : $img.outerWidth( true ), height : height };
 
 			this._setItemsSize();
 			this.options.orientation === 'horizontal' ? this.$el.css( 'max-height', this.imgSize.height ) : this.$el.css( 'height', this.options.minItems * this.imgSize.height );
