@@ -55,7 +55,7 @@
 .post-image-container {
   background-color: $off_white;
   text-align: center;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .post-image { 
@@ -88,25 +88,26 @@
   }
 
   .elastislide-wrapper {
-    @media screen and (orientation:portrait) {
-      top: 20%;
-    }
-
-    @media screen and (orientation:landscape) {
-      height: 80%;
-      top: 5%;
-    }
-
     $transform_time: 500ms;
     $opacity_time: 500ms;
 
+    left: 5%;
     position: fixed !important;
     -moz-transition: -moz-transform $transform_time ease, opacity $opacity_time ease;
     -webkit-transition: -webkit-transform $transform_time ease, opacity $opacity_time ease;
     -o-transition: -o-transform $transform_time ease, opacity $opacity_time ease;
     transition: transform $transform_time ease, opacity $opacity_time ease;
     opacity: 0;
-    width: 95%;
+    width: 90%;
+
+    @media screen and (orientation:portrait) {
+      top: 20%;
+    }
+
+    @media screen and (orientation:landscape) {
+      height: 90%;
+      top: 5%;
+    }
  
     &.scale-out {
       @include scale(0);
@@ -122,7 +123,12 @@
       transform: translateY(-500%);
     }
 
+    li {
+      vertical-align: middle;
+    }
+
     img {
+      border: 2px solid #FFFFFF;
       margin: 0 auto;
     }
   }
