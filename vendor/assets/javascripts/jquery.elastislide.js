@@ -274,7 +274,9 @@
 				if( self.hasTransition ) {
 
 					// slide to current's position
-					self._removeTransition();
+					// NOTE: Do NOT remove the transition, there's no need, and it's not
+					// guaranteed to be reaplied.
+					// self._removeTransition();
 					self._slideToItem( self.current );
 
 					self.$el.on( self.transEndEventName, function() {
