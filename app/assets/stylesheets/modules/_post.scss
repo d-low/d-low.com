@@ -89,7 +89,7 @@
 
   .elastislide-wrapper {
     @media screen and (orientation:portrait) {
-      top: 30%;
+      top: 20%;
     }
 
     @media screen and (orientation:landscape) {
@@ -97,11 +97,14 @@
       top: 5%;
     }
 
+    $transform_time: 500ms;
+    $opacity_time: 500ms;
+
     position: fixed !important;
-    -moz-transition: -moz-transform 1s ease, opacity 500ms ease;
-    -webkit-transition: -webkit-transform 1s ease, opacity 500ms ease;
-    -o-transition: -o-transform 1s ease, opacity 500ms ease;
-    transition: transform 1s ease, opacity 500ms ease;
+    -moz-transition: -moz-transform $transform_time ease, opacity $opacity_time ease;
+    -webkit-transition: -webkit-transform $transform_time ease, opacity $opacity_time ease;
+    -o-transition: -o-transform $transform_time ease, opacity $opacity_time ease;
+    transition: transform $transform_time ease, opacity $opacity_time ease;
     opacity: 0;
     width: 95%;
  
@@ -117,6 +120,10 @@
     &.slide-up {
       -webkit-transform: translateY(-500%);
       transform: translateY(-500%);
+    }
+
+    img {
+      margin: 0 auto;
     }
   }
 
