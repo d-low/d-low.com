@@ -4,14 +4,14 @@ section.post.js-post.content-item-container
   div.post-content.js-post-content.collapsed
     = post.content.html_safe
   a.post-content-toggle.js-post-content-toggle href=javascript_anchor_href Read More
-  ul.post-images.js-post-images.list-unstyled
+  ul.post-images.js-post-images
     - for image in post.images do
       li.post-image-container
         a[class="js-post-image-link"
           data-itemnum=post.images.index(image)
           href=javascript_anchor_href]
           img[alt=image.caption
-              class="post-image js-post-image img-responsive"
+              class="post-image js-post-image"
               title=image.caption
               src=custom_image_path(image.relative_thumbnail_path)
               data-largeimage=custom_image_path(image.relative_path)]

@@ -87,6 +87,9 @@
     opacity: 1;
   }
 
+  /* 
+   * TODO: Reuse styles from here in the simplecarousel generated content.
+   */
   .elastislide-wrapper {
     $transform_time: 500ms;
     $opacity_time: 500ms;

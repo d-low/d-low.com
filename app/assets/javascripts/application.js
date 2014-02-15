@@ -13,8 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.lazyload
-//= require jquerypp.custom
-//= require jquery.elastislide
+//= require jquery.simplecarousel
 //= require dlow
 //= require home
 //= require content

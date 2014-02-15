@@ -14,18 +14,22 @@ window.dlow.content = {
     //
 
     $(".js-post-images").each(function() {
-      $(this).elastislide({
-        easing: 'ease',
-        minItems: 2,
-        speed: 750
+      $(this).simplecarousel({
+        minItems: 2
       });
     });
 
+    // TODO: Use jquery.contenttoggle plugin
     $(".js-post-content-toggle").on("click", $.proxy(this.contentToggle_click, this));
-    $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
+
+    // TODO: Wire up functionality to create new list of larger images, apply
+    // the carousel, fade in the shim, and then scale in the images; once the
+    // basic plug-in works.
+    // $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
 
     //
     // Miscellaneous initializations
+    // TODO: This will be removed when we use the jquery.contenttoggle plug-in.
     //
 
     this.initPostContentMaxHeight();
