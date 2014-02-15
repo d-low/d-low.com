@@ -1,42 +1,98 @@
-.simple-carousel-wrapper {
+.simple-carousel {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  border: 2% solid #ffffff;
+  border: 2% solid transparent;
+  padding: 5px;
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
 
-    &:after {
-      content: ".";
-      display: block;
-      height: 0;
-      clear: both;
-      visibility: hidden;
+  .simple-carousel-nav {
+    display: block;
+    float: left;
+    position: relative;
+    min-width: 20px;
+    text-align: center;
+    width: 8%;
+
+    &:link,
+    &:visited,
+    &:hover, 
+    &:active {
+      text-decoration: none;
     }
 
-    li {
+    span {
+      background-color: #dddddd;
+      border-radius: 50%;
+      color: #ffffff;
       display: block;
-      float: left;
-      height: 100%;
-      min-width: 20px;
+      font-weight: bold;
+      height: 20px;
+      margin-top: -10px;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      width: 20px;
+    }
+  }
 
-      a {
-        display: inline-block;
-        height: 95%;
-        padding: 5%;
-        text-align: center;
-        vertical-align: middle;
-        width: 95%;
+  .simple-carousel-nav-prev span {
+    left: 0;
+  }
 
-        img {
+  .simple-carousel-nav-next span {
+    right: 0;
+  }
+
+  .simple-carousel-wrapper {
+    float: left;
+    overflow: hidden;
+    width: 100%;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+
+      &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+      }
+
+      li {
+        display: block;
+        float: left;
+        height: 100%;
+        min-width: 20px;
+
+        a {
           display: inline-block;
-          height: 100%;
-          max-height: 100%;
-          max-width: 100%;
+          height: 95%;
+          padding: 5%;
+          text-align: center;
+          vertical-align: middle;
+          width: 95%;
+
+          img {
+            display: inline-block;
+            height: 100%;
+            max-height: 100%;
+            max-width: 100%;
+          }
         }
       }
     }
+  }
+
+  .simple-carousel-nav + .simple-carousel-wrapper {
+    width: 84%;
   }
 }

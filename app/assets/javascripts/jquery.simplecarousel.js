@@ -39,15 +39,20 @@
     ].join(''));
 
     if (options.showNavigation) {
-      $el.closest(".js-simple-carousel").append([
-        '<nav class="simple-carousel-nav js-simple-carousel-nav">',
-          '<a class="simple-carousel-prev js-simple-carousel-prev" href="javascript:void(0);">',
+      $el.closest(".js-simple-carousel").prepend([
+        '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-prev js-simple-carousel-nav-prev" href="javascript:void(0);">',
+          '<span>',
             '&lt;',
-          '</a>',
-          '<a class="simple-carousel-next js-simple-carousel-next" href="javascript:void(0);">',
+          '</span>',
+        '</a>'
+      ].join(''));
+
+      $el.closest(".js-simple-carousel").append([
+        '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-next js-simple-carousel-nav-next" href="javascript:void(0);">',
+          '<span>',
             '&gt;',
-          '</a>',
-        '</nav>'
+          '</span>',
+        '</a>',
       ].join(''));
     }
 
@@ -59,13 +64,23 @@
     //
 
     var $simpleCarouselWrapper = $el.closest(".js-simple-carousel-wrapper");
+    var $simpleCarouselNavPrev = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-prev");
     var $simpleCarousel = $simpleCarouselWrapper.closest(".js-simple-carousel");
+    var $simpleCarouselNavNext = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-next"); 
     var $img = $el.find("img:first");
 
     var listHeight = $el.find("li:first").outerHeight();
     var itemMaxWidth = $simpleCarouselWrapper.outerWidth() / options.minItems;
     var itemWidth = parseInt(100 / options.minItems, 10);
     var listWidth = $el.find("li").length * itemMaxWidth;
+
+    $simpleCarouselNavPrev.css({
+      "height": listHeight + "px"
+    });
+
+    $simpleCarouselNavNext.css({
+      "height": listHeight + "px"
+    });
 
     $el.css({
       "height": listHeight + "px",
