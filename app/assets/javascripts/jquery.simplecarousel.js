@@ -92,14 +92,20 @@
       "width": itemWidth + "%"
     });
 
+    $el.data("currentimage", 1);
+
     //
-    // TODO: 
-    // 1) Add event handlers.
+    // Add event handlers
     //
+
+    $simpleCarouselNavPrev.on("click.simplecarousel", {el: $el}, navPrev_click);
+    $simpleCarouselNavNext.on("click.simplecarousel", {el: $el}, navNext_click);
 
     return $el;
   };
 
+  // TODO: Verify that this still works!  The navigation elements have been
+  // added since this was last tested.
   var destroy = function() {
     var $el = $(this);
 
@@ -124,6 +130,45 @@
     //
 
     return $el;
+  };
+
+  // TODO: navPrev_click() and navNext_click() can be consolidated.  The only 
+  // differences are really the exit condition and whether we decrement or 
+  // increment the current image.
+  var navPrev_click = function(e) { 
+    e.preventDefault();
+
+    var $el = e.data.el;
+    var currentImage = $el.data("currentimage");
+
+    if (currentImage == 1) {
+      return;
+    }
+
+    currentImage = currentImage - 1;
+
+    var $li = $el.find("li:nth-child(" + currentImage + ")");
+
+    $el.css("margin-left", ($li.position().left * -1) + "px");
+    $el.data("currentimage", currentImage);
+  };
+
+  var navNext_click = function(e) {
+    e.preventDefault();
+
+    var $el = e.data.el;
+    var currentImage = $el.data("currentimage");
+
+    if (currentImage == $el.find("li").length) {
+      return;
+    } 
+
+    currentImage = currentImage + 1;
+
+    var $li = $el.find("li:nth-child(" + currentImage  + ")");
+
+    $el.css("margin-left", ($li.position().left * -1) + "px");
+    $el.data("currentimage", currentImage);
   };
 
   var methods = {

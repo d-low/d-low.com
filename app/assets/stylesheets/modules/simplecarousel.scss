@@ -58,6 +58,8 @@
       list-style: none;
       margin: 0;
       padding-left: 0;
+      position: relative;
+      @include transition(margin-left 500ms ease);
 
       &:after {
         content: ".";
