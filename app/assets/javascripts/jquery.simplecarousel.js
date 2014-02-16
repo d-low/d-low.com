@@ -12,6 +12,7 @@
  * 2) Lazy load images if requested, or by default (TBD).
  * 3) Handle swip navigation if requested, or by default if supported, using 
  * swipe.js.
+ * 4) Determine and use max number of images too!
  */
 (function($) {
 
@@ -23,7 +24,13 @@
     showNavigation: true
   };
 
+
+  // --------------------------------------------------------------------------
+  // Public Methods
+  // --------------------------------------------------------------------------
+
   var init = function(options) { 
+    
     options = $.extend(true, {}, defaults, options);
     var $el = $(this);
 
@@ -63,22 +70,18 @@
     // to recalculate the dimensions of our elements.
     //
 
-    var $simpleCarouselWrapper = $el.closest(".js-simple-carousel-wrapper");
-    var $simpleCarouselNavPrev = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-prev");
-    var $simpleCarousel = $simpleCarouselWrapper.closest(".js-simple-carousel");
-    var $simpleCarouselNavNext = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-next"); 
-    var $img = $el.find("img:first");
+    var elems = getElements($el);
 
-    var listHeight = $el.find("li:first").outerHeight();
-    var itemMaxWidth = $simpleCarouselWrapper.outerWidth() / options.minItems;
+    var listHeight = $(elems.listItems[0]).outerHeight();
+    var itemMaxWidth = elems.$simpleCarouselWrapper.outerWidth() / options.minItems;
     var itemWidth = parseInt(100 / options.minItems, 10);
-    var listWidth = $el.find("li").length * itemMaxWidth;
+    var listWidth = elems.listItems.length * itemMaxWidth;
 
-    $simpleCarouselNavPrev.css({
+    elems.$simpleCarouselNavPrev.css({
       "height": listHeight + "px"
     });
 
-    $simpleCarouselNavNext.css({
+    elems.$simpleCarouselNavNext.css({
       "height": listHeight + "px"
     });
 
@@ -87,7 +90,7 @@
       "width": listWidth + "px"
     });
 
-    $el.find("li").css({
+    elems.listItems.css({
       "max-width": itemMaxWidth + "px",
       "width": itemWidth + "%"
     });
@@ -98,8 +101,8 @@
     // Add event handlers
     //
 
-    $simpleCarouselNavPrev.on("click.simplecarousel", {el: $el}, navPrev_click);
-    $simpleCarouselNavNext.on("click.simplecarousel", {el: $el}, navNext_click);
+    elems.$simpleCarouselNavPrev.on("click.simplecarousel", {el: $el}, navPrev_click);
+    elems.$simpleCarouselNavNext.on("click.simplecarousel", {el: $el}, navNext_click);
 
     return $el;
   };
@@ -107,13 +110,27 @@
   // TODO: Verify that this still works!  The navigation elements have been
   // added since this was last tested.
   var destroy = function() {
+
     var $el = $(this);
+    var elems = getElements($el);
+
+    //
+    // Remove event handlers
+    //
+
+    elems.$simpleCarouselNavPrev.off("click.simplecarousel");
+    elems.$simpleCarouselNavNext.off("click.simplecarousel");
+
+    //
+    // TODO: Remove inline styles we may have added. 
+    //
 
     //
     // Remove generated content
     //
 
-    $el.closest(".js-simple-carousel-wrapper").siblings(".js-simple-carousel-nav").remove();
+    elems.$simpleCarouselNavPrev.remove();
+    elems.$simpleCarouselNavNext.remove();
 
     if ($el.parent().is(".js-simple-carousel-wrapper")) {
       $el.unwrap();
@@ -123,14 +140,13 @@
       $el.unwrap();
     }
 
-    //
-    // TODO: 
-    // 1) Remove any inline styles we may have added. 
-    // 2) Remove event handlers
-    //
-
     return $el;
   };
+
+
+  // --------------------------------------------------------------------------
+  // Event Handlers
+  // --------------------------------------------------------------------------
 
   // TODO: navPrev_click() and navNext_click() can be consolidated.  The only 
   // differences are really the exit condition and whether we decrement or 
@@ -170,6 +186,38 @@
     $el.css("margin-left", ($li.position().left * -1) + "px");
     $el.data("currentimage", currentImage);
   };
+
+
+  // --------------------------------------------------------------------------
+  // Private Methods
+  // --------------------------------------------------------------------------
+
+  /**
+   * @description Return the common element handles used in most methods.
+   * @param $el jQuery handle to original ul element that the plug-in wraps.
+   */
+  var getElements = function($el) {
+    var $simpleCarouselWrapper = $el.closest(".js-simple-carousel-wrapper");
+    var $simpleCarouselNavPrev = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-prev");
+    var $simpleCarousel = $simpleCarouselWrapper.closest(".js-simple-carousel");
+    var $simpleCarouselNavNext = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-next"); 
+    var listItems = $el.find("li");
+    var $firstImg = $el.find("img:first");   
+
+    return {
+      $simpleCarouselWrapper: $simpleCarouselWrapper,
+      $simpleCarouselNavPrev: $simpleCarouselNavPrev,
+      $simpleCarousel: $simpleCarousel,
+      $simpleCarouselNavNext: $simpleCarouselNavNext,
+      listItems: listItems,
+      $firstImg: $firstImg
+    };
+  };
+
+
+  // --------------------------------------------------------------------------
+  // Plug-in Setup Data and Methods
+  // --------------------------------------------------------------------------
 
   var methods = {
     "init": init,
