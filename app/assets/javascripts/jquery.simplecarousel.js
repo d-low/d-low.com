@@ -30,7 +30,7 @@
   // --------------------------------------------------------------------------
 
   var init = function(options) { 
-    
+
     options = $.extend(true, {}, defaults, options);
     var $el = $(this);
 
@@ -64,38 +64,14 @@
     }
 
     //
-    // Calculate and set the width of each list item and the list itself.
-    //
-    // TODO: Move this to a method so that it can be invoked on resize and used
-    // to recalculate the dimensions of our elements.
+    // Calculate and set the sizes of each list item and the list itself.
     //
 
     var elems = getElements($el);
 
-    var listHeight = $(elems.listItems[0]).outerHeight();
-    var itemMaxWidth = elems.$simpleCarouselWrapper.outerWidth() / options.minItems;
-    var itemWidth = parseInt(100 / options.minItems, 10);
-    var listWidth = elems.listItems.length * itemMaxWidth;
+    setSizes(elems, options);
 
-    elems.$simpleCarouselNavPrev.css({
-      "height": listHeight + "px"
-    });
-
-    elems.$simpleCarouselNavNext.css({
-      "height": listHeight + "px"
-    });
-
-    $el.css({
-      "height": listHeight + "px",
-      "width": listWidth + "px"
-    });
-
-    elems.listItems.css({
-      "max-width": itemMaxWidth + "px",
-      "width": itemWidth + "%"
-    });
-
-    $el.data("currentimage", 1);
+    elems.$el.data("currentimage", 1);
 
     //
     // Add event handlers
@@ -205,6 +181,7 @@
     var $firstImg = $el.find("img:first");   
 
     return {
+      $el: $el,
       $simpleCarouselWrapper: $simpleCarouselWrapper,
       $simpleCarouselNavPrev: $simpleCarouselNavPrev,
       $simpleCarousel: $simpleCarousel,
@@ -212,6 +189,37 @@
       listItems: listItems,
       $firstImg: $firstImg
     };
+  };
+
+  /**
+   * @description Set element sizes.
+   * @param elems Elements object as returned by getElements().
+   * @param options Options object as originally obtained in init().
+   */
+  var setSizes = function(elems, options) { 
+
+    var listHeight = $(elems.listItems[0]).outerHeight();
+    var itemMaxWidth = elems.$simpleCarouselWrapper.outerWidth() / options.minItems;
+    var itemWidth = parseInt(100 / options.minItems, 10);
+    var listWidth = elems.listItems.length * itemMaxWidth;
+
+    elems.$simpleCarouselNavPrev.css({
+      "height": listHeight + "px"
+    });
+
+    elems.$simpleCarouselNavNext.css({
+      "height": listHeight + "px"
+    });
+
+    elems.$el.css({
+      "height": listHeight + "px",
+      "width": listWidth + "px"
+    });
+
+    elems.listItems.css({
+      "max-width": itemMaxWidth + "px",
+      "width": itemWidth + "%"
+    });
   };
 
 
