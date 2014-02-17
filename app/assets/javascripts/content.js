@@ -19,8 +19,7 @@ window.dlow.content = {
       });
     });
 
-    // TODO: Use jquery.contenttoggle plugin
-    $(".js-post-content-toggle").on("click", $.proxy(this.contentToggle_click, this));
+    $(".js-post-content-togglable").contenttoggle({collapsedHeight: 150});
 
     // TODO: Wire up functionality to create new list of larger images, apply
     // the carousel, fade in the shim, and then scale in the images; once the
@@ -55,40 +54,10 @@ window.dlow.content = {
   // --------------------------------------------------------------------------
 
   /**
-   * @description Collapse/expand the corresponding post content.  Afer
-   * collapsing the post content we then scroll the top of the post back into 
-   * view with 10px of padding to it isn't flush with the top of the screen.
-   */
-  contentToggle_click: function(e) {
-
-    e.preventDefault();
-
-    var $postContentToggle = $(e.target).closest(".js-post-content-toggle");
-    var $postContent = $postContentToggle.closest(".js-post").find(".js-post-content");
-
-    if ($postContent.hasClass("collapsed")) {
-      $postContent.removeClass("collapsed");
-      $postContentToggle.html("Show Less");
-    }
-    else {
-      var $post = $postContent.closest(".js-post");
-
-      $postContent.on(
-        "transitionend webkitTransitionEnd oTransitionEnd otransitionend",
-        function() { 
-          $postContent.off("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
-          dlow.scrollUpTo($post.offset().top - 40);
-        }
-      );
-
-      $postContent.addClass("collapsed");
-      $postContentToggle.html("Read More");
-    }
-  },
-
-  /**
    * @description When a post image is clicked on clone the list and scale it
    * in to view ensuring the post image that was clicked on is displayed.
+   * TODO: Refactor this method to work with jquery.simplecarousel instead of
+   * elastislide.
    */
   postImageLink_click: function(e) {
 

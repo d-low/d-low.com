@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.lazyload
 //= require jquery.simplecarousel
+//= require jquery.contenttoggle
 //= require dlow
 //= require home
 //= require content

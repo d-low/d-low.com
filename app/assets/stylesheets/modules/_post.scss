@@ -9,24 +9,8 @@
 }
 
 .post-content {
-
-  /* 
-   * We transition on the max height so that we don't have to set an explicit
-   * height on the post content.  Although, we could transition on the height 
-   * since we have JS set the max-height of the post content using an inline
-   * style, but I guess using max-height and large default value is nice if for
-   * what ever reason we can't set the height properly.  Note that we resort to
-   * using an "!important" below to trump the inline style when collapsed.
-   */
-
-  max-height: 10000px;
-  overflow: hidden;
-  @include transition(max-height 1s ease 0s);
-
-  &.collapsed {
-    max-height: 150px !important;
-  }
-
+  margin-bottom: 1rem;
+  
   .post-content-subtitle,
   b:first-child {
     display: block;
@@ -35,20 +19,6 @@
     font-weight: normal;
     line-height: 1.75rem;
     text-align: center;
-  }
-}
-
-.post-content-toggle {
-  display: block;
-  color: $almost_black;
-  font-weight: bold;
-  margin: 0.5rem 0 1rem 0;
-  text-align: center;
-  text-decoration: underline;
-
-  &:hover, 
-  &:focus {
-    color: darken($almost_black, 15%);
   }
 }
 
