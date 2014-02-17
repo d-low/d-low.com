@@ -8,9 +8,8 @@
  * @param showNavigation If set to true then show traditional links to navigate
  * forward and backward in the list.
  * TODO:
- * 1) Handle resize event with respect to minItems and maxItems parameters.
- * 2) Lazy load images if requested, or by default (TBD).
- * 3) Handle swip navigation if requested, or by default if supported, using 
+ * 1) Lazy load images if requested, or by default (TBD).
+ * 2) Handle swip navigation if requested, or by default if supported, using 
  * swipe.js.
  */
 (function($) {
@@ -22,6 +21,8 @@
     maxItems: null,
     showNavigation: true
   };
+
+  var resizeTimeout = null;
 
 
   // --------------------------------------------------------------------------
@@ -70,12 +71,13 @@
 
     setSizes(elems, options);
 
-    elems.$el.data("currentimage", 1);
+    elems.$el.data("currentimage", 0);
 
     //
     // Add event handlers
     //
 
+    $(window).on("resize.simplecarousel", {el: $el, options: options}, window_resize);
     elems.$simpleCarouselNavPrev.on("click.simplecarousel", {el: $el}, navPrev_click);
     elems.$simpleCarouselNavNext.on("click.simplecarousel", {el: $el}, navNext_click);
 
@@ -93,6 +95,7 @@
     // Remove event handlers
     //
 
+    $(window).off("resize.simplecarousel");
     elems.$simpleCarouselNavPrev.off("click.simplecarousel");
     elems.$simpleCarouselNavNext.off("click.simplecarousel");
 
@@ -123,6 +126,24 @@
   // Event Handlers
   // --------------------------------------------------------------------------
 
+  /** 
+   * @description Set timeouts to catch the final window resize event and when
+   * the final one is caught re-set the sizes of our elements and scroll back 
+   * to the current image.
+   */
+  var window_resize = function(e) { 
+
+    window.clearTimeout(resizeTimeout);
+
+    resizeTimeout = window.setTimeout(function() { 
+      var $el = e.data.el;
+      var elems = getElements($el);
+
+      setSizes(elems, e.data.options);
+      scrollToCurrentImage($el);
+    }, 150);
+  };
+
   // TODO: navPrev_click() and navNext_click() can be consolidated.  The only 
   // differences are really the exit condition and whether we decrement or 
   // increment the current image.
@@ -132,16 +153,14 @@
     var $el = e.data.el;
     var currentImage = $el.data("currentimage");
 
-    if (currentImage == 1) {
+    if (currentImage == 0) {
       return;
     }
 
     currentImage = currentImage - 1;
+    $el.data("currentimage", currentImage)
 
-    var $li = $el.find("li:nth-child(" + currentImage + ")");
-
-    $el.css("margin-left", ($li.position().left * -1) + "px");
-    $el.data("currentimage", currentImage);
+    scrollToCurrentImage($el);
   };
 
   var navNext_click = function(e) {
@@ -149,17 +168,16 @@
 
     var $el = e.data.el;
     var currentImage = $el.data("currentimage");
+    var elems = getElements($el);
 
-    if (currentImage == $el.find("li").length) {
+    if (currentImage == elems.listItems.length - 1) {
       return;
     } 
 
     currentImage = currentImage + 1;
+    $el.data("currentimage", currentImage)
 
-    var $li = $el.find("li:nth-child(" + currentImage  + ")");
-
-    $el.css("margin-left", ($li.position().left * -1) + "px");
-    $el.data("currentimage", currentImage);
+    scrollToCurrentImage($el);
   };
 
 
@@ -240,6 +258,17 @@
       "max-width": itemMaxWidth + "px",
       "width": itemWidth + "%"
     });
+  };
+
+  /**
+   * @description Set the margin left of the unordered list to scroll the
+   * current image into view.
+   */
+  var scrollToCurrentImage = function($el) {
+    var elems = getElements($el);
+    var currentImage = elems.$el.data("currentimage");
+    var $li = $(elems.listItems[currentImage]);
+    elems.$el.css("margin-left", ($li.position().left * -1) + "px");
   };
 
 
