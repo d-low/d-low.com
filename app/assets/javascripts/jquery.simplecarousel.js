@@ -12,7 +12,6 @@
  * 2) Lazy load images if requested, or by default (TBD).
  * 3) Handle swip navigation if requested, or by default if supported, using 
  * swipe.js.
- * 4) Determine and use max number of images too!
  */
 (function($) {
 
@@ -198,10 +197,31 @@
    */
   var setSizes = function(elems, options) { 
 
+    //
+    // We may be able to fit more items in the carousel wrapper than requested
+    // so if that's the case, we'll do so!
+    //
+
+    var carouselWrapperWidth = elems.$simpleCarouselWrapper.outerWidth();
+    var firstImgWidth = elems.$firstImg.outerWidth();
+    var minItems = parseInt(carouselWrapperWidth / firstImgWidth, 10);
+
+    minItems = minItems > options.minItems ? minItems : options.minItems;
+
+    //
+    // Calculate the list height, max width in pixels of each list item, the
+    // list item width as a percentage, and the list width as a function of the
+    // number of list items and list item max width.
+    //
+
     var listHeight = $(elems.listItems[0]).outerHeight();
-    var itemMaxWidth = elems.$simpleCarouselWrapper.outerWidth() / options.minItems;
-    var itemWidth = parseInt(100 / options.minItems, 10);
+    var itemMaxWidth = elems.$simpleCarouselWrapper.outerWidth() / minItems;
+    var itemWidth = parseInt(100 / minItems, 10);
     var listWidth = elems.listItems.length * itemMaxWidth;
+
+    //
+    // Set heights, max-widths, and widths.
+    //
 
     elems.$simpleCarouselNavPrev.css({
       "height": listHeight + "px"
