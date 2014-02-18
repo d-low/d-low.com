@@ -6,6 +6,8 @@
  * 1) Lazy load images if requested, or by default (TBD).
  * 2) Handle swipe navigation if requested, or by default if supported, using 
  * swipe.js.
+ * 3) Enable/disable navigation buttons when on first/last image.
+ * 4) Don't navigate further if last image is fully visible.
  */
 (function($) {
 
@@ -253,6 +255,13 @@
   $.SimpleCarousel.prototype._scrollToCurrentImage = function() {
     var $li = $(this.elems.listItems[this.currentImage]);
     this.$el.css("margin-left", ($li.position().left * -1) + "px");
+  };
+  
+
+  var logError = function(message) {
+    if (window.console) {
+      window.console.error(message);
+    }
   };
 
 
