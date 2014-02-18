@@ -105,8 +105,12 @@
     this.elems.$simpleCarouselNavNext.off("click." + pluginName);
 
     //
-    // TODO: Remove inline styles we may have added. 
+    // Remove inline styles and data we've added. 
     //
+
+    this.$el.removeAttr("style");
+    this.$el.removeData(pluginName);
+    this.elems.listItems.removeAttr("style");
 
     //
     // Remove generated content
