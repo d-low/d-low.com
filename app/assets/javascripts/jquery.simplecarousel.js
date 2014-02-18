@@ -1,52 +1,54 @@
 /**
  * @description A simple responsive carousel plug-in that uses CSS3 transitions
  * for navigation.  The plug-in should be passed a handle to a single unordered 
- * list with each list item containing an image.  The plug-in can be 
- * parameterized as follows:
- * @param minItems The minimum number of items to show.  Show more if possible.
- * @param maxItems The maximum number of items to show.  Show no more than this.
- * @param showNavigation If set to true then show traditional links to navigate
- * forward and backward in the list.
+ * list with each list item containing an image.  
  * TODO:
  * 1) Lazy load images if requested, or by default (TBD).
- * 2) Handle swip navigation if requested, or by default if supported, using 
+ * 2) Handle swipe navigation if requested, or by default if supported, using 
  * swipe.js.
  */
 (function($) {
 
-  var pluginName = "jQuery.simplecarousel";
+  var pluginName = "simplecarousel";
 
-  var defaults = {
+  $.SimpleCarousel = function(options, element) { 
+    this.$el = $(element);
+
+    this.currentImage = 0;
+    this.elems = null;
+    this.resizeTimeout = null;
+
+    this.init(options);
+  };
+
+  $.SimpleCarousel.defaults = {
     minItems: 1,
     maxItems: null,
     showNavigation: true
   };
-
-  var resizeTimeout = null;
 
 
   // --------------------------------------------------------------------------
   // Public Methods
   // --------------------------------------------------------------------------
 
-  var init = function(options) { 
+  $.SimpleCarousel.prototype.init = function(options) { 
 
-    options = $.extend(true, {}, defaults, options);
-    var $el = $(this);
+    this.options = $.extend(true, {}, $.SimpleCarousel.defaults, options);
 
     //
     // Add generated content and optional navigation
     //
 
-    $el.wrap([
+    this.$el.wrap([
       '<div class="simple-carousel js-simple-carousel">',
         '<div class="simple-carousel-wrapper js-simple-carousel-wrapper">',
         '</div>',
       '</div>'
     ].join(''));
 
-    if (options.showNavigation) {
-      $el.closest(".js-simple-carousel").prepend([
+    if (this.options.showNavigation) {
+      this.$el.closest(".js-simple-carousel").prepend([
         '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-prev js-simple-carousel-nav-prev" href="javascript:void(0);">',
           '<span>',
             '&lt;',
@@ -54,7 +56,7 @@
         '</a>'
       ].join(''));
 
-      $el.closest(".js-simple-carousel").append([
+      this.$el.closest(".js-simple-carousel").append([
         '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-next js-simple-carousel-nav-next" href="javascript:void(0);">',
           '<span>',
             '&gt;',
@@ -67,37 +69,40 @@
     // Calculate and set the sizes of each list item and the list itself.
     //
 
-    var elems = getElements($el);
-
-    setSizes(elems, options);
-
-    elems.$el.data("currentimage", 0);
+    this._getElements();
+    this._setSizes();
 
     //
     // Add event handlers
     //
 
-    $(window).on("resize.simplecarousel", {el: $el, options: options}, window_resize);
-    elems.$simpleCarouselNavPrev.on("click.simplecarousel", {el: $el}, navPrev_click);
-    elems.$simpleCarouselNavNext.on("click.simplecarousel", {el: $el}, navNext_click);
+    $(window).on(
+      "resize." + pluginName, 
+      $.proxy(this._window_resize, this)
+    );
 
-    return $el;
+    this.elems.$simpleCarouselNavPrev.on(
+      "click." + pluginName, 
+      $.proxy(this._navPrev_click, this)
+    );
+
+    this.elems.$simpleCarouselNavNext.on(
+      "click." + pluginName, 
+      $.proxy(this._navNext_click, this)
+    );
   };
 
   // TODO: Verify that this still works!  The navigation elements have been
   // added since this was last tested.
-  var destroy = function() {
-
-    var $el = $(this);
-    var elems = getElements($el);
+  $.SimpleCarousel.prototype.destroy = function() {
 
     //
     // Remove event handlers
     //
 
-    $(window).off("resize.simplecarousel");
-    elems.$simpleCarouselNavPrev.off("click.simplecarousel");
-    elems.$simpleCarouselNavNext.off("click.simplecarousel");
+    $(window).off("resize." + pluginName);
+    this.elems.$simpleCarouselNavPrev.off("click." + pluginName);
+    this.elems.$simpleCarouselNavNext.off("click." + pluginName);
 
     //
     // TODO: Remove inline styles we may have added. 
@@ -107,18 +112,16 @@
     // Remove generated content
     //
 
-    elems.$simpleCarouselNavPrev.remove();
-    elems.$simpleCarouselNavNext.remove();
+    this.elems.$simpleCarouselNavPrev.remove();
+    this.elems.$simpleCarouselNavNext.remove();
 
-    if ($el.parent().is(".js-simple-carousel-wrapper")) {
-      $el.unwrap();
+    if (this.$el.parent().is(".js-simple-carousel-wrapper")) {
+      this.$el.unwrap();
     }
 
-    if ($el.parent().is(".js-simple-carousel")) {
-      $el.unwrap();
+    if (this.$el.parent().is(".js-simple-carousel")) {
+      this.$el.unwrap();
     }
-
-    return $el;
   };
 
 
@@ -131,53 +134,36 @@
    * the final one is caught re-set the sizes of our elements and scroll back 
    * to the current image.
    */
-  var window_resize = function(e) { 
-
-    window.clearTimeout(resizeTimeout);
-
-    resizeTimeout = window.setTimeout(function() { 
-      var $el = e.data.el;
-      var elems = getElements($el);
-
-      setSizes(elems, e.data.options);
-      scrollToCurrentImage($el);
-    }, 150);
+  $.SimpleCarousel.prototype._window_resize = function(e) { 
+    window.clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = window.setTimeout($.proxy(this._handle_resize, this), 150);
   };
 
-  // TODO: navPrev_click() and navNext_click() can be consolidated.  The only 
-  // differences are really the exit condition and whether we decrement or 
-  // increment the current image.
-  var navPrev_click = function(e) { 
+  $.SimpleCarousel.prototype._handle_resize = function() {
+    this._setSizes();
+    this._scrollToCurrentImage();
+  };
+
+  $.SimpleCarousel.prototype._navPrev_click = function(e) { 
     e.preventDefault();
 
-    var $el = e.data.el;
-    var currentImage = $el.data("currentimage");
-
-    if (currentImage == 0) {
+    if (this.currentImage == 0) {
       return;
     }
 
-    currentImage = currentImage - 1;
-    $el.data("currentimage", currentImage)
-
-    scrollToCurrentImage($el);
+    this.currentImage -= 1;
+    this._scrollToCurrentImage();
   };
 
-  var navNext_click = function(e) {
+  $.SimpleCarousel.prototype._navNext_click = function(e) {
     e.preventDefault();
 
-    var $el = e.data.el;
-    var currentImage = $el.data("currentimage");
-    var elems = getElements($el);
-
-    if (currentImage == elems.listItems.length - 1) {
+    if (this.currentImage == this.elems.listItems.length - 1) {
       return;
     } 
 
-    currentImage = currentImage + 1;
-    $el.data("currentimage", currentImage)
-
-    scrollToCurrentImage($el);
+    this.currentImage += 1;
+    this._scrollToCurrentImage();
   };
 
 
@@ -187,18 +173,16 @@
 
   /**
    * @description Return the common element handles used in most methods.
-   * @param $el jQuery handle to original ul element that the plug-in wraps.
    */
-  var getElements = function($el) {
-    var $simpleCarouselWrapper = $el.closest(".js-simple-carousel-wrapper");
+  $.SimpleCarousel.prototype._getElements = function() {
+    var $simpleCarouselWrapper = this.$el.closest(".js-simple-carousel-wrapper");
     var $simpleCarouselNavPrev = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-prev");
     var $simpleCarousel = $simpleCarouselWrapper.closest(".js-simple-carousel");
     var $simpleCarouselNavNext = $simpleCarouselWrapper.siblings(".js-simple-carousel-nav-next"); 
-    var listItems = $el.find("li");
-    var $firstImg = $el.find("img:first");   
+    var listItems = this.$el.find("li");
+    var $firstImg = this.$el.find("img:first");   
 
-    return {
-      $el: $el,
+    this.elems = {
       $simpleCarouselWrapper: $simpleCarouselWrapper,
       $simpleCarouselNavPrev: $simpleCarouselNavPrev,
       $simpleCarousel: $simpleCarousel,
@@ -210,21 +194,19 @@
 
   /**
    * @description Set element sizes.
-   * @param elems Elements object as returned by getElements().
-   * @param options Options object as originally obtained in init().
    */
-  var setSizes = function(elems, options) { 
+  $.SimpleCarousel.prototype._setSizes = function() { 
 
     //
     // We may be able to fit more items in the carousel wrapper than requested
     // so if that's the case, we'll do so!
     //
 
-    var carouselWrapperWidth = elems.$simpleCarouselWrapper.outerWidth();
-    var firstImgWidth = elems.$firstImg.outerWidth();
+    var carouselWrapperWidth = this.elems.$simpleCarouselWrapper.outerWidth();
+    var firstImgWidth = this.elems.$firstImg.outerWidth();
     var minItems = parseInt(carouselWrapperWidth / firstImgWidth, 10);
 
-    minItems = minItems > options.minItems ? minItems : options.minItems;
+    minItems = minItems > this.options.minItems ? minItems : this.options.minItems;
 
     //
     // Calculate the list height, max width in pixels of each list item, the
@@ -232,29 +214,29 @@
     // number of list items and list item max width.
     //
 
-    var listHeight = $(elems.listItems[0]).outerHeight();
-    var itemMaxWidth = elems.$simpleCarouselWrapper.outerWidth() / minItems;
+    var listHeight = $(this.elems.listItems[0]).outerHeight();
+    var itemMaxWidth = this.elems.$simpleCarouselWrapper.outerWidth() / minItems;
     var itemWidth = parseInt(100 / minItems, 10);
-    var listWidth = elems.listItems.length * itemMaxWidth;
+    var listWidth = this.elems.listItems.length * itemMaxWidth;
 
     //
     // Set heights, max-widths, and widths.
     //
 
-    elems.$simpleCarouselNavPrev.css({
+    this.elems.$simpleCarouselNavPrev.css({
       "height": listHeight + "px"
     });
 
-    elems.$simpleCarouselNavNext.css({
+    this.elems.$simpleCarouselNavNext.css({
       "height": listHeight + "px"
     });
 
-    elems.$el.css({
+    this.$el.css({
       "height": listHeight + "px",
       "width": listWidth + "px"
     });
 
-    elems.listItems.css({
+    this.elems.listItems.css({
       "max-width": itemMaxWidth + "px",
       "width": itemWidth + "%"
     });
@@ -264,33 +246,56 @@
    * @description Set the margin left of the unordered list to scroll the
    * current image into view.
    */
-  var scrollToCurrentImage = function($el) {
-    var elems = getElements($el);
-    var currentImage = elems.$el.data("currentimage");
-    var $li = $(elems.listItems[currentImage]);
-    elems.$el.css("margin-left", ($li.position().left * -1) + "px");
+  $.SimpleCarousel.prototype._scrollToCurrentImage = function() {
+    var $li = $(this.elems.listItems[this.currentImage]);
+    this.$el.css("margin-left", ($li.position().left * -1) + "px");
   };
 
 
   // --------------------------------------------------------------------------
-  // Plug-in Setup Data and Methods
+  // Plug In Definition
   // --------------------------------------------------------------------------
 
-  var methods = {
-    "init": init,
-    "destroy": destroy
-  };
+  $.fn.simplecarousel = function(options) {
 
-  $.fn.simplecarousel = function(method) {
-    if (methods[method]) {
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    }
-    else if (typeof method === "object" || !method) {
-      return methods.init.apply(this, arguments);
+    if (typeof options === 'string') {
+      var args = Array.prototype.slice.call(arguments, 1);
+
+      this.each(function() {
+        var self = $.data(this, pluginName);
+        
+        if (!self) {
+          logError(
+            "Cannot call methods on " + pluginName + " " +
+            "prior to initialization; " +
+            "attempted to call method '" + options + "'" 
+          );
+          return;
+        }
+
+        if (!$.isFunction(self[options]) || options.charAt(0) === "_" ) {
+          logError("No such method '" + options + "' for " + pluginName);
+          return;
+        }
+
+        self[options].apply(self, args);  
+      });
     }
     else {
-      $.error("Method " + method + " does not exist on " + pluginName + ".");
-    } 
+      this.each(function() {
+        var self = $.data(this, pluginName);
+
+        if (self) {
+          self.init();
+        }
+        else {
+          self = $.data(this, pluginName, new $.SimpleCarousel(options, this));
+        }
+
+      });
+    }
+
+    return this;
   };
 
 })(jQuery);
