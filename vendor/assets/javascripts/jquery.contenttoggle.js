@@ -6,6 +6,9 @@
  * that is hidden.  This plug-in requires styles in the the contenttoggle 
  * style sheet.
  * @see http://www.amazon.com/dp/B003F3PKUE
+ * TODO: 
+ * 1) Wire up handleResize so that callers can chose to resize all instances
+ * themselves.
  */
 (function($) {
 
@@ -22,6 +25,7 @@
     collapsedHeight: 200,
     collapseText: "Show Less",
     expandText: "Show More",
+    handleResize: true
   };
 
 
