@@ -10,42 +10,28 @@ window.dlow.content = {
   initialize: function() {
 
     //
-    // Event handlers
+    // Apply plug-ins
     //
 
-    $(".js-post-images").each(function() {
-      $(this).simplecarousel({
-        minItems: 2
-      });
+    $(".js-post-images").simplecarousel({
+      minItems: 2,
+      showNavigation: true
     });
 
-    $(".js-post-content-togglable").contenttoggle({collapsedHeight: 150});
+    $(".js-post-content-togglable").contenttoggle({
+      collapsedHeight: 150,
+      collapseText: "Show Less",
+      expandText: "Read More",
+    });
 
+    //
+    // Event handlers
+    //
+    
     // TODO: Wire up functionality to create new list of larger images, apply
     // the carousel, fade in the shim, and then scale in the images; once the
     // basic plug-in works.
     // $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
-
-    //
-    // Miscellaneous initializations
-    // TODO: This will be removed when we use the jquery.contenttoggle plug-in.
-    //
-
-    this.initPostContentMaxHeight();
-  },
-
-  /**
-   * @description Set the max height of all post content elements to the height
-   * of their event containers to allow for a more realistic max height 
-   * transition when expanding/collapsing post content.  
-   */
-  initPostContentMaxHeight: function() {
-
-    $(".eventContainer").each(function() {
-      var $eventContainer = $(this);
-      var $postContent = $eventContainer.closest(".js-post-content");
-      $postContent.css("max-height", $eventContainer.height() + "px");
-    })
   },
 
 
