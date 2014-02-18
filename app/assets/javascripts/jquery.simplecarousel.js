@@ -3,7 +3,9 @@
  * for navigation.  The plug-in should be passed a handle to a single unordered 
  * list with each list item containing an image.  
  * TODO:
- * 1) Lazy load images if requested, or by default (TBD).
+ * 1) Lazy load images if requested, or by default (TBD), or should the caller
+ * be responsible for layzing loading the images and THEN calling us? Or just
+ * use: https://github.com/desandro/imagesloaded and then call init()
  * 2) Handle swipe navigation if requested, or by default if supported, using 
  * swipe.js.
  * 3) Enable/disable navigation buttons when on first/last image.
@@ -37,6 +39,10 @@
   $.SimpleCarousel.prototype.init = function(options) { 
 
     this.options = $.extend(true, {}, $.SimpleCarousel.defaults, options);
+
+    // Get the original sizes before wrapping the content since they may change 
+    // after being wrapped.
+    this._getOriginalSizes();
 
     //
     // Add generated content and optional navigation
@@ -199,6 +205,18 @@
   };
 
   /**
+   * @description Get the width of the first image and the height of the first
+   * list item prior to wrapping the <ul> since the sizes of wrapped content 
+   * may changed.
+   */
+  $.SimpleCarousel.prototype._getOriginalSizes = function() { 
+    var $firstLi = this.$el.find("li:first");
+
+    this.listHeight = $firstLi.outerHeight();
+    this.firstImgWidth = $firstLi.find("img").outerWidth();
+  };
+
+  /**
    * @description Set element sizes.
    */
   $.SimpleCarousel.prototype._setSizes = function() { 
@@ -209,7 +227,7 @@
     //
 
     var carouselWrapperWidth = this.elems.$simpleCarouselWrapper.outerWidth();
-    var firstImgWidth = this.elems.$firstImg.outerWidth();
+    var firstImgWidth = this.firstImgWidth || this.elems.$firstImg.outerWidth();
     var minItems = parseInt(carouselWrapperWidth / firstImgWidth, 10);
 
     minItems = minItems > this.options.minItems ? minItems : this.options.minItems;
@@ -220,7 +238,7 @@
     // number of list items and list item max width.
     //
 
-    var listHeight = $(this.elems.listItems[0]).outerHeight();
+    var listHeight = this.listHeight || $(this.elems.listItems[0]).outerHeight();
     var itemMaxWidth = this.elems.$simpleCarouselWrapper.outerWidth() / minItems;
     var itemWidth = parseInt(100 / minItems, 10);
     var listWidth = this.elems.listItems.length * itemMaxWidth;
@@ -256,7 +274,7 @@
     var $li = $(this.elems.listItems[this.currentImage]);
     this.$el.css("margin-left", ($li.position().left * -1) + "px");
   };
-  
+
 
   var logError = function(message) {
     if (window.console) {
