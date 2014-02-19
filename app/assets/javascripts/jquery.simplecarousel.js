@@ -22,7 +22,14 @@
     this.elems = null;
     this.resizeTimeout = null;
 
-    this.init(options);
+    if (typeof($().imagesLoaded) === 'function') {
+      this.$el.imagesLoaded(
+        $.proxy(function() { this.init(options); }, this)
+      );
+    }
+    else {
+      this.init(options);
+    }
   };
 
   $.SimpleCarousel.defaults = {

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require imagesloaded.pkgd
 //= require jquery.lazyload
 //= require jquery.simplecarousel
 //= require jquery.contenttoggle
