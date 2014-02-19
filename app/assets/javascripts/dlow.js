@@ -95,7 +95,7 @@ window.dlow = {
     immediateImages.lazyload({ event: "lazyload" });
     window.setTimeout(function() { immediateImages.trigger("lazyload"); }, 1000); 
 
-    // TODO: Apply plug-in to load other images when scrolled into view.
+    // TBD: Apply plug-in to load other images when scrolled into view.
   },
 
 

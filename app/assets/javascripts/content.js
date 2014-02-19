@@ -10,12 +10,26 @@ window.dlow.content = {
   initialize: function() {
 
     //
-    // Apply plug-ins
+    // Lazy load the images that are 200px below the fold and one the first one
+    // is loaded intialize the simple carousel plug-in if not already initialized.
     //
 
-    $(".js-post-images").simplecarousel({
-      minItems: 2,
-      showNavigation: true
+    var fSimpleCarousel = function($postImages) {
+      if (! $postImages.data("simplecarousel")) {
+        $postImages.simplecarousel({
+          minItems: 2,
+          showNavigation: true
+        });
+      }
+    };
+
+    $(".js-post-images").each(function() {
+      var $postImages = $(this);
+
+      $postImages.find("img.js-lazy-load").lazyload({
+        load: function() { fSimpleCarousel($postImages); },
+        threshold: 200
+      });
     });
 
     $(".js-post-content-togglable").contenttoggle({

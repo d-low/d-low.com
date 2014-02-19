@@ -28,7 +28,7 @@
       );
     }
     else {
-      this.init(options);
+     this.init(options);
     }
   };
 

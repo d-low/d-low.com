@@ -11,9 +11,10 @@ section.post.js-post.content-item-container
           data-itemnum=post.images.index(image)
           href=javascript_anchor_href]
           img[alt=image.caption
-              class="post-image js-post-image"
+              class="post-image js-lazy-load"
               title=image.caption
-              src=custom_image_path(image.relative_thumbnail_path)
+              src=asset_path('blank.gif')
+              data-original=custom_image_path(image.relative_thumbnail_path)
               data-largeimage=custom_image_path(image.relative_path)]
           span.post-image-caption
             = image.caption
