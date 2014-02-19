@@ -141,6 +141,8 @@
     if (this.$el.parent().is(".js-simple-carousel")) {
       this.$el.unwrap();
     }
+
+    this.$el.removeData(pluginName);
   };
 
 
@@ -337,3 +339,4 @@
   };
 
 })(jQuery);
+
