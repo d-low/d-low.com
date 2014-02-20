@@ -35,7 +35,8 @@
   $.SimpleCarousel.defaults = {
     minItems: 1,
     maxItems: null,
-    showNavigation: true
+    showNavigation: true,
+    onload: function($el) { return; }
   };
 
 
@@ -105,6 +106,13 @@
       "click." + pluginName, 
       $.proxy(this._navNext_click, this)
     );
+
+    //
+    // And inform the caller that we're done.  Note that the caller can choose
+    // not to specify an onload handler, but we have a stub in our options.
+    //
+
+    this.options.onload(this.$el);
   };
 
   // TODO: Verify that this still works!  The navigation elements have been
@@ -217,6 +225,8 @@
    * @description Get the width of the first image and the height of the first
    * list item prior to wrapping the <ul> since the sizes of wrapped content 
    * may changed.
+   * TODO: We should find the largest image, and then use the height of that
+   * for the list height!
    */
   $.SimpleCarousel.prototype._getOriginalSizes = function() { 
     var $firstLi = this.$el.find("li:first");
@@ -229,6 +239,8 @@
    * @description Set element sizes.
    */
   $.SimpleCarousel.prototype._setSizes = function() { 
+
+    // TODO: Need to wire up max items.
 
     //
     // We may be able to fit more items in the carousel wrapper than requested

@@ -45,10 +45,7 @@ window.dlow.content = {
     // Event handlers
     //
     
-    // TODO: Wire up functionality to create new list of larger images, apply
-    // the carousel, fade in the shim, and then scale in the images; once the
-    // basic plug-in works.
-    // $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
+    $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
   },
 
 
@@ -77,9 +74,11 @@ window.dlow.content = {
       var listItems = [];
 
       $postImages.find(".js-post-image").each(function() { 
+        var $img = $(this);
+
         listItems.push([
           '<li>',
-            '<img class="img-responsive" src="' + $(this).data("largeimage") + '" />', 
+            '<img class="img-responsive" src="' + $img.data("largeimage") + '" />', 
           '</li>'
         ].join(''));
       });
@@ -87,90 +86,48 @@ window.dlow.content = {
       return listItems.join('');
     };
 
-    var $elastislideWrapper = null;
-    var $postImagesZoom = $([
-      '<div class="post-images-zoom fade-out" ' + 
-        'style="height: ' + $(window).height() + 'px; top: ' + $(window).scrollTop() + 'px;">',
-        '<ul>',
+    var $postImagesZoomWrapper = $([
+      '<div class="post-images-zoom-wrapper" style="height: ' + $("body").height() + 'px;">',
+        '<ul class="post-images-zoom js-post-images-zoom not-visible">',
           fRenderListItems(),
         '</ul>',
       '</div'
     ].join(''));
 
     //
-    // When the elastislide remove link is clicked we slide the elastislide
-    // wrapper up, then remove the plug-in from the list, then fade out the 
-    // post images zoom shim, and remove it.
-    //
-    // TODO: 
-    //
-    // 1) All these nested functions are a bit messy, should they be broke
-    // out into individual functions?
-    //
-
-    var fElastislideRemove = function(e) {
-      e.preventDefault();
-
-      $elastislideWrapper.one(
-        "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
-        function() {
-          $postImagesZoom.find("ul").elastislide("destroy");
-
-          $postImagesZoom.one(
-            "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
-            function() {
-              window.setTimeout(function() { $postImagesZoom.remove(); }, 100);
-            }
-          );
-
-          $postImagesZoom.removeClass("fade-in");
-        }
-      );
-
-      $elastislideWrapper.addClass("slide-up");
-    };
-
-    //
-    // Fade in the post images zoom container and then scale in the elastislide
-    // wrapper.  Note that the elastislide wrapper is intially rendered with 
-    // opacity of zero so that elements are sized properly, but not visible.  
-    //
-
-    var fOnReady = function() {
-      $postImagesZoom.one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
-        $elastislideWrapper = $postImagesZoom.find(".elastislide-wrapper");
-
-        $elastislideWrapper.append(
-          '<a class="elastislide-remove js-elastislide-remove" href="javascript:void(0);">x</a>'
-        );
-
-        $elastislideWrapper.one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", function() {
-          $elastislideWrapper.addClass("scale-in");
-          $elastislideWrapper.find(".js-elastislide-remove").on("click", fElastislideRemove);
-        });
-
-        $elastislideWrapper.addClass("scale-out");
-      });
-
-      $postImagesZoom.addClass("fade-in");
-    };
-
-    //
     // Add the large post images element to the DOM and intialize the plug-in.
     //
 
-    $postImagesZoom.height(
-      $("body").outerHeight()
-    );
+    $("body").append($postImagesZoomWrapper);
 
-    $("body").append($postImagesZoom);
+    window.setTimeout(function() { 
+      $postImagesZoomWrapper.addClass("fade-in");
+    }, 100);
 
-    $postImagesZoom.find("ul").elastislide({
-      easing: 'ease',
-      minItems: 1,
-      speed: 750,
-      start: $postImage.data("itemnum"),
-      onReady: fOnReady
+    //
+    // Apply the simple carousel plug-in to the post images zoom, and once its
+    // loaded add the scale out class, then remove the not-visible-class, and 
+    // then add the scale in class.
+    //
+
+    var $postImagesZoom = $postImagesZoomWrapper.find(".js-post-images-zoom");
+
+    var fSimpleCarousel_load = function() {
+      var $simpleCarousel = $postImagesZoom.closest(".js-simple-carousel");
+
+      $simpleCarousel.one(
+        "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+        function() { 
+          $simpleCarousel.removeClass("not-visible").addClass("scale-in");
+        }
+      );
+      $simpleCarousel.addClass("scale-out").removeClass("not-visible");
+    };
+
+    $postImagesZoom.simplecarousel({
+      maxItems: 1,
+      showNavigation: true,
+      onload: fSimpleCarousel_load
     });
   }
 };
