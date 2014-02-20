@@ -27,8 +27,11 @@ window.dlow.content = {
       var $postImages = $(this);
 
       $postImages.find("img.js-lazy-load").lazyload({
-        load: function() { fSimpleCarousel($postImages); },
-        threshold: 200
+        load: function() { 
+          $postImages.removeClass("uninitialized");
+          fSimpleCarousel($postImages); 
+        },
+        threshold: 400
       });
     });
 

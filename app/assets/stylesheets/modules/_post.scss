@@ -28,6 +28,15 @@
   vertical-align: middle;
 }
 
+.post-images {
+  &.uninitialized {
+    .post-image-container {
+      line-height: 0;
+      height: 0;
+    }
+  }
+}
+
 .post-image { 
   margin: 0 auto;
 }

@@ -4,7 +4,7 @@ section.post.js-post.content-item-container
   div.post-content
     div.js-post-content-togglable
       = post.content.html_safe
-  ul.post-images.js-post-images
+  ul.post-images.js-post-images.list-unstyled.uninitialized
     - for image in post.images do
       li.post-image-container
         a[class="js-post-image-link"
