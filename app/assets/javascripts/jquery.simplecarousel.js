@@ -33,8 +33,9 @@
   };
 
   $.SimpleCarousel.defaults = {
-    minItems: 1,
+    carouselContentsHeight: null,
     maxItems: null,
+    minItems: 1,
     showNavigation: true,
     onload: function($el) { return; }
   };
@@ -265,19 +266,35 @@
     var listWidth = this.elems.listItems.length * itemMaxWidth;
 
     //
+    // Use carousel contents height specified by caller if available
+    //
+
+    if (this.options.carouselContentsHeight) {
+      listHeight = this.options.carouselContentsHeight;
+    }
+    else {
+      listHeight = listHeight + "px";
+    }
+    //
     // Set heights, max-widths, and widths.
     //
 
+    if (this.options.carouselContentsHeight) {
+      this.elems.$simpleCarouselWrapper.css({
+        "height": listHeight
+      });
+    }
+
     this.elems.$simpleCarouselNavPrev.css({
-      "height": listHeight + "px"
+      "height": listHeight
     });
 
     this.elems.$simpleCarouselNavNext.css({
-      "height": listHeight + "px"
+      "height": listHeight
     });
 
     this.$el.css({
-      "height": listHeight + "px",
+      "height": listHeight,
       "width": listWidth + "px"
     });
 

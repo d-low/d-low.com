@@ -67,6 +67,7 @@
     $transform_time: 500ms;
     $opacity_time: 500ms;
 
+    background-color: $off_white;
     left: 5%;
     position: fixed !important;
     -moz-transition: -moz-transform $transform_time ease, opacity $opacity_time ease;
@@ -77,6 +78,7 @@
     width: 90%;
 
     @media screen and (orientation:portrait) {
+      height: 40%;
       top: 20%;
     }
 
@@ -101,6 +103,13 @@
     &.slide-up {
       -webkit-transform: translateY(-500%);
       transform: translateY(-500%);
+    }
+
+    img {
+      display: block;
+      height: 100%;
+      margin: 0 auto;
+      max-width: 100%;
     }
   }
 

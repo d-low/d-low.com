@@ -125,6 +125,7 @@ window.dlow.content = {
     };
 
     $postImagesZoom.simplecarousel({
+      carouselContentsHeight: "100%",
       maxItems: 1,
       showNavigation: true,
       onload: fSimpleCarousel_load
