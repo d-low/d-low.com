@@ -105,11 +105,13 @@
       transform: translateY(-500%);
     }
 
+    li {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
     img {
-      display: block;
-      height: 100%;
-      margin: 0 auto;
-      max-width: 100%;
+      visibility: hidden;
     }
   }
 

@@ -77,7 +77,7 @@ window.dlow.content = {
         var $img = $(this);
 
         listItems.push([
-          '<li>',
+          '<li style="background-image: url(' + $img.data("largeimage") + ');">',
             '<img class="img-responsive" src="' + $img.data("largeimage") + '" />', 
           '</li>'
         ].join(''));
