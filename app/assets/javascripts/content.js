@@ -107,15 +107,48 @@ window.dlow.content = {
     }, 100);
 
     //
+    // Event handler used to remove the simple carousel
+    //
+
+    var fSimpleCarouselRemove = function(e) {
+      e.preventDefault();
+
+      $simpleCarousel.one(
+        "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+        function() {
+          var $ul = $simpleCarousel.find("ul");
+          $ul.simplecarousel("destroy");
+          $ul.remove();
+
+          $postImagesZoomWrapper.one(
+            "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+            function() {
+              window.setTimeout(function() { $postImagesZoomWrapper.remove(); }, 100);
+            }
+          );
+
+          $postImagesZoomWrapper.removeClass("fade-in");
+        }
+      );
+
+      $simpleCarousel.addClass("slide-up");
+    };
+
+    //
     // Apply the simple carousel plug-in to the post images zoom, and once its
     // loaded add the scale out class, then remove the not-visible-class, and 
     // then add the scale in class.
     //
 
     var $postImagesZoom = $postImagesZoomWrapper.find(".js-post-images-zoom");
+    var $simpleCarousel = null;
 
     var fSimpleCarousel_load = function() {
-      var $simpleCarousel = $postImagesZoom.closest(".js-simple-carousel");
+      $simpleCarousel = $postImagesZoom.closest(".js-simple-carousel");
+      
+      $simpleCarousel.append(
+        '<a class="simplecarousel-remove js-simplecarousel-remove" href="javascript:void(0);">x</a>'
+      );
 
       $simpleCarousel.one(
         "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
@@ -124,6 +157,7 @@ window.dlow.content = {
         }
       );
       $simpleCarousel.addClass("scale-out").removeClass("not-visible");
+      $simpleCarousel.find(".js-simplecarousel-remove").one("click", fSimpleCarouselRemove);
     };
 
     $postImagesZoom.simplecarousel({

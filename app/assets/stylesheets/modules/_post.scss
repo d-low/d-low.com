@@ -101,12 +101,12 @@
     }
 
     &.slide-up {
-      -webkit-transform: translateY(-500%);
-      transform: translateY(-500%);
+      -webkit-transform: translateY(-150%);
+      transform: translateY(-150%);
     }
   }
 
-  .elastislide-remove {
+  .simplecarousel-remove {
     background-color: #dddddd;
     border-radius: 12px;
     color: $white;
