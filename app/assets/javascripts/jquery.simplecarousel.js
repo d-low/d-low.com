@@ -130,8 +130,6 @@
     this.options.onload(this.$el);
   };
 
-  // TODO: Verify that this still works!  The navigation elements have been
-  // added since this was last tested.
   $.SimpleCarousel.prototype.destroy = function() {
 
     //
@@ -146,6 +144,7 @@
     // Remove inline styles and data we've added. 
     //
 
+    this.$el.find("a").css("background-image", "none");
     this.$el.removeAttr("style");
     this.$el.removeData(pluginName);
     this.elems.listItems.removeAttr("style");
