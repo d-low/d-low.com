@@ -1,15 +1,17 @@
 /**
  * @description A simple responsive carousel plug-in that uses CSS3 transitions
  * for navigation.  The plug-in should be passed a handle to a single unordered 
- * list with each list item containing an image.  
+ * list with each list item containing an image.  Rather than struggle with 
+ * attempting to vertically and horizontally center image elements, which is 
+ * very hard, instead we set the visibility of the images to hidden and use 
+ * the image src (or data-original if they haven't been lazy loaded yet), as 
+ * the background of the parent anchor element.  Using CSS3 properties we can 
+ * then vertially and horizontally center the images with ease.
  * TODO:
- * 1) Lazy load images if requested, or by default (TBD), or should the caller
- * be responsible for layzing loading the images and THEN calling us? Or just
- * use: https://github.com/desandro/imagesloaded and then call init()
- * 2) Handle swipe navigation if requested, or by default if supported, using 
+ * 1) Handle swipe navigation if requested, or by default if supported, using 
  * swipe.js.
- * 3) Enable/disable navigation buttons when on first/last image.
- * 4) Don't navigate further if last image is fully visible.
+ * 2) Enable/disable navigation buttons when on first/last image.
+ * 3) Don't navigate further if last image is fully visible.
  */
 (function($) {
 
@@ -51,11 +53,23 @@
 
     // Get the original sizes before wrapping the content since they may change 
     // after being wrapped.
+    // TODO: If the original length and width is zero, we need to retry...
     this._getOriginalSizes();
 
     //
-    // Add generated content and optional navigation
+    // Add background images, generated content and optional navigation
     //
+
+    this.$el.find("li a").each(function() {
+      var $a = $(this);
+      var $img = $a.find("img");
+      var url = $img.attr("src");
+      var original = $img.data("original");
+
+      url = url.match(/blank/) ? original : url;
+
+      $a.css("background-image", "url(" + url + ")");
+    });
 
     this.$el.wrap([
       '<div class="simple-carousel js-simple-carousel">',
@@ -226,8 +240,8 @@
    * @description Get the width of the first image and the height of the first
    * list item prior to wrapping the <ul> since the sizes of wrapped content 
    * may changed.
-   * TODO: We should find the largest image, and then use the height of that
-   * for the list height!
+   * TBD: Should find the largest image, and then use the height of that for 
+   * the list height?
    */
   $.SimpleCarousel.prototype._getOriginalSizes = function() { 
     var $firstLi = this.$el.find("li:first");

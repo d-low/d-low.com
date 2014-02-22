@@ -77,8 +77,10 @@ window.dlow.content = {
         var $img = $(this);
 
         listItems.push([
-          '<li style="background-image: url(' + $img.data("largeimage") + ');">',
-            '<img class="img-responsive" src="' + $img.data("largeimage") + '" />', 
+          '<li>',
+            '<a href="javascript:void(0);">',
+              '<img src="' + $img.data("largeimage") + '" />', 
+            '</a>',
           '</li>'
         ].join(''));
       });
