@@ -37,6 +37,7 @@
 
   $.SimpleCarousel.defaults = {
     carouselContentsHeight: null,
+    currentImage: 0,
     maxItems: null,
     minItems: 1,
     showNavigation: true,
@@ -124,10 +125,10 @@
     );
 
     //
-    // Scroll to the current image, we may have been asked to display an image
-    // other than the first one, and update the navigation elements.
+    // Update our UI for the initial state.
     //
 
+    this.currentImage = this.options.currentImage;
     this._scrollToCurrentImage();
     this._updateNavigation();
 

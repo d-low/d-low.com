@@ -69,6 +69,7 @@ window.dlow.content = {
 
     var $postImage = $(e.target).closest(".js-post-image-link");
     var $postImages = $postImage.closest(".js-post-images");
+    var currentImage = $postImage.data("itemnum");
 
     var fRenderListItems = function() { 
       var listItems = [];
@@ -162,6 +163,7 @@ window.dlow.content = {
 
     $postImagesZoom.simplecarousel({
       carouselContentsHeight: "100%",
+      currentImage: currentImage,
       maxItems: 1,
       showNavigation: true,
       onload: fSimpleCarousel_load
