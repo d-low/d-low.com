@@ -23,6 +23,7 @@
     this.currentImage = 0;
     this.elems = null;
     this.resizeTimeout = null;
+    this.totalImages = 0;
 
     if (typeof($().imagesLoaded) === 'function') {
       this.$el.imagesLoaded(
@@ -123,6 +124,14 @@
     );
 
     //
+    // Scroll to the current image, we may have been asked to display an image
+    // other than the first one, and update the navigation elements.
+    //
+
+    this._scrollToCurrentImage();
+    this._updateNavigation();
+
+    //
     // And inform the caller that we're done.  Note that the caller can choose
     // not to specify an onload handler, but we have a stub in our options.
     //
@@ -196,6 +205,7 @@
 
     this.currentImage -= 1;
     this._scrollToCurrentImage();
+    this._updateNavigation();
   };
 
   $.SimpleCarousel.prototype._navNext_click = function(e) {
@@ -207,6 +217,7 @@
 
     this.currentImage += 1;
     this._scrollToCurrentImage();
+    this._updateNavigation();
   };
 
 
@@ -233,6 +244,8 @@
       listItems: listItems,
       $firstImg: $firstImg
     };
+
+    this.totalImages = this.elems.listItems.length;
   };
 
   /**
@@ -324,6 +337,29 @@
   $.SimpleCarousel.prototype._scrollToCurrentImage = function() {
     var $li = $(this.elems.listItems[this.currentImage]);
     this.$el.css("margin-left", ($li.position().left * -1) + "px");
+  };
+
+  /**
+   * @description Enable/disable the previous/next navigation links if 
+   * displaed depending on the current image.
+   */
+  $.SimpleCarousel.prototype._updateNavigation = function() { 
+    if (! this.options.showNavigation) {
+      return;
+    }
+
+    if (this.currentImage === 0) {
+      this.elems.$simpleCarouselNavPrev.addClass("disabled");
+      this.elems.$simpleCarouselNavNext.removeClass("disabled");
+    }
+    else if (this.currentImage === this.totalImages - 1) {
+      this.elems.$simpleCarouselNavPrev.removeClass("disabled");
+      this.elems.$simpleCarouselNavNext.addClass("disabled");
+    }
+    else {
+      this.elems.$simpleCarouselNavPrev.removeClass("disabled");
+      this.elems.$simpleCarouselNavNext.removeClass("disabled");
+    }
   };
 
 

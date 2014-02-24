@@ -27,7 +27,7 @@
     }
 
     span {
-      background-color: #dddddd;
+      background-color: #c6c6c6;
       border-radius: 50%;
       color: #ffffff;
       display: block;
@@ -40,6 +40,11 @@
       text-align: center;
       top: 50%;
       width: 20px;
+    }
+
+    &.disabled span {
+      background-color: #eaeaea;
+      cursor: default;
     }
   }
 
