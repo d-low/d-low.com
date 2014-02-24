@@ -91,6 +91,7 @@
           border: 1px solid #ffffff;
           display: inline-block;
           height: 100%;
+          position: relative;
           text-align: center;
           vertical-align: middle;
           width: 100%;
@@ -101,6 +102,22 @@
             max-height: 100%;
             max-width: 100%;
             visibility: hidden;
+          }
+
+          .simple-carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            bottom: 0;
+            color: #ffffff;
+            font-size: 0.9rem;
+            height: 1.25rem;
+            left: 0;
+            line-height: 1.15rem;
+            overflow: hidden;
+            padding: 0 3% 0 3%;
+            position: absolute;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
           }
         }
       }

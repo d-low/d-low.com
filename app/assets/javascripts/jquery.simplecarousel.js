@@ -40,6 +40,7 @@
     currentImage: 0,
     maxItems: null,
     minItems: 1,
+    showCaption: false,
     showNavigation: true,
     onload: function($el) { return; }
   };
@@ -73,12 +74,22 @@
       $a.css("background-image", "url(" + url + ")");
     });
 
+    // TODO: Touch the DOM once, inserting generated content all at once,
+    // rather than incrementally.
+
     this.$el.wrap([
       '<div class="simple-carousel js-simple-carousel">',
         '<div class="simple-carousel-wrapper js-simple-carousel-wrapper">',
         '</div>',
       '</div>'
     ].join(''));
+
+    if (this.options.showCaption) {
+      this.$el.find("img").each(function() { 
+        var $img = $(this);
+        $img.after('<span class="simple-carousel-caption">' + $img.attr("title") + '</span>');
+      });
+    }
 
     if (this.options.showNavigation) {
       this.$el.closest(".js-simple-carousel").prepend([
@@ -165,6 +176,10 @@
 
     this.elems.$simpleCarouselNavPrev.remove();
     this.elems.$simpleCarouselNavNext.remove();
+
+    if (this.options.showCaption) {
+      this.$el.find("span.simple-carousel-caption").remove();
+    }
 
     if (this.$el.parent().is(".js-simple-carousel-wrapper")) {
       this.$el.unwrap();

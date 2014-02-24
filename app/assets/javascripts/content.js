@@ -80,7 +80,7 @@ window.dlow.content = {
         listItems.push([
           '<li>',
             '<a href="javascript:void(0);">',
-              '<img src="' + $img.data("largeimage") + '" />', 
+              '<img src="' + $img.data("largeimage") + '" title="' + $img.attr("title") + '" />', 
             '</a>',
           '</li>'
         ].join(''));
@@ -165,6 +165,7 @@ window.dlow.content = {
       carouselContentsHeight: "100%",
       currentImage: currentImage,
       maxItems: 1,
+      showCaption: true,
       showNavigation: true,
       onload: fSimpleCarousel_load
     });
