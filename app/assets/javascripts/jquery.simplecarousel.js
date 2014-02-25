@@ -85,9 +85,11 @@
     ].join(''));
 
     if (this.options.showCaption) {
-      this.$el.find("img").each(function() { 
-        var $img = $(this);
-        $img.after('<span class="simple-carousel-caption">' + $img.attr("title") + '</span>');
+      this.$el.find("li").each(function() { 
+        var $li = $(this);
+        var $img = $li.find("img");
+        $li.addClass("showing-caption");
+        $li.append('<span class="simple-carousel-caption">' + $img.attr("title") + '</span>');
       });
     }
 
@@ -178,6 +180,7 @@
     this.elems.$simpleCarouselNavNext.remove();
 
     if (this.options.showCaption) {
+      this.$el.find("li").removeClass("showing-caption");
       this.$el.find("span.simple-carousel-caption").remove();
     }
 
