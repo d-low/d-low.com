@@ -154,10 +154,11 @@ window.dlow.content = {
       $simpleCarousel.one(
         "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
         function() { 
-          $simpleCarousel.removeClass("not-visible").addClass("scale-in");
+          $postImagesZoom.removeClass("not-visible");
+          $simpleCarousel.addClass("scale-in");
         }
       );
-      $simpleCarousel.addClass("scale-out").removeClass("not-visible");
+      $simpleCarousel.addClass("scale-out");
       $simpleCarousel.find(".js-simplecarousel-remove").one("click", fSimpleCarouselRemove);
     };
 

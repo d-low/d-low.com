@@ -59,26 +59,11 @@
     // TODO: If the original length and width is zero, we need to retry...
     this._getOriginalSizes();
 
-    //
-    // Add background images, generated content and optional navigation
-    //
-
-    this.$el.find("li a").each(function() {
-      var $a = $(this);
-      var $img = $a.find("img");
-      var url = $img.attr("src");
-      var original = $img.data("original");
-
-      url = url.match(/blank/) ? original : url;
-
-      $a.css("background-image", "url(" + url + ")");
-    });
-
     // TODO: Touch the DOM once, inserting generated content all at once,
     // rather than incrementally.
 
     this.$el.wrap([
-      '<div class="simple-carousel js-simple-carousel">',
+      '<div class="simple-carousel js-simple-carousel loading">',
         '<div class="simple-carousel-wrapper js-simple-carousel-wrapper">',
         '</div>',
       '</div>'
@@ -110,6 +95,21 @@
         '</a>',
       ].join(''));
     }
+
+    //
+    // Add background images, generated content and optional navigation
+    //
+
+    this.$el.find("li a").each(function() {
+      var $a = $(this);
+      var $img = $a.find("img");
+      var url = $img.attr("src");
+      var original = $img.data("original");
+
+      url = url.match(/blank/) ? original : url;
+
+      $a.css("background-image", "url(" + url + ")");
+    });
 
     //
     // Calculate and set the sizes of each list item and the list itself.
@@ -144,6 +144,7 @@
     this.currentImage = this.options.currentImage;
     this._scrollToCurrentImage();
     this._updateNavigation();
+    this.elems.$simpleCarousel.removeClass("loading");
 
     //
     // And inform the caller that we're done.  Note that the caller can choose

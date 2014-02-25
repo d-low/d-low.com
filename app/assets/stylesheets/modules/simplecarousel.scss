@@ -3,6 +3,10 @@
   border: 2% solid transparent;
   padding: 5px;
 
+  &.loading { 
+    visibility: hidden !important;
+  }
+
   &:after {
     content: ".";
     display: block;

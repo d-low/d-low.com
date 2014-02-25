@@ -63,6 +63,13 @@
     opacity: 1;
   }
 
+  .post-images-zoom,
+  .simple-carousel {
+    &.not-visible {
+      visibility: hidden !important;
+    }
+  }
+
   .simple-carousel {
     $transform_time: 500ms;
     $opacity_time: 500ms;
@@ -85,10 +92,6 @@
     @media screen and (orientation:landscape) {
       height: 90%;
       top: 5%;
-    }
-
-    &.not-visible {
-      visibility: hidden;
     }
  
     &.scale-out {
