@@ -38,6 +38,7 @@
   $.SimpleCarousel.defaults = {
     carouselContentsHeight: null,
     currentImage: 0,
+    handleResize: true,
     maxItems: null,
     minItems: 1,
     showCaption: false,
@@ -122,10 +123,12 @@
     // Add event handlers
     //
 
-    $(window).on(
-      "resize." + pluginName, 
-      $.proxy(this._window_resize, this)
-    );
+    if (this.options.handleResize) {
+      $(window).on(
+        "resize." + pluginName, 
+        $.proxy(this._window_resize, this)
+      );
+    }
 
     this.elems.$simpleCarouselNavPrev.on(
       "click." + pluginName, 
@@ -160,7 +163,10 @@
     // Remove event handlers
     //
 
-    $(window).off("resize." + pluginName);
+    if (this.options.handleResize) {
+      $(window).off("resize." + pluginName);
+    }
+    
     this.elems.$simpleCarouselNavPrev.off("click." + pluginName);
     this.elems.$simpleCarouselNavNext.off("click." + pluginName);
 
@@ -196,6 +202,11 @@
     this.$el.removeData(pluginName);
   };
 
+  $.SimpleCarousel.prototype.resize = function() {
+    this._setSizes();
+    this._scrollToCurrentImage();
+  };
+
 
   // --------------------------------------------------------------------------
   // Event Handlers
@@ -208,12 +219,7 @@
    */
   $.SimpleCarousel.prototype._window_resize = function(e) { 
     window.clearTimeout(this.resizeTimeout);
-    this.resizeTimeout = window.setTimeout($.proxy(this._handle_resize, this), 150);
-  };
-
-  $.SimpleCarousel.prototype._handle_resize = function() {
-    this._setSizes();
-    this._scrollToCurrentImage();
+    this.resizeTimeout = window.setTimeout($.proxy(this.resize, this), 150);
   };
 
   $.SimpleCarousel.prototype._navPrev_click = function(e) { 

@@ -4,6 +4,8 @@
  */
 window.dlow.content = {
 
+  resizeTimeout: null,
+
   /**
    * @description Initialize home page specific events.
    */
@@ -17,6 +19,7 @@ window.dlow.content = {
     var fSimpleCarousel = function($postImages) {
       if (! $postImages.data("simplecarousel")) {
         $postImages.simplecarousel({
+          handleResize: false,
           minItems: 2,
           showNavigation: true
         });
@@ -39,19 +42,39 @@ window.dlow.content = {
       collapsedHeight: 150,
       collapseText: "Show Less",
       expandText: "Read More",
+      handleResize: false
     });
 
     //
     // Event handlers
     //
     
+    $(window).on("resize", $.proxy(this.window_resize, this));
     $(".js-post-image-link").on("click", $.proxy(this.postImageLink_click, this));
+  },
+
+  /**
+   * @description Inform our simple carousel and content toggle plug-ins to
+   * resize themselves.  We do this once, here, rather than haivng the plug-ins
+   * do it themselves, becase there will be cascading resize events as one
+   * plug-in resizes itself thus triggering a resize event that others will 
+   * need to handle.
+   */
+  resize: function() { 
+    console.log("dlow.content.resize()");
+    $(".js-post-content-togglable").contenttoggle("resize");
+    $(".js-post-images").simplecarousel("resize");
   },
 
 
   // --------------------------------------------------------------------------
   // Event Handlers 
   // --------------------------------------------------------------------------
+
+  window_resize: function() {
+    window.clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = window.setTimeout($.proxy(this.resize, this), 150);
+  },
 
   /**
    * @description When a post image is clicked on clone the list and scale it

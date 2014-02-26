@@ -6,9 +6,6 @@
  * that is hidden.  This plug-in requires styles in the the contenttoggle 
  * style sheet.
  * @see http://www.amazon.com/dp/B003F3PKUE
- * TODO: 
- * 1) Wire up handleResize so that callers can chose to resize all instances
- * themselves.
  */
 (function($) {
 
@@ -99,7 +96,10 @@
     $contentToggleWrapper
       .siblings(".js-content-toggle-link")
       .on("click." + pluginName, $.proxy(this._contentToggleLink_click, this));
-    $(window).on("resize." + pluginName, $.proxy(this._window_resize, this));
+
+    if (this.options.handleResize) {
+      $(window).on("resize." + pluginName, $.proxy(this._window_resize, this));
+    }
 
     //
     // If the plug-in has been re-applied and needs to be expanded because it
@@ -125,9 +125,19 @@
     this.$el.siblings(".js-content-toggle-gradient").remove();
     this.$el.siblings(".js-content-toggle-link").off("click." + pluginName).remove();
 
-    $(window).off("resize." + pluginName);
+    if (this.options.handleResize) {
+      $(window).off("resize." + pluginName);
+    }
 
     this.$el.removeData(pluginName);
+  };
+
+  /** 
+   * @description When the window has resized we need obtain the origially 
+   * requested collapsed height and then reinitialize the plug-in.
+   */
+  $.ContentToggle.prototype.resize = function() {
+    this.init(this.options);
   };
 
 
@@ -142,25 +152,7 @@
   $.ContentToggle.prototype._window_resize = function(e) { 
     var self = this;
     window.clearTimeout(this.resizeTimeout);
-    resizeTimeout = window.setTimeout(function() { self._window_handleResize(e); }, 150);
-  };
-
-  /** 
-   * @description When the window has resized we need obtain the origially 
-   * requested collapsed height and then reinitialize the plug-in.
-   */
-  $.ContentToggle.prototype._window_handleResize = function() {
-    
-    // TODO: When there are multiple ContentToggle instances on the same page
-    // we see the resize event triggered not just when the window orientation
-    // changes thus triggering a resize event but also when the other 
-    // ContentToggle elements on the page are resized.  We should NOT handle
-    // those resize events as they cause the resize events to be triggered over
-    // and over again!
-
-    // console.log("$.ContentToggle._window_handleResize(): Called for " + this.$el.attr("id"));
-
-    this.init(this.options);
+    resizeTimeout = window.setTimeout(function() { self.resize(e); }, 150);
   };
 
   /**
