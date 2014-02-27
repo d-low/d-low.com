@@ -110,10 +110,14 @@
   }
 
   .simplecarousel-remove {
-    background-color: #dddddd;
+    @include gradient-radial(#ffffff, #c6c6c6);
+    border: 1px solid #b0b0b0;
     border-radius: 12px;
-    color: $white;
+    color: #bbbbbb;
+    font-size: 20px;
+    font-weight: bold;
     height: 24px;
+    line-height: 20px;
     position: absolute;
     right: -6px;
     text-align: center;
