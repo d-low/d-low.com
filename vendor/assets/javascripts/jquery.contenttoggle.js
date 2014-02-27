@@ -47,7 +47,6 @@
                       .closest(".js-content-toggle-wrapper")
                       .siblings(".js-content-toggle-link")
                       .hasClass("js-show-less");
-      
       this.destroy();
     }
 
@@ -138,6 +137,14 @@
    */
   $.ContentToggle.prototype.resize = function() {
     this.init(this.options);
+
+    // When we call init() to resize ourself, the original instance of ourself
+    // that was saved on the element may have been removed.  So if it was, we
+    // need to add it back!
+
+    if (! this.$el.data(pluginName)) {
+      this.$el.data(pluginName, this);
+    }
   };
 
 

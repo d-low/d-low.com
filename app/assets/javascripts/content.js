@@ -61,7 +61,6 @@ window.dlow.content = {
    * need to handle.
    */
   resize: function() { 
-    console.log("dlow.content.resize()");
     $(".js-post-content-togglable").contenttoggle("resize");
     $(".js-post-images").simplecarousel("resize");
   },
