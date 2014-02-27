@@ -170,7 +170,7 @@ window.dlow.content = {
       $simpleCarousel = $postImagesZoom.closest(".js-simple-carousel");
       
       $simpleCarousel.append(
-        '<a class="simplecarousel-remove js-simplecarousel-remove" href="javascript:void(0);">x</a>'
+        '<a class="simple-carousel-nav-text simplecarousel-remove js-simplecarousel-remove" href="javascript:void(0);">x</a>'
       );
 
       $simpleCarousel.one(

@@ -30,36 +30,36 @@
       text-decoration: none;
     }
 
-    span {
-      @include gradient-radial(#ffffff, #c6c6c6);
-      border: 1px solid #b0b0b0;
-      border-radius: 50%;
-      color: #bbbbbb;
-      display: block;
-      font-size: 20px;
-      font-weight: bold;
-      height: 20px;
-      line-height: 20px;
-      margin-top: -10px;
-      position: absolute;
-      text-align: center;
-      top: 50%;
-      @include transition(opacity 250ms ease);
-      width: 20px;
-    }
-
-    &.disabled span {
+    &.disabled .simple-carousel-nav-text {
       cursor: default;
-      opacity: 0.40;
+      opacity: 0.25;
     }
   }
 
-  .simple-carousel-nav-prev span {
+  .simple-carousel-nav-text {
+    @include gradient-radial(#ffffff, #c6c6c6);
+    border: 1px solid #b0b0b0;
+    border-radius: 50%;
+    color: #bbbbbb;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    margin-top: -10px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    @include transition(opacity 250ms ease);
+    width: 20px;
+  }
+
+  .simple-carousel-nav-prev .simple-carousel-nav-text {
     left: 50%;
     margin-left: -10px;
   }
 
-  .simple-carousel-nav-next span {
+  .simple-carousel-nav-next .simple-carousel-nav-text {
     margin-right: -10px;
     right: 50%;
   }
