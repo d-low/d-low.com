@@ -12,10 +12,10 @@ window.dlow = {
     //
 
     if (this.isMobile()) {
-      $(".button")
-        .on("touchstart", $.proxy(this.el_touchStart, this))
-        .on("touchend", $.proxy(this.el_touchEnd, this))
-        .on("touchcancel", $.proxy(this.el_touchCancel, this));
+      $("body")
+        .on("touchstart", ".button", $.proxy(this.el_touchStart, this))
+        .on("touchend", ".button", $.proxy(this.el_touchEnd, this))
+        .on("touchcancel", ".button", $.proxy(this.el_touchCancel, this));
     }
 
     this.lazyLoadImages();

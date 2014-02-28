@@ -48,6 +48,11 @@
     @include transition(opacity 250ms ease);
   }
 
+  .tapped .simple-carousel-nav-text,
+  .simple-carousel-nav-text.tapped { 
+    @include gradient-radial(#cccccc, #ffffff);
+  }
+
   .l-simple-carousel-nav-text {
     height: 20px;
     line-height: 20px;
