@@ -81,16 +81,18 @@
 
     if (this.options.showNavigation) {
       this.$el.closest(".js-simple-carousel").prepend([
-        '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-prev js-simple-carousel-nav-prev" href="javascript:void(0);">',
-          '<span class="simple-carousel-nav-text">',
+        '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-prev ' + 
+          'js-simple-carousel-nav-prev" href="javascript:void(0);">',
+          '<span class="simple-carousel-nav-text l-simple-carousel-nav-text">',
             '&lt;',
           '</span>',
         '</a>'
       ].join(''));
 
       this.$el.closest(".js-simple-carousel").append([
-        '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-next js-simple-carousel-nav-next" href="javascript:void(0);">',
-          '<span class="simple-carousel-nav-text">',
+        '<a class="simple-carousel-nav js-simple-carousel-nav simple-carousel-nav-next ' + 
+          'js-simple-carousel-nav-next" href="javascript:void(0);">',
+          '<span class="simple-carousel-nav-text l-simple-carousel-nav-text">',
             '&gt;',
           '</span>',
         '</a>',
