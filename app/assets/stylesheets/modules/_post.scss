@@ -46,7 +46,7 @@
 }
 
 .post-images-zoom-wrapper {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.5);
   left: 0px;
   overflow-x: hidden;
   opacity: 0;
@@ -75,6 +75,7 @@
     $opacity_time: 500ms;
 
     background-color: $off_white;
+    @include box-shadow(0px 5px 10px 1px rgba(0, 0, 0, 0.9));
     left: 5%;
     position: fixed !important;
     -moz-transition: -moz-transform $transform_time ease, opacity $opacity_time ease;
