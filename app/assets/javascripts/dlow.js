@@ -92,7 +92,11 @@ window.dlow = {
       immediateImages = immediateImages.not(".js-lazy-load-except-mobile");
     }
 
-    immediateImages.lazyload({ event: "lazyload" });
+    immediateImages.lazyload({ 
+      effect: "fadeIn",
+      event: "lazyload" 
+    });
+
     window.setTimeout(function() { immediateImages.trigger("lazyload"); }, 1000); 
 
     // TBD: Apply plug-in to load other images when scrolled into view.
