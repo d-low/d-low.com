@@ -111,11 +111,12 @@
   }
 
   .simplecarousel-remove {
-    height: 24px;
+    font-size: 1.5rem !important;
+    height: 2rem;
     position: absolute;
-    right: -6px;
-    top: -12px;
-    width: 24px;
+    right: 0;
+    top: 0;
+    width: 2rem;
     z-index: 2100;
 
     &:hover {

@@ -37,20 +37,17 @@
   }
 
   .simple-carousel-nav-text {
-    @include gradient-radial(#ffffff, #cccccc);
-    border: 1px solid #cccccc;
-    border-radius: 50%;
     color: #bbbbbb;
     display: block;
-    font-size: 20px;
+    font-size: 2rem;
     font-weight: bold;
     text-align: center;
-    @include transition(opacity 250ms ease);
+    @include transition(opacity 250ms ease, color 250ms ease);
   }
 
   .tapped .simple-carousel-nav-text,
   .simple-carousel-nav-text.tapped { 
-    @include gradient-radial(#cccccc, #ffffff);
+    color: #dddddd;
   }
 
   .l-simple-carousel-nav-text {
