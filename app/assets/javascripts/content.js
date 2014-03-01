@@ -42,7 +42,8 @@ window.dlow.content = {
       collapsedHeight: 150,
       collapseText: "Show Less",
       expandText: "Read More",
-      handleResize: false
+      handleResize: false,
+      toggled_callback: $.proxy(this.content_toggled, this)
     });
 
     //
@@ -70,6 +71,25 @@ window.dlow.content = {
   // Event Handlers 
   // --------------------------------------------------------------------------
 
+  /**
+   * @description Callback method passed to content toggle used to scroll up to
+   * the parent element after hiding the text.
+   * @param $el The element that the contenttoggle plug-in is applied to.
+   * @param toggleState The state of the toggled element: "more" or "less".
+   */
+  content_toggled: function($el, toggleState) {
+    if (toggleState === "less") {
+      var $post = $el.closest(".js-post");
+      dlow.scrollUpTo(
+        $post.offset().top - (parseInt($post.css("margin-bottom"), 10) * 2)
+      );
+    }
+  },
+
+  /**
+   * @description Debounced resize method used to call our resize handler on
+   * final resize event.
+   */
   window_resize: function() {
     window.clearTimeout(this.resizeTimeout);
     this.resizeTimeout = window.setTimeout($.proxy(this.resize, this), 150);

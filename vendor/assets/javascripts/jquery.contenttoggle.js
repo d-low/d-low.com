@@ -22,7 +22,8 @@
     collapsedHeight: 200,
     collapseText: "Show Less",
     expandText: "Show More",
-    handleResize: true
+    handleResize: true,
+    toggled_callback: function($el, toggleState) {}
   };
 
 
@@ -170,11 +171,13 @@
     e.preventDefault();
     e.stopImmediatePropagation();
 
+    var toggleState = "";
     var $contentToggleLink = $(e.target);
     var $contentToggleGradient = $contentToggleLink.siblings(".js-content-toggle-gradient");
     var $contentToggleWrapper = $contentToggleLink.siblings(".js-content-toggle-wrapper");
 
     if ($contentToggleLink.hasClass("js-show-more")) {
+      toggleState = "more";
       $contentToggleWrapper.css("height", $contentToggleWrapper.data("maxheight") + "px");
       $contentToggleGradient.css("display", "none");
       $contentToggleLink
@@ -183,6 +186,7 @@
         .html(this.options.collapseText);
     }
     else {
+      toggleState = "less";
       $contentToggleWrapper.css("height", $contentToggleWrapper.data("minheight") + "px");
       $contentToggleGradient.css("display", "block");
       $contentToggleLink
@@ -190,6 +194,8 @@
         .addClass("js-show-more")
         .html(this.options.expandText);
     }
+
+    this.options.toggled_callback(this.$el, toggleState);
   };
 
 
