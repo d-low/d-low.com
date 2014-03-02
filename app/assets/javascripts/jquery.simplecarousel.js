@@ -24,6 +24,8 @@
     this.elems = null;
     this.resizeTimeout = null;
     this.totalImages = 0;
+    this.listHeight = 0;
+    this.firstImgWidth = 0;
 
     if (typeof($().imagesLoaded) === 'function') {
       this.$el.imagesLoaded(
@@ -31,7 +33,7 @@
       );
     }
     else {
-     this.init(options);
+      this.init(options);
     }
   };
 
@@ -57,8 +59,15 @@
 
     // Get the original sizes before wrapping the content since they may change 
     // after being wrapped.
-    // TODO: If the original length and width is zero, we need to retry...
+    
     this._getOriginalSizes();
+
+    // If the original length and width is zero then we need to retry
+
+    if (this.firstImgWidth <= 1) {
+      window.setTimeout($.proxy(function() { this.init(options); }, this), 500);
+      return;
+    }
 
     // TODO: Touch the DOM once, inserting generated content all at once,
     // rather than incrementally.
@@ -277,17 +286,27 @@
   };
 
   /**
-   * @description Get the width of the first image and the height of the first
-   * list item prior to wrapping the <ul> since the sizes of wrapped content 
-   * may changed.
-   * TBD: Should find the largest image, and then use the height of that for 
-   * the list height?
+   * @description Get the width of the first available image and the height of
+   * its list item prior to wrapping the <ul> since the sizes of wrapped 
+   * content may changed.  
+   * NOTE:  We iterate through the images until one is found with a width and 
+   * height.  This plug-in is called after an image is loaded, but it might not
+   * be the first, so we need to iterate through them all until we find one 
+   * that has been loaded.
    */
   $.SimpleCarousel.prototype._getOriginalSizes = function() { 
-    var $firstLi = this.$el.find("li:first");
+    var liElems = this.$el.find("li");
 
-    this.listHeight = $firstLi.outerHeight();
-    this.firstImgWidth = $firstLi.find("img").outerWidth();
+    for (var i = 0; i < liElems.length; i++) {
+      if (this.firstImgWidth > 1) {
+        break;
+      }
+
+      var $li = this.$el.find("li:first");
+
+      this.listHeight = $li.outerHeight();
+      this.firstImgWidth = $li.find("img").outerWidth();
+    }
   };
 
   /**
@@ -318,6 +337,10 @@
     var itemMaxWidth = this.elems.$simpleCarouselWrapper.outerWidth() / minItems;
     var itemWidth = parseInt(100 / minItems, 10);
     var listWidth = this.elems.listItems.length * itemMaxWidth;
+
+    if (itemMaxWidth < 10) {
+      debugger;
+    }
 
     //
     // Use carousel contents height specified by caller if available
