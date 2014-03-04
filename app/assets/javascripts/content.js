@@ -85,9 +85,7 @@ window.dlow.content = {
       var $post = $el.closest(".js-post");
       dlow.scrollUpTo(
         $post.offset().top - (parseInt($post.css("margin-bottom"), 10) * 2),
-        function() { 
-          callback();
-        }
+        callback
       );
     }
     else {
