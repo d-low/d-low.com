@@ -45,7 +45,11 @@ window.dlow.home = {
     //
     
     $(window).resize($.proxy(this.window_resize, this));
-    $(window).scroll($.proxy(this.window_scroll, this));
+
+    if (dlow.isDesktop()) {
+      // Parallax scrolling is only available in desktop (for now?)
+      $(window).scroll($.proxy(this.window_scroll, this));
+    }
 
     if (! dlow.isMobile()) {
       $(".js-contents-navigation-item")

@@ -25,12 +25,22 @@
 }
 
 .site-header-effects {
+  background-attachment: fixed;
   border-top: 0 none;
+  min-height: 30rem;
   padding-bottom: 0;
 
-  .site-header-logo { 
+  .site-header-logo {
+    position: fixed;
     right: 5%;
     text-align: right;
     width: auto;
   }
+}
+
+.site-header-effects {
+  
+  
+
+  
 }
