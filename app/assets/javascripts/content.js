@@ -20,6 +20,7 @@ window.dlow.content = {
       if (! $postImages.data("simplecarousel")) {
         $postImages.simplecarousel({
           handleResize: false,
+          maxHeight: 125,
           minItems: 2,
           showNavigation: true
         });

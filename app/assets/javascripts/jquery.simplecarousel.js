@@ -10,8 +10,7 @@
  * TODO:
  * 1) Handle swipe navigation if requested, or by default if supported, using 
  * swipe.js.
- * 2) Enable/disable navigation buttons when on first/last image.
- * 3) Don't navigate further if last image is fully visible.
+ * 2) Don't navigate further if last image is fully visible.
  */
 (function($) {
 
@@ -41,6 +40,7 @@
     carouselContentsHeight: null,
     currentImage: 0,
     handleResize: true,
+    maxHeight: null,
     maxItems: null,
     minItems: 1,
     showCaption: false,
@@ -304,7 +304,13 @@
 
       var $li = this.$el.find("li:first");
 
+
       this.listHeight = $li.outerHeight();
+
+      if (this.options.maxHeight && this.listHeight > this.options.maxHeight) {
+        this.listHeight = this.options.maxHeight;
+      }
+      
       this.firstImgWidth = $li.find("img").outerWidth();
     }
   };
