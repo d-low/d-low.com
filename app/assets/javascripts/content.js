@@ -44,7 +44,7 @@ window.dlow.content = {
       collapseText: "Show Less",
       expandText: "Read More",
       handleResize: false,
-      toggled_callback: $.proxy(this.content_toggled, this)
+      pretoggled_callback: $.proxy(this.content_pretoggled, this)
     });
 
     //
@@ -77,13 +77,21 @@ window.dlow.content = {
    * the parent element after hiding the text.
    * @param $el The element that the contenttoggle plug-in is applied to.
    * @param toggleState The state of the toggled element: "more" or "less".
+   * @param callback The callback from the content toggle that will be invoked 
+   * once the change in toggle state is handled.
    */
-  content_toggled: function($el, toggleState) {
+  content_pretoggled: function($el, toggleState, callback) {
     if (toggleState === "less") {
       var $post = $el.closest(".js-post");
       dlow.scrollUpTo(
-        $post.offset().top - (parseInt($post.css("margin-bottom"), 10) * 2)
+        $post.offset().top - (parseInt($post.css("margin-bottom"), 10) * 2),
+        function() { 
+          callback();
+        }
       );
+    }
+    else {
+      callback();
     }
   },
 

@@ -23,6 +23,9 @@
     collapseText: "Show Less",
     expandText: "Show More",
     handleResize: true,
+    pretoggled_callback: function($el, toggleState, callback) {
+      callback();
+    },
     toggled_callback: function($el, toggleState) {}
   };
 
@@ -178,24 +181,33 @@
 
     if ($contentToggleLink.hasClass("js-show-more")) {
       toggleState = "more";
-      $contentToggleWrapper.css("height", $contentToggleWrapper.data("maxheight") + "px");
-      $contentToggleGradient.css("display", "none");
-      $contentToggleLink
-        .removeClass("js-show-more")
-        .addClass("js-show-less")
-        .html(this.options.collapseText);
     }
-    else {
+    else { 
       toggleState = "less";
-      $contentToggleWrapper.css("height", $contentToggleWrapper.data("minheight") + "px");
-      $contentToggleGradient.css("display", "block");
-      $contentToggleLink
-        .removeClass("js-show-less")
-        .addClass("js-show-more")
-        .html(this.options.expandText);
     }
 
-    this.options.toggled_callback(this.$el, toggleState);
+    var fCallback = function() { 
+      if (toggleState === "more") {
+        $contentToggleWrapper.css("height", $contentToggleWrapper.data("maxheight") + "px");
+        $contentToggleGradient.css("display", "none");
+        $contentToggleLink
+          .removeClass("js-show-more")
+          .addClass("js-show-less")
+          .html(this.options.collapseText);
+      }
+      else {
+        $contentToggleWrapper.css("height", $contentToggleWrapper.data("minheight") + "px");
+        $contentToggleGradient.css("display", "block");
+        $contentToggleLink
+          .removeClass("js-show-less")
+          .addClass("js-show-more")
+          .html(this.options.expandText);
+      }
+
+      this.options.toggled_callback(this.$el, toggleState);
+    };
+
+    this.options.pretoggled_callback(this.$el, toggleState, $.proxy(fCallback, this));
   };
 
 
