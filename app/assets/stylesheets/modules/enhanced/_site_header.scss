@@ -1,25 +1,25 @@
 .site-header {
   border-top: 5rem solid transparent;
   margin-top: 0;
-  padding-bottom: 5rem;
+  padding-bottom: 2rem;
 
   h1 {
-    font-size: 7rem;
-    line-height: 7rem;
+    font-size: 5rem;
+    line-height: 5rem;
 
     @media only screen and (min-width: $screen-md-min) {
-      font-size: 10rem;
-      line-height: 10rem;
+      font-size: 5.5rem;
+      line-height: 5.5rem;
     }
   }
 
   small {
-    font-size: 1.575rem;
-    line-height: 1.575rem;
+    font-size: 1.1rem;
+    line-height: 1.25rem;
 
     @media only screen and (min-width: $screen-md-min) {
-      font-size: 2.25rem;
-      line-height: 2.25rem;
+      font-size: 1.25rem;
+      line-height: 1.35rem;
     }
   }
 }
@@ -36,11 +36,4 @@
     text-align: right;
     width: auto;
   }
-}
-
-.site-header-effects {
-  
-  
-
-  
 }

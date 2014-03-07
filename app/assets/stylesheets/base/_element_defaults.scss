@@ -35,6 +35,10 @@ body:after {
   }
 }
 
+a:link, 
+a:visited,
+a:hover,
+a:active,
 a:focus {
   outline: none;
 }
