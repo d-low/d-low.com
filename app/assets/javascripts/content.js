@@ -20,7 +20,7 @@ window.dlow.content = {
       if (! $postImages.data("simplecarousel")) {
         $postImages.simplecarousel({
           handleResize: false,
-          maxHeight: 125,
+          maxHeight: 125, // TODO: Use larger height when we have larger thumbnails!
           minItems: 2,
           showNavigation: true
         });
@@ -64,7 +64,14 @@ window.dlow.content = {
    */
   resize: function() { 
     $(".js-post-content-togglable").contenttoggle("resize");
-    $(".js-post-images").simplecarousel("resize");
+
+    $(".js-post-images").each(function() { 
+      var $postImages = $(this);
+
+      if ($postImages.data("simplecarousel")) {
+        $postImages.simplecarousel("resize");
+      }
+    });
   },
 
 

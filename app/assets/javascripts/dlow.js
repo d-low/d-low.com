@@ -1,7 +1,9 @@
 window.dlow = {
 
+  resizeTimeout: null,
+
   _isMobile: undefined,
-  _isTable: undefined,
+  _isTablet: undefined,
   _isDesktop: undefined,
   _isDesktopLarge: undefined,
 
@@ -19,6 +21,8 @@ window.dlow = {
     }
 
     this.lazyLoadImages();
+
+    $(window).on("resize", $.proxy(this.window_resize, this));
 
     // 
     // Initialize page specific functionality
@@ -102,6 +106,31 @@ window.dlow = {
     // TBD: Apply plug-in to load other images when scrolled into view.
   },
 
+  /**
+   * @description Set timeouts to handle the last resize event.
+   * TODO: We should probably use the debounced resize plug-in now.
+   */
+  window_resize: function() { 
+    window.clearTimeout(this.resizeTimeout);
+
+    this.resizeTimeout = window.setTimeout(
+      $.proxy(this.handleWindowResize, this), 
+      150
+    );
+  },
+
+  /**
+   * @description Upon the final resize firing reset all of our media member 
+   * variables so that we don't accidentally cache the wrong value after a
+   * resize.
+   */
+  handleWindowResize: function() { 
+    this._isMobile = undefined;
+    this._isTablet = undefined;
+    this._isDesktop = undefined;
+    this._isDesktopLarge = undefined;
+  },
+  
 
   // --------------------------------------------------------------------------
   // Utility Methods
