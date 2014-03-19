@@ -41,6 +41,7 @@
     currentImage: 0,
     handleResize: true,
     maxHeight: null,
+    maxWidth: null,
     maxItems: null,
     minItems: 1,
     showCaption: false,
@@ -304,7 +305,6 @@
 
       var $li = this.$el.find("li:first");
 
-
       this.listHeight = $li.outerHeight();
 
       if (this.options.maxHeight && this.listHeight > this.options.maxHeight) {
@@ -320,7 +320,12 @@
    */
   $.SimpleCarousel.prototype._setSizes = function() { 
 
-    // TODO: Need to wire up max items.
+    //
+    // TODO: 
+    //
+    // 1) Wire up max items.
+    // 2) Touch DOM for inline styles once
+    //
 
     //
     // We may be able to fit more items in the carousel wrapper than requested
@@ -348,6 +353,10 @@
       debugger;
     }
 
+    if (this.options.maxWidth) {
+      itemMaxWidth = parseInt(this.options.maxWidth * 0.8, 10);
+    }
+
     //
     // Use carousel contents height specified by caller if available
     //
@@ -358,9 +367,36 @@
     else {
       listHeight = listHeight + "px";
     }
+
     //
     // Set heights, max-widths, and widths.
     //
+
+    if (this.options.maxWidth) {
+      this.elems.$simpleCarousel.css({
+        "max-width": this.options.maxWidth + "px"
+      });
+
+      var width = this.elems.$simpleCarousel.outerWidth();
+      var winWidth = $(window).width();
+
+      var left = parseInt((winWidth - width) / 2, 10);
+
+      this.elems.$simpleCarousel.css({
+        "left": left + "px"
+      });
+    }
+
+    if (this.options.maxHeight) {
+
+      // The list height will be either the max height or less than the max 
+      // height if the images are smaller than the requested max height.  And
+      // we add 10px for top and bottom padding.
+
+      this.elems.$simpleCarousel.css({
+        "max-height": parseInt(listHeight, 10) + 10 + "px"
+      });
+    }
 
     if (this.options.carouselContentsHeight) {
       this.elems.$simpleCarouselWrapper.css({
