@@ -220,9 +220,11 @@ window.dlow.content = {
     };
 
     $postImagesZoom.simplecarousel({
-      carouselContentsHeight: "100%",
+      carouselContentsHeight: dlow.isMobile() ? "100%" : undefined,
       currentImage: currentImage,
+      maxHeight: ! dlow.isMobile() ? 800 : undefined,
       maxItems: 1,
+      maxWidth: ! dlow.isMobile() ? 800 : undefined,
       showCaption: true,
       showNavigation: true,
       onload: fSimpleCarousel_load
