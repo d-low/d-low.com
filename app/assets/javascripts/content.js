@@ -40,7 +40,7 @@ window.dlow.content = {
     });
 
     $(".js-post-content-togglable").contenttoggle({
-      collapsedHeight: 150,
+      collapsedHeight: dlow.isMobile() ? 150 : 300,
       collapseText: "Show Less",
       expandText: "Read More",
       handleResize: false,
