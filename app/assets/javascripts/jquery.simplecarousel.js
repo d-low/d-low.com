@@ -323,8 +323,7 @@
     //
     // TODO: 
     //
-    // 1) Wire up max items.
-    // 2) Touch DOM for inline styles once
+    // 1) Touch DOM for inline styles once
     //
 
     //
@@ -337,6 +336,10 @@
     var minItems = parseInt(carouselWrapperWidth / firstImgWidth, 10);
 
     minItems = minItems > this.options.minItems ? minItems : this.options.minItems;
+
+    if (this.options.maxItems && minItems > this.options.maxItems) {
+      minItems = this.options.maxItems;
+    }
 
     //
     // Calculate the list height, max width in pixels of each list item, the
