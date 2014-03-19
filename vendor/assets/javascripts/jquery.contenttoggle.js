@@ -55,14 +55,14 @@
     }
 
     //
-    // If the height of the element is less than the collapsed height then
-    // remove the plug-in if it as already applied or don't bother applying 
-    // it if it hasn't yet been applied.
+    // If the height of the element is less than the collapsed height + 75px 
+    // then remove the plug-in if it as already applied or don't bother 
+    // applying it if it hasn't yet been applied.
     //
 
     var height = this.$el.height();
 
-    if (height < this.options.collapsedHeight) {
+    if (height < this.options.collapsedHeight + 75) {
       if (this.$el.data(pluginName)) { 
         this.destroy();
       }
