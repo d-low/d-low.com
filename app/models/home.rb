@@ -3,7 +3,7 @@
 # also used frequently since the majority of our conrent is NOT saved in our rails
 # application.
 class Home
-  CONTENT_ROOT_DIRECTORY = "#{Rails.root}/app/assets/content/"
+  CONTENT_ROOT_DIRECTORY = "#{Rails.root}/app/data/"
   CONTENT_ROOT_DIRECTORY_REGEXP = Regexp.new(CONTENT_ROOT_DIRECTORY, Regexp::IGNORECASE)
   
   attr_reader :contents

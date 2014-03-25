@@ -16,5 +16,5 @@ rerun.txt
 pickle-email-*.html
 .rvmrc
 todo.txt
-app/assets/content
+app/data
 .DS_Store
