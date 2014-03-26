@@ -48,7 +48,7 @@ class Content
 
     if @is_post == false
       root_regexp = Regexp.new(@root, Regexp::IGNORECASE)
-      sub_directories = Dir.glob(@absolute_path + '*', File::FNM_CASEFOLD);
+      sub_directories = Dir.glob(@absolute_path + '*');
 
       sub_directories.each do |sub_directory|
         begin
@@ -78,7 +78,7 @@ class Content
     if @is_post
       Post.new(@path)
     else
-      post_paths = Dir.glob(@absolute_path + '**/index.html', File::FNM_CASEFOLD)
+      post_paths = Dir.glob(@absolute_path + '**/*.*').select { |f| f =~ /index.html/i }
 
       r = Random.new
       random_post_num = r.rand(0..(post_paths.length - 1))
@@ -98,7 +98,7 @@ class Content
     if @is_post
       ret_val = false
     else
-      sub_directories = Dir.glob(@absolute_path + '*', File::FNM_CASEFOLD)
+      sub_directories = Dir.glob(@absolute_path + '*')
 
       sub_directories.each do |sub_directory|
         if File.exists?(sub_directory + '/index.html') == false
