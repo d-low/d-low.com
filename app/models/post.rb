@@ -41,7 +41,7 @@ class Post
 	# Create image model instances for each JPG file found in our post path.
 	def set_images
 		@images = []
-		image_files = Dir.glob(@absolute_path + "/*.jpg", File::FNM_CASEFOLD)
+		image_files = Dir.glob(@absolute_path + '/*.*').select { |f| f =~ /\.jpg$/i }
 
 		image_files.each do |image_file|
 			@images.push(Image.new(image_file))
