@@ -13,7 +13,7 @@
    */
 
   #contents-section {
-    background: asset-data-url('resting_above_treeline.jpg') bottom left no-repeat;
+    background: asset-url('resting_above_treeline.jpg', image) bottom left no-repeat;
     background-size: cover;
     min-height: 15rem;
     padding: 1rem 0 14rem 0;
