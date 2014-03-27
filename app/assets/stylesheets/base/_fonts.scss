@@ -2,12 +2,22 @@
  * Font styles for all pages of d-low.com.
  */
 
+/* 
+ * External fonts
+ */
+
 @import url(http://fonts.googleapis.com/css?family=Passion+One);
+
+@font-face {
+  font-family: 'icomoon';
+  src: font-url('icomoon.ttf') format('truetype');
+}
 
 /* 
  * Override from Bootstrap's scaffolding for proper rem sizing.
  * See: http://snook.ca/archives/html_and_css/font-size-with-rem
  */
+
 html {
   font-size: $font-size-base;
 }
@@ -35,4 +45,86 @@ h2 {
 h3, h4, h5, h6 { 
   font-size: 1.5rem;
   line-height: 1.75rem;
+}
+
+/* 
+ * Vector Icon Font from Icomoon (Keyamoon)
+ */
+
+.icon {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-twitter3:before {
+  content: "\e600";
+}
+
+.icon-twitter2:before {
+  content: "\e601";
+}
+
+.icon-twitter:before {
+  content: "\e602";
+}
+
+.icon-mail4:before {
+  content: "\e603";
+}
+
+.icon-mail3:before {
+  content: "\e604";
+}
+
+.icon-mail2:before {
+  content: "\e605";
+}
+
+.icon-mail:before {
+  content: "\e606";
+}
+
+.icon-linkedin:before {
+  content: "\e607";
+}
+
+.icon-github5:before {
+  content: "\e608";
+}
+
+.icon-github4:before {
+  content: "\e609";
+}
+
+.icon-github3:before {
+  content: "\e60a";
+}
+
+.icon-github2:before {
+  content: "\e60b";
+}
+
+.icon-github:before {
+  content: "\e60c";
+}
+
+.icon-facebook3:before {
+  content: "\e60d";
+}
+
+.icon-facebook2:before {
+  content: "\e60e";
+}
+
+.icon-facebook:before {
+  content: "\e60f";
 }
