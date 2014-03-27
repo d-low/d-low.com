@@ -30,7 +30,9 @@ group :test, :development do
 end
 
 # Use gcgi 
-gem 'fcgi'
+group :production do
+  gem 'fcgi'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
