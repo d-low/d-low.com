@@ -11,10 +11,19 @@ body {
   background-color: $white;
 }
 
-/* Surface Bootstrap breakpoints to client side script: https://coderwall.com/p/_ldtkg */
+/* 
+ * Surface Bootstrap breakpoints to client side script: https://coderwall.com/p/_ldtkg 
+ *
+ * Note that if the display is set to none querying the content of the pseudo
+ * element won't work in Chrome.  See Hal D's comment: 
+ * http://davidwalsh.name/pseudo-element 
+ */
 
 body:after {
-  display: none;
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
 
   @media only screen and (max-width: $screen-sm-min - 1) {
     content: "mobile";
