@@ -1,9 +1,8 @@
 .contents-navigation-visual {
   .contents-navigation-item {
-    max-height: 25%;
     position: absolute;
     @include transition(all 500ms ease);
-    width: 25%;
+    width: 20%;
 
     /* 
      * NOTE: The following styles area specific to the number of links 
@@ -63,9 +62,10 @@
     padding-top: 1rem;
     width: auto;
 
-    .img-responsive {
+    .contents-navigation-item-img {
       display: inline-block;
       margin: 0 auto;
+      min-height: 100px;
       width: 100%;
     }
   }
@@ -113,7 +113,7 @@
       background-color: $white;
     }
 
-    .img-responsive {
+    .contents-navigation-item-img {
       // Need to trump inline styles added by jQuery lazy load.
       display: none !important; 
     }
