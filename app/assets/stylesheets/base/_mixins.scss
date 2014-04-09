@@ -1,0 +1,25 @@
+/**
+ * Transition the background color of generated content from white and 100%
+ * opacity to 0% opacity thus fading in the background image.
+ * See: http://stackoverflow.com/questions/4183948/css-set-background-image-with-opacity
+ */
+@mixin fade_in_background_image {
+  position: relative;
+
+  &:after {
+    background-color: rgba(255, 255, 255, 1);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    @include transition(background-color 1s ease);
+    width: 100%;
+    z-index: 1;
+  }
+
+  &.show-background-image:after {
+    background-color: rgba(255, 255, 255, 0);
+  }
+}

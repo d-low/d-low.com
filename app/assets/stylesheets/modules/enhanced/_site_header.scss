@@ -30,10 +30,13 @@
   min-height: 30rem;
   padding-bottom: 0;
 
+  @include fade_in_background_image();
+
   .site-header-logo {
     position: fixed;
     right: 5%;
     text-align: right;
     width: auto;
+    z-index: 2;
   }
 }

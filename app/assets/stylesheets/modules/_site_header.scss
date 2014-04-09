@@ -1,4 +1,5 @@
 .site-header {
+  // TODO: Use smaller image for mobile.
   background-image: asset-url('wendy_descending_saddle_between_watrous_and_woods.jpg', image);
   background-position: 50% 0px;
   background-repeat: no-repeat;
@@ -7,6 +8,7 @@
   margin-top: 2.5rem;
   min-height: 12rem;
   text-transform: lowercase;
+  position: relative;
 }
 
 .site-header-logo {

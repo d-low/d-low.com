@@ -39,6 +39,7 @@ window.dlow.home = {
     this.setHeights();
     this.getHeights();
     this.updateSiteHeaderLogoOpacity();
+    this.showBackgroundImages();
 
     // 
     // Event handlers
@@ -169,6 +170,32 @@ window.dlow.home = {
     else {
       this.$siteHeaderLogo.removeClass("hidden");
     }
+  },
+
+  /**
+   * @description The background images for the site header and contents
+   * section are large.  So we fade them in once they've loaded by 
+   * transitioning the opacity of generated content inserted after each element
+   * from 1 to 0, thus allowing the background images to appear.
+   * @see http://stackoverflow.com/questions/5057990/how-can-i-check-if-a-background-image-is-loaded
+   */
+  showBackgroundImages: function() { 
+
+    if (! dlow.isDesktop()) {
+      return;
+    }
+
+    var fShowBackground = function($el) {
+      var src = $el.css("background-image");
+      src = src.replace(/(^url\()|(\)$|[\"\'])/g, '');
+
+      $('<img>').attr('src', src).imagesLoaded(function() {
+        $el.addClass("show-background-image");
+      });
+    };
+
+    fShowBackground(this.$siteHeader);
+    fShowBackground(this.$contentsSection);
   },
 
   /**
