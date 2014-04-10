@@ -51,11 +51,6 @@ window.dlow.home = {
       // Parallax scrolling is only available in desktop (for now?)
       $(window).scroll($.proxy(this.window_scroll, this));
     }
-
-    if (! dlow.isMobile()) {
-      $(".js-contents-navigation-item")
-        .bind("mouseover", $.proxy(this.navigationItem_mouseover, this));
-    }
   },
 
 
@@ -196,72 +191,5 @@ window.dlow.home = {
 
     fShowBackground(this.$siteHeader);
     fShowBackground(this.$contentsSection);
-  },
-
-  /**
-   * @description Because we can't smoothly transition the z-index we clone
-   * the focused element with an opacity of 0 and a z-index greater than all
-   * the other elements, and then transition the opacity to 1 so it gracefully
-   * rises above the other navigation items.
-   * @see: http://zomigi.com/blog/css3-transitions-and-z-index/
-   * TODO: This isn't 100% perfect, random cloned elements sometimes get left
-   * in the DOM.  The events that lead to this hapening are not yet understood.
-   */
-  navigationItem_mouseover: function(e) {
-
-    //
-    // Clone the navigation item element and insert it after the one that was
-    // moused over.
-    //
-
-    var $navigationItem = $(e.target).closest(".js-contents-navigation-item");
-    var $navigationItemFocused = $navigationItem.clone().addClass("fade-out");
-
-    $navigationItem.after($navigationItemFocused);
-
-    //
-    // Transition end event handler:
-    //
-    // 1) If the focused navigation element has the fade up class then it has
-    // been faded in and we'll bind the mouseout handler.
-    // 2) If the foucused navigation element does NOT have the fade up class 
-    // then we unbind our event handlers and remove it, it is no longer visible.  
-    //
-
-    var fTransitionEnd = function() { 
-      if ($navigationItemFocused.hasClass("js-fade-up")) {
-        $navigationItemFocused.on("mouseout", fMouseOut);
-      }
-      else {
-        $navigationItemFocused
-          .off("mouseout")
-          .off("transitionend webkitTransitionEnd oTransitionEnd otransitionend")
-          .remove();
-      } 
-    };
-
-    //
-    // Remove the fade up class when the foucused navigation element is faded 
-    // out being sure to cancel the event completely since it may occur 
-    // multiple times on child elements.
-    //
-
-    var fMouseOut = function(e) { 
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      $navigationItemFocused.removeClass("fade-up js-fade-up");
-    };
-
-    //
-    // Set up the event handlers and add the fade up class to fade in the cloned
-    // element.
-    // 
-
-    window.setTimeout(function() {
-      $navigationItemFocused
-        .on("transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
-            fTransitionEnd)
-        .addClass("fade-up js-fade-up");
-    }, 100);
   }
 };

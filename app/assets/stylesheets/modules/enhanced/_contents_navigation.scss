@@ -1,58 +1,43 @@
 .contents-navigation-visual {
   .contents-navigation-item {
     position: absolute;
-    @include transition(all 500ms ease);
-    width: 20%;
+    width: 22.5%;
+    z-index: 20;
 
     /* 
      * NOTE: The following styles area specific to the number of links 
      * shown on the home page.  They're fragile.  And will need to be 
      * updated if/when more links are needed.
      */
-
+     
     &.first {
-      left: 5%;
+      left: 1.25%;
       top: 5%;
-      z-index: 20;
     }
 
     &.second {
-      left: 20%;
-      top: 15%;
-      z-index: 10;
+      left: 26.25%;
+      top: 5%;
     }
 
     &.third {
-      left: 35%;
+      left: 51.25%;
       top: 5%;
-      z-index: 20;
     }
 
     &.fourth {
-      left: 50%;
-      top: 15%;
-      z-index: 30;
+      left: 76.25%;
+      top: 5%;
     }
 
     &.fifth {
-      left: 40%;
+      left: 26.25%;
       top: 50%;
-      z-index: 20;
     }
 
     &.sixth {
-      left: 55%;
-      top: 60%;
-      z-index: 10;
-    }
-
-    &.fade-out {
-      opacity: 0;
-      z-index: 40;
-    }
-
-    &.fade-up {
-      opacity: 10;
+      left: 51.25%;
+      top: 50%;
     }
   }
 
