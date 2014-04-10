@@ -230,13 +230,9 @@ window.dlow.home = {
 
     var fTransitionEnd = function() { 
       if ($navigationItemFocused.hasClass("js-fade-up")) {
-        console.log("faded in");
-
         $navigationItemFocused.on("mouseout", fMouseOut);
       }
       else {
-        console.log("faded out");
-
         $navigationItemFocused
           .off("mouseout")
           .off("transitionend webkitTransitionEnd oTransitionEnd otransitionend")
@@ -253,9 +249,6 @@ window.dlow.home = {
     var fMouseOut = function(e) { 
       e.preventDefault();
       e.stopImmediatePropagation();
-
-      console.log("mouseout");
-
       $navigationItemFocused.removeClass("fade-up js-fade-up");
     };
 
