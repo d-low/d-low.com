@@ -1,5 +1,6 @@
 .contents-navigation-visual {
   .contents-navigation-item {
+    height: 40%;
     position: absolute;
     width: 22.5%;
     z-index: 20;
@@ -43,21 +44,24 @@
 
   .contents-navigation-item-link {
     border-width: 1px;
+    height: 100%;
     margin: 0;
     padding-top: 1rem;
     width: auto;
-
-    .contents-navigation-item-img {
-      display: inline-block;
-      margin: 0 auto;
-      min-height: 100px;
-      width: 100%;
-    }
   }
 
-  .contents-navitation-item-link-title {
+  .contents-navigation-item-image {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    height: 90%;
+    width: 100%;
+  }
+
+  .contents-navigation-item-title {
     display: block;
-    padding: 0.5rem 0 0rem 0;
+    height: 10%;
   }
 }
 

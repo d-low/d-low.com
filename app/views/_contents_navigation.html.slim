@@ -1,5 +1,5 @@
 - nav_class_name = fixed ? 'fixed' : 'visual'
-- img_class_name = 'contents-navigation-item-img js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile'
+/ - img_class_name = 'contents-navigation-item-img js-lazy-load js-lazy-load-immediate js-lazy-load-except-mobile'
 
 nav[class="contents-navigation-#{nav_class_name} clearfix" 
     id="contents-navigation"]
@@ -7,11 +7,9 @@ nav[class="contents-navigation-#{nav_class_name} clearfix"
     li[class="contents-navigation-item js-contents-navigation-item #{number_to_ordinal(1)}"]
       a[class="contents-navigation-item-link button"
         href=content_index_path(home_model.newest_post.path)]
-          img[alt=random_image.caption
-              class="img-responsive #{img_class_name}"
-              data-original=custom_image_path(random_image.relative_path)
-              src=asset_path('blank.gif')]
-          span.contents-section-navitation-item-link-title
+          span[class="contents-navigation-item-image" 
+               style="background-image: url(#{custom_image_path(random_image.relative_path)});"]
+          span.contents-navigation-item-title
             | What's New?
     
     - count = 1
@@ -22,9 +20,7 @@ nav[class="contents-navigation-#{nav_class_name} clearfix"
       li[class="contents-navigation-item js-contents-navigation-item #{number_to_ordinal(count)}"]
         a[class="contents-navigation-item-link button"
           href=content_index_path(content.path)]
-            img[alt=random_image2.caption
-                class="img-responsive #{img_class_name}"
-                data-original=custom_image_path(random_image2.relative_path) 
-                src=asset_path('blank.gif')]
-            span.contents-section-navitation-item-link-title
+            span[class="contents-navigation-item-image"
+                 style="background-image: url(#{custom_image_path(random_image2.relative_path)});"]
+            span.contents-navigation-item-title
               = content.title
