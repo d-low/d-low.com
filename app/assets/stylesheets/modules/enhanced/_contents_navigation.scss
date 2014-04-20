@@ -1,9 +1,18 @@
 .contents-navigation-visual {
   .contents-navigation-item {
+    $timing: 500ms;
+    $function: ease;
+
     height: 40%;
     position: absolute;
     width: 22.5%;
     z-index: 20;
+    @include scale(1.0);
+    -moz-transition: -moz-transform $timing $function;
+    -webkit-transition: -webkit-transform $timing $function;
+    -o-transition: -o-transform $timing $function;
+    transition: transform $timing $function;
+
 
     /* 
      * NOTE: The following styles area specific to the number of links 
@@ -39,6 +48,10 @@
     &.sixth {
       left: 51.25%;
       top: 50%;
+    }
+
+    &.scaled-out {
+      @include scale(0);
     }
   }
 

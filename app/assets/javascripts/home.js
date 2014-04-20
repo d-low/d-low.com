@@ -40,6 +40,7 @@ window.dlow.home = {
     this.getHeights();
     this.updateSiteHeaderLogoOpacity();
     this.showBackgroundImages();
+    this.scaleInContentNavImages();
 
     // 
     // Event handlers
@@ -191,5 +192,42 @@ window.dlow.home = {
 
     fShowBackground(this.$siteHeader);
     fShowBackground(this.$contentsSection);
+  },
+
+  /**
+   * @description Once we've scrolled down to the contents section then load 
+   * each background image one at a time and after loaded scale in the 
+   * navigation item. 
+   * TODO: 
+   * 1) Call this method when we've scrolled down to the contents section.
+   * 2) Load each background image one at a time and then scale in the nav
+   * items once their background images are loaded.
+   */
+  scaleInContentNavImages: function() {
+    if (dlow.isMobile()) {
+      return;
+    }
+
+    var navItems = $(".js-contents-navigation-item");
+    var currentNavItem = 0;
+    var $navItem = $(navItems[currentNavItem]);
+
+    var fScaleIn = function() { 
+      currentNavItem++;
+
+      if (currentNavItem > navItems.length) {
+        return;
+      }
+
+      $navItem = $(navItems[currentNavItem]);
+
+      $navItem
+        .one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", fScaleIn)
+        .removeClass("scaled-out")
+    };
+
+    $navItem
+      .one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", fScaleIn)
+      .removeClass("scaled-out");
   }
 };
