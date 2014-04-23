@@ -14,7 +14,9 @@ window.dlow.home = {
 
   heights: {
     siteHeader: 0,
-    siteHeaderLogo: 0
+    siteHeaderLogo: 0,
+    contentsSection: 0,
+    contentsSectionOffsetTop: 0
   },
 
   resize_timeout: null,
@@ -40,7 +42,6 @@ window.dlow.home = {
     this.getHeights();
     this.updateSiteHeaderLogoOpacity();
     this.showBackgroundImages();
-    this.scaleInContentNavImages();
 
     // 
     // Event handlers
@@ -83,6 +84,9 @@ window.dlow.home = {
       this.updateSiteHeaderBackground();
       this.updateSiteHeaderLogoOpacity();
     }
+    if (this.isContentsSectionVisible()) {
+      this.scaleInContentNavImages();
+    }
   },
 
 
@@ -97,6 +101,7 @@ window.dlow.home = {
     this.heights.siteHeader = this.$siteHeader.height();
     this.heights.siteHeaderLogo = this.$siteHeaderLogo.height();
     this.heights.contentsSection = this.$contentsSection.height();
+    this.heights.contentsSectionOffsetTop = this.$contentsSection.offset().top;
   },
 
   /**
@@ -121,6 +126,15 @@ window.dlow.home = {
    */
   isSiteHeaderVisible: function() { 
    return $(window).scrollTop() <= this.heights.siteHeader;
+  },
+
+
+  /**
+   * @description The contents section is visible when the window's scroll top
+   * is within 300px of the top of it.
+   */
+  isContentsSectionVisible: function() { 
+    return $(window).scrollTop() >= this.heights.contentsSectionOffsetTop - 300;
   },
 
 
@@ -181,53 +195,63 @@ window.dlow.home = {
       return;
     }
 
-    var fShowBackground = function($el) {
-      var src = $el.css("background-image");
-      src = src.replace(/(^url\()|(\)$|[\"\'])/g, '');
-
-      $('<img>').attr('src', src).imagesLoaded(function() {
-        $el.addClass("show-background-image");
-      });
+    var fCallback = function($el) {
+      $el.addClass("show-background-image");
     };
 
-    fShowBackground(this.$siteHeader);
-    fShowBackground(this.$contentsSection);
+    this.loadBackgroundImage(this.$siteHeader, fCallback);
+    this.loadBackgroundImage(this.$contentsSection, fCallback);
   },
 
   /**
    * @description Once we've scrolled down to the contents section then load 
    * each background image one at a time and after loaded scale in the 
    * navigation item. 
-   * TODO: 
-   * 1) Call this method when we've scrolled down to the contents section.
-   * 2) Load each background image one at a time and then scale in the nav
-   * items once their background images are loaded.
    */
   scaleInContentNavImages: function() {
     if (dlow.isMobile()) {
       return;
     }
 
-    var navItems = $(".js-contents-navigation-item");
-    var currentNavItem = 0;
-    var $navItem = $(navItems[currentNavItem]);
+    var self = this;
+    var navItemImages = $(".js-contents-navigation-item-image");
+    var currentImage = -1;
 
-    var fScaleIn = function() { 
-      currentNavItem++;
+    var fScaleIn = function($navItemImage) {
+      var $navItem = $navItemImage.closest(".js-contents-navigation-item");
+      $navItem
+        .one(
+          "transitionend webkitTransitionEnd oTransitionEnd otransitionend", 
+          fLoadNextNavItemImage
+        )
+        .removeClass("scaled-out");
+    };
 
-      if (currentNavItem > navItems.length) {
+    var fLoadNextNavItemImage = function() { 
+      currentImage += 1;
+
+      if (currentImage == navItemImages.length) {
         return;
       }
 
-      $navItem = $(navItems[currentNavItem]);
-
-      $navItem
-        .one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", fScaleIn)
-        .removeClass("scaled-out")
+      self.loadBackgroundImage($(navItemImages[currentImage]), fScaleIn);        
     };
 
-    $navItem
-      .one("transitionend webkitTransitionEnd oTransitionEnd otransitionend", fScaleIn)
-      .removeClass("scaled-out");
-  }
+    fLoadNextNavItemImage();
+  },
+
+  /**
+   * @description Load the background image of the specified element and when 
+   * available invoke the specified callback.
+   */
+  loadBackgroundImage: function($el, fCallback) {
+    var src = $el.css("background-image");
+    src = src.replace(/(^url\()|(\)$|[\"\'])/g, '');
+
+    $('<img>').attr('src', src).imagesLoaded(
+      function() { 
+        fCallback($el); 
+      }
+    );
+  },
 };
