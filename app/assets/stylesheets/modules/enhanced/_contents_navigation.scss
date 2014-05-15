@@ -13,6 +13,14 @@
     -o-transition: -o-transform $timing $function;
     transition: transform $timing $function;
 
+    @media only screen and (max-width: $screen-lg-min) { 
+      height: 16rem;
+    }
+
+    @media only screen and (max-width: $screen-md-min) { 
+      height: 14rem;
+    }
+
 
     /* 
      * NOTE: The following styles area specific to the number of links 
