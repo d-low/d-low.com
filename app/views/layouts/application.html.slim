@@ -16,7 +16,7 @@ html
     == content_for?(:mobile_back_navigation) ? content_for(:mobile_back_navigation) : nil
     = render \
         :partial => '/site_header', \
-        :locals => { :effects => controller_name == 'home' }
+        :locals => { :class_name => controller_name == 'home' ? 'site-header-home' : '' }
     #content
       = yield
     footer#site-footer.center-block

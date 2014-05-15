@@ -114,8 +114,7 @@ window.dlow.home = {
    * @see: http://caniuse.com/viewport-units.
    */
   setHeights: function() { 
-
-    if ($("body").hasClass("cssvhunit")) {
+    if ($("html").hasClass("cssvhunit")) {
       return;
     }
 
