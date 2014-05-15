@@ -114,7 +114,13 @@ window.dlow.home = {
    * @see: http://caniuse.com/viewport-units.
    */
   setHeights: function() { 
-    if ($("html").hasClass("cssvhunit")) {
+
+    // Support for the vh unit is not supported well in iOS, so we just fall
+    // back to setting the height manuall.  For more information, see:
+    // https://github.com/scottjehl/Device-Bugs/issues/36 and 
+    // http://blog.rodneyrehm.de/archives/34-iOS7-Mobile-Safari-And-Viewport-Units.html
+
+    if ($("html").hasClass("cssvhunit") && !dlow.isIOS()) {
       return;
     }
 

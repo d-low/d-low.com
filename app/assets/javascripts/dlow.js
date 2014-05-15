@@ -6,6 +6,8 @@ window.dlow = {
   _isTablet: undefined,
   _isDesktop: undefined,
   _isDesktopLarge: undefined,
+  _isIOS: undefined,
+  _isAndroid: undefined,
 
   initialize: function() {
     
@@ -184,6 +186,22 @@ window.dlow = {
 
     return this._isDesktopLarge;
   },
+
+  isIOS: function() { 
+    if (typeof(this._isIOS) == "undefined") {
+      this._isIOS = $("body").hasClass("ios");
+    }
+
+    return  this._isIOS;
+  },
+
+  isAndroid: function() { 
+    if (typeof(this._isAndroid) == "undefined") {
+      this._isAndroid = $("body").hasClass("android");
+    }
+
+    return  this._isAndroid;
+  },  
 
 
   // --------------------------------------------------------------------------

@@ -9,8 +9,11 @@ html
     = stylesheet_link_tag 'application_enhanced', :media => 'screen and (min-width: 768px)'
     = csrf_meta_tags
     = javascript_include_tag 'modernizr.custom'
-  body[class="d-low #{controller_name.dasherize} #{controller_name.dasherize}-#{action_name.dasherize} \
-              subtle-background #{content_for?(:body_class_name) ? content_for(:body_class_name) : ''}"
+  body[class="d-low #{controller_name.dasherize} \
+              #{controller_name.dasherize}-#{action_name.dasherize} \
+              subtle-background \
+              #{content_for?(:body_class_name) ? content_for(:body_class_name) : ''} \
+              #{user_agent_class_name(request.user_agent)}"
        data-controllername=controller_name.dasherize 
        data-controlleraction=action_name.dasherize]
     == content_for?(:mobile_back_navigation) ? content_for(:mobile_back_navigation) : nil
