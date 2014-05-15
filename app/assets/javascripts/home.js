@@ -108,9 +108,17 @@ window.dlow.home = {
    * @description Set the height of the welcome and content sections to be the 
    * height of the view port so that the background image on the intro 
    * container, and perhaps others, covers the viewport properly.  This method 
-   * will be called after the last window resize event.
+   * will be called after the last window resize event.  We use 100vh to set
+   * the height of these elements where supported.  We resort to setting the
+   * height via JavaScript where the viewport vh unit isn't supported.
+   * @see: http://caniuse.com/viewport-units.
    */
   setHeights: function() { 
+
+    if ($("body").hasClass("cssvhunit")) {
+      return;
+    }
+
     var height = $(window).height();
 
     this.$siteHeader.css("height", height + "px");
