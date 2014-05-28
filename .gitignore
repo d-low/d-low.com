@@ -18,3 +18,4 @@ pickle-email-*.html
 todo.txt
 app/data
 .DS_Store
+git.log
