@@ -9,6 +9,5 @@ class ImagesController < ApplicationController
     # "/iamges" make it here.
 
     send_file File.join(Home::CONTENT_ROOT_DIRECTORY, file), :disposition => 'inline'
-    end
   end 
 end
