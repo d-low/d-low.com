@@ -124,13 +124,22 @@ window.dlow = {
   /**
    * @description Upon the final resize firing reset all of our media member 
    * variables so that we don't accidentally cache the wrong value after a
-   * resize.
+   * resize and then retrive them anew so that they're available if needed
+   * and also lazy load images so that any that weren't show at a smaller size
+   * are show if size permits.
    */
   handleWindowResize: function() { 
     this._isMobile = undefined;
     this._isTablet = undefined;
     this._isDesktop = undefined;
     this._isDesktopLarge = undefined;
+
+    this.isMobile();
+    this.isTablet();
+    this.isDesktop();
+    this.isDesktopLarge();
+
+    this.lazyLoadImages();
   },
   
 
