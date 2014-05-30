@@ -3,7 +3,9 @@
     $timing: 500ms;
     $function: ease;
 
-    height: 18rem;
+    height: 40%;
+    max-height: 18rem;
+    min-height: 10rem;
     position: absolute;
     width: 22.5%;
     z-index: 20;
