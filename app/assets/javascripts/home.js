@@ -172,7 +172,9 @@ window.dlow.home = {
   updateSiteHeaderLogoOpacity: function() { 
 
     if (dlow.isMobile()) {
-      this.$siteHeaderLogo.css("opacity", 1);
+      this.$siteHeaderLogo
+        .css("opacity", 1)
+        .removeClass("hidden");
       return;
     }
 
