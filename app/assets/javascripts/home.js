@@ -201,7 +201,9 @@ window.dlow.home = {
    * @desccription The background images for the content navigation section are
    * not shown initially to slim down the amount of images the mobile site must
    * load.  So if we're not on a mobile device then swap the data-nonmobilestyle
-   * attribute for a style attribute to show the background images.
+   * attribute for a style attribute to show the background images and load the 
+   * background iamge so that when we scroll down to them, they're already 
+   * available.
    */
   showContentNavigationImages: function() { 
     if (dlow.isMobile()) {
@@ -217,6 +219,8 @@ window.dlow.home = {
       $itemImage
         .attr("style", style)
         .removeData("nonmobilestyle");
+        
+      this.loadBackgroundImage($itemImage);
     }
   },
 
@@ -294,7 +298,9 @@ window.dlow.home = {
 
     $('<img>').attr('src', src).imagesLoaded(
       function() { 
-        fCallback($el); 
+        if (typeof(fCallback) === "function") {
+          fCallback($el); 
+        }
       }
     );
   },
