@@ -8,7 +8,7 @@ nav[class="contents-navigation-#{nav_class_name} clearfix"
       a[class="contents-navigation-item-link button"
         href=content_index_path(home_model.newest_post.path)]
           span[class="contents-navigation-item-image js-contents-navigation-item-image" 
-               style="background-image: url(#{custom_image_path(random_image.relative_path)});"]
+               data-nonmobilestyle="background-image: url(#{custom_image_path(random_image.relative_path)});"]
           span.contents-navigation-item-title
             | What's New?
     
@@ -21,6 +21,6 @@ nav[class="contents-navigation-#{nav_class_name} clearfix"
         a[class="contents-navigation-item-link button"
           href=content_index_path(content.path)]
             span[class="contents-navigation-item-image js-contents-navigation-item-image"
-                 style="background-image: url(#{custom_image_path(random_image2.relative_path)});"]
+                 data-nonmobilestyle="background-image: url(#{custom_image_path(random_image2.relative_path)});"]
             span.contents-navigation-item-title
               = content.title

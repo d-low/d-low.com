@@ -41,6 +41,7 @@ window.dlow.home = {
     this.setHeights();
     this.getHeights();
     this.updateSiteHeaderLogoOpacity();
+    this.showContentNavigationImages();
     this.showBackgroundImages();
 
     // 
@@ -61,19 +62,12 @@ window.dlow.home = {
   // --------------------------------------------------------------------------
 
   /**
-   * @description Upon the last window resize event firing we'll set our intro
-   * container height, update our heights, and then the navigation positioning.
+   * @description Upon the last window resize event firing call our initialize
+   * method to set the heights, events, etc, again.  
    */
   window_resize: function() { 
-    var self = this;
-
-    var fResize = function() { 
-      self.setHeights();
-      self.getHeights();
-    };  
-
     window.clearTimeout(this.resize_timeout);
-    this.resize_timeout = window.setTimeout(fResize, 100);
+    this.resize_timeout = window.setTimeout($.proxy(this.initialize, this), 100);
   },
 
   /**
@@ -196,6 +190,29 @@ window.dlow.home = {
   },
 
   /**
+   * @desccription The background images for the content navigation section are
+   * not shown initially to slim down the amount of images the mobile site must
+   * load.  So if we're not on a mobile device then swap the data-nonmobilestyle
+   * attribute for a style attribute to show the background images.
+   */
+  showContentNavigationImages: function() { 
+    if (dlow.isMobile()) {
+      return;
+    }
+
+    var itemImages = $(".js-contents-navigation-item-image");
+
+    for (var i = 0; i < itemImages.length; i++) {
+      var $itemImage = $(itemImages[i]);
+      var style = $itemImage.data("nonmobilestyle");
+
+      $itemImage
+        .attr("style", style)
+        .removeData("nonmobilestyle");
+    }
+  },
+
+  /**
    * @description The background images for the site header and contents
    * section are large.  So we fade them in once they've loaded by 
    * transitioning the opacity of generated content inserted after each element
@@ -255,10 +272,16 @@ window.dlow.home = {
 
   /**
    * @description Load the background image of the specified element and when 
-   * available invoke the specified callback.
+   * available invoke the specified callback.  If there is no background image
+   * then just return.
    */
   loadBackgroundImage: function($el, fCallback) {
     var src = $el.css("background-image");
+
+    if (!src.match(/^url/)) {
+      return;
+    }
+
     src = src.replace(/(^url\()|(\)$|[\"\'])/g, '');
 
     $('<img>').attr('src', src).imagesLoaded(
