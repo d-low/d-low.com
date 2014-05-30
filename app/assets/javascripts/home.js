@@ -182,7 +182,7 @@ window.dlow.home = {
     var scrollRange = this.heights.siteHeader - this.heights.siteHeaderLogo;
     var opacity = Number((100 - (scrollTop / scrollRange * 100)) / 100).toFixed(2);
 
-    opacity = opacity < 0 ? 0 : opacity;
+    opacity = opacity < 0.05 ? 0 : opacity;
 
     this.$siteHeaderLogo.css("opacity", opacity);
 
