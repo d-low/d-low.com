@@ -52,7 +52,10 @@ window.dlow.home = {
 
     if (! dlow.isMobile()) {
       // Parallax scrolling is only available in desktop (for now?)
-      $(window).scroll($.proxy(this.window_scroll, this));
+      $(window).on("scroll", $.proxy(this.window_scroll, this));
+    }
+    else {
+      $(window).off("scroll");
     }
   },
 
@@ -122,7 +125,7 @@ window.dlow.home = {
 
     this.$siteHeader.css("height", height + "px");
 
-    if (! dlow.isMobile()) {
+    if (!dlow.isMobile()) {
       this.$contentsSection.css("height", height + "px");
     }
   },
@@ -167,6 +170,11 @@ window.dlow.home = {
    * page so that it fades away as the intro container is scrolled out of view.
    */
   updateSiteHeaderLogoOpacity: function() { 
+
+    if (dlow.isMobile()) {
+      this.$siteHeaderLogo.css("opacity", 1);
+      return;
+    }
 
     var scrollTop = $(window).scrollTop();
     var scrollRange = this.heights.siteHeader - this.heights.siteHeaderLogo;
