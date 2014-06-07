@@ -26,10 +26,27 @@
     this.listHeight = 0;
     this.firstImgWidth = 0;
 
+    // Invoke our init() method after loading images if the imagesLoaded plug
+    // in is available.
+
     if (typeof($().imagesLoaded) === 'function') {
-      this.$el.imagesLoaded(
-        $.proxy(function() { this.init(options); }, this)
-      );
+      var fLoaded = $.proxy(function() { this.init(options); }, this);
+
+      // TODO: Using the options now is awkward, we should merge them with our
+      // defaults now to avoid doing things like the next two lines.
+      var maxItems = typeof(options.maxItems) !== 'undefined' ? options.maxItems : undefined;
+      var currentImage = typeof(options.currentImage) !== 'undefined' ? options.currentImage : 0;
+
+      // When called to display one image at a time we call init() after loading
+      // the requested image, not all of them, since that takes much longer.
+
+      if (maxItems == 1) {
+        var $img = this.$el.find("img").eq(currentImage);
+        $img.imagesLoaded(fLoaded);
+      }
+      else {
+        this.$el.imagesLoaded(fLoaded);
+      }
     }
     else {
       this.init(options);
@@ -167,6 +184,38 @@
     //
 
     this.options.onload(this.$el);
+
+    //
+    // Finally, if we were called to view a single image and the imagesLoaded 
+    // plug-in is available then lets iterate through our images in both 
+    // directions loaded one at a time until they're all loaded.
+    //
+
+    if (typeof($().imagesLoaded) === 'function' && this.options.maxItems == 1) {
+      var self = this;
+      var prevImg = this.currentImage - 1;
+      var nextImg = this.currentImage + 1;
+      var numImgs = this.elems.listItems.length;
+
+      var fLoadPrevImg = function() { 
+        if (prevImg >= 0) {
+          var $img = $(self.elems.listItems[prevImg]).find("img");
+          prevImg = prevImg - 1;
+          $img.imagesLoaded(fLoadPrevImg);
+        }
+      };
+
+      var fLoadNextImg = function() {
+        if (nextImg < numImgs) {
+          var $img = $(self.elems.listItems[nextImg]).find("img");
+          nextImg = nextImg + 1;
+          $img.imagesLoaded(fLoadNextImg);
+        }
+      };
+
+      fLoadPrevImg();
+      fLoadNextImg();
+    }
   };
 
   $.SimpleCarousel.prototype.destroy = function() {
@@ -298,12 +347,21 @@
   $.SimpleCarousel.prototype._getOriginalSizes = function() { 
     var liElems = this.$el.find("li");
 
+    // If requested to only view a single image at a time then use only the 
+    // requested image below when calculating the list height and image width.
+
+    if (this.options.maxItems == 1) {
+      if (liElems.length > this.options.currentImage) {
+        liElems = [ liElems[this.options.currentImage] ];
+      }
+    }
+
     for (var i = 0; i < liElems.length; i++) {
       if (this.firstImgWidth > 1) {
         break;
       }
 
-      var $li = this.$el.find("li:first");
+      var $li = $(liElems[i]);
 
       this.listHeight = $li.outerHeight();
 
