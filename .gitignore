@@ -19,3 +19,4 @@ todo.txt
 app/data
 .DS_Store
 git.log
+/idea/*
