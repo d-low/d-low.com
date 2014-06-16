@@ -74,8 +74,8 @@ def directory_hash(path, name=nil)
       # To remove duplicate information, we don't include index.html in the 
       # post. If there is a post, there is an index.html file.
       # :content => 'index.html', 
-      :images => images,
-      :thumbnails => images.length == thumbnails.length
+      :imgs => images,
+      :thumbs => images.length == thumbnails.length
     }
 
     # With the post data created now iterate through the post parts creating a
